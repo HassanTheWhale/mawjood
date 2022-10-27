@@ -1,6 +1,6 @@
 :root {
   --prime: #7fd8be;
-  --bg: #fcefef;
+  --bg: #fffffb;
   --sec: #a1fcdf;
   --primeTwo: #fcab64;
   --secTwo: #fcd29f;
@@ -18,7 +18,7 @@ span,
 
 div.title {
   display: flex;
-  justify-content: center;
+  /* justify-content: center; */
   align-items: center;
   color: #7fd8be;
 }
@@ -37,6 +37,7 @@ main {
   background-image: url(../imgs/bg.gif);
   background-repeat: no-repeat;
   background-position: center;
+  background-attachment: fixed;
   height: 100vh;
 }
 

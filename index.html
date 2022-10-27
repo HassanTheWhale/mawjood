@@ -13,9 +13,18 @@
     <!-- CSS -->
     <link href="./css/bootstrap.css" rel="stylesheet" crossorigin="anonymous" />
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
-
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+      integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
     <link rel="stylesheet" href="./css/style.css" />
 
+    <!-- icons and others -->
+    <link rel="shortcut icon" href="./imgs/favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="./imgs/favicon.ico" type="image/x-icon" />
     <title>| Mawjood > Home</title>
   </head>
   <body>
@@ -39,13 +48,24 @@
         <div class="collapse navbar-collapse" id="mainNavbar">
           <!-- Pages List -->
 
-          <!-- <ul class="navbar-nav m-auto mb-2 mb-lg-0">
-            <li class="nav-item">
+          <ul class="navbar-nav m-auto mb-2 mb-lg-0">
+            <li class="nav-item me-4">
               <a class="nav-link active" aria-current="page" href="./index.html"
                 >Home</a
               >
             </li>
-          </ul> -->
+            <li class="nav-item me-3">
+              <a class="nav-link" aria-current="page" href="#what">What?</a>
+            </li>
+            <li class="nav-item me-3">
+              <a class="nav-link" aria-current="page" href="#features"
+                >Features</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="#team">Team</a>
+            </li>
+          </ul>
 
           <button
             class="btn btn-primary ms-auto"
@@ -73,9 +93,9 @@
     </main>
 
     <!-- What Section -->
-    <section id="what" class="text-center py-5" data-aos="fade-up">
+    <section id="what" class="text-center py-5 mb-5" data-aos="fade-up">
       <div class="container">
-        <div class="title mb-5">
+        <div class="title mb-5 justify-content-center">
           <h2>What is Mawjood?</h2>
         </div>
         <div class="row justify-content-center align-items-center">
@@ -87,7 +107,103 @@
             </p>
           </div>
           <div class="col-md-6">
-            <img src="./imgs/app.svg" alt="App" height="300px" />
+            <img src="./imgs/app.svg" alt="App" height="200px" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- features -->
+    <section id="features" class="mb-5" data-aos="fade-right">
+      <div class="container">
+        <div class="title mb-5">
+          <h2>Features</h2>
+        </div>
+
+        <div class="row">
+          <div class="col-md-3 mb-3 mb-md-0">
+            <div class="card">
+              <div class="card-body">
+                <h1 class="text-center">
+                  <i class="fa-solid fa-clipboard-user"></i>
+                </h1>
+                <h5 class="card-title text-center">Taking Attendance</h5>
+                <p class="card-text text-muted">.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3 mb-3 mb-md-0">
+            <div class="card">
+              <div class="card-body">
+                <h1 class="text-center">
+                  <i class="fa-solid fa-calendar-days"></i>
+                </h1>
+                <h5 class="card-title text-center">Events Lister</h5>
+                <p class="card-text text-muted">.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3 mb-3 mb-md-0">
+            <div class="card">
+              <div class="card-body">
+                <h1 class="text-center">
+                  <i class="fa-sharp fa-solid fa-certificate"></i>
+                </h1>
+                <h5 class="card-title text-center">Getting Certificates</h5>
+                <p class="card-text text-muted">.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="card">
+              <div class="card-body">
+                <h1 class="text-center">
+                  <i class="fa-solid fa-magnifying-glass"></i>
+                </h1>
+                <h5 class="card-title text-center">Search for users</h5>
+                <p class="card-text text-muted">.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- team -->
+    <section id="team" class="mb-5" data-aos="fade-left">
+      <div class="container">
+        <div class="title mb-5 justify-content-end">
+          <h2>Our Team</h2>
+        </div>
+        <div class="row">
+          <div class="col-md-4 mx-auto mb-3 mb-md-0">
+            <div class="card">
+              <img src="./imgs/hassan.png" alt="Hassan's Picture" />
+              <div class="card-body">
+                <h5 class="card-title">Hassan Khalaf</h5>
+                <ul>
+                  <li>Project Master</li>
+                  <li>UI/UX</li>
+                  <li>Front-End</li>
+                  <li>Back-End</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 mx-auto">
+            <div class="card">
+              <img src="./imgs/profile.jpg" alt="Hassan's Picture" />
+              <div class="card-body">
+                <h5 class="card-title">Rania Kharnoub</h5>
+                <ul>
+                  <li>UI/UX</li>
+                  <li>Documentations</li>
+                  <li>Databases</li>
+                  <li>Information Gathering</li>
+                  <li>Front-End</li>
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
       </div>
