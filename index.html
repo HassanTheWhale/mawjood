@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="A website that helps you to take Attendance"
+    />
+    <meta name="keywords" content="Attendance, mawjood, take" />
+    <meta name="author" content="Hassan Khalaf, Rania Kharnoub" />
+    <!-- CSS -->
+    <link href="./css/bootstrap.css" rel="stylesheet" crossorigin="anonymous" />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="./css/style.css" />
+
+    <title>| Mawjood > Home</title>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white">
+      <div class="container">
+        <a class="navbar-brand" href="./index.html">Mawjood<span>.</span> </a>
+        <!--  -->
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#mainNavbar"
+          aria-controls="mainNavbar"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="mainNavbar">
+          <!-- Pages List -->
+
+          <!-- <ul class="navbar-nav m-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="./index.html"
+                >Home</a
+              >
+            </li>
+          </ul> -->
+
+          <button
+            class="btn btn-primary ms-auto"
+            onclick="Swal.fire('This function', 'Doesn\'t work at the moment', 'info')"
+          >
+            Take Attendance!
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- main -->
+    <main>
+      <div
+        class="overlay d-flex justify-content-center align-items-center text-white flex-column text-center"
+      >
+        <div class="container">
+          <h1 class="span">Mawjood</h1>
+          <h3>Where you can take the <span>Attendance</span> easily</h3>
+          <a href="#what"
+            ><button class="btn btn-primary">Start Exploring</button></a
+          >
+        </div>
+      </div>
+    </main>
+
+    <!-- What Section -->
+    <section id="what" class="text-center py-5" data-aos="fade-up">
+      <div class="container">
+        <div class="title mb-5">
+          <h2>What is Mawjood?</h2>
+        </div>
+        <div class="row justify-content-center align-items-center">
+          <div class="col-md-6 mb-3 mb-md-0">
+            <p class="text-start">
+              This project solves a main problem which is taking
+              <span>attendance</span> in classes, events, workshops, courses,
+              etc, that hold a large number of people.
+            </p>
+          </div>
+          <div class="col-md-6">
+            <img src="./imgs/app.svg" alt="App" height="300px" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- footer -->
+    <footer class="bg-dark text-center text-white py-3">
+      Built with <span style="color: red">&hearts;</span> by Mawjood Team
+    </footer>
+
+    <!-- JavaScript; -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <script src="./js/script.js"></script>
+  </body>
+</html>

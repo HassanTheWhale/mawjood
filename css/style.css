@@ -1,0 +1,48 @@
+:root {
+  --prime: #7fd8be;
+  --bg: #fcefef;
+  --sec: #a1fcdf;
+  --primeTwo: #fcab64;
+  --secTwo: #fcd29f;
+}
+
+/* general style */
+body {
+  background-color: var(--bg);
+}
+
+span,
+.span {
+  color: var(--prime);
+}
+
+div.title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #7fd8be;
+}
+div.title h1,
+div.title h2,
+div.title h3,
+div.title h4,
+div.title h5,
+div.title h6 {
+  display: inline-block;
+  border-bottom: 2px solid var(--primeTwo);
+}
+
+/* main section */
+main {
+  background-image: url(../imgs/bg.gif);
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 100vh;
+}
+
+main .overlay {
+  background-image: url(../imgs/dot.png);
+  background-color: rgba(0, 0, 0, 0.3);
+  height: 100%;
+  width: 100%;
+}
