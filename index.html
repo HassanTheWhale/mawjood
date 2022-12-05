@@ -25,13 +25,14 @@
     <!-- icons and others -->
     <link rel="shortcut icon" href="./imgs/favicon.ico" type="image/x-icon" />
     <link rel="icon" href="./imgs/favicon.ico" type="image/x-icon" />
-    <title>| Mawjood > Home</title>
+    <title>Mawjood</title>
   </head>
   <body>
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-white">
       <div class="container">
-        <a class="navbar-brand" href="./index.html">Mawjood<span>.</span> </a>
+        <img src="./imgs/Picture1.png"  width = 80px alt="Logo" />
+        <a class="navbar-brand" href="./index.html"><span></span> </a>
         <!--  -->
         <button
           class="navbar-toggler"
@@ -58,18 +59,20 @@
               <a class="nav-link" aria-current="page" href="#what">What?</a>
             </li>
             <li class="nav-item me-3">
-              <a class="nav-link" aria-current="page" href="#features"
-                >Features</a
-              >
+              <a class="nav-link" aria-current="page" href="#features">Features</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" aria-current="page" href="#team">Team</a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="#Contact">Contact us</a>
+            </li>
+            
           </ul>
 
           <button
             class="btn btn-primary ms-auto"
-            onclick="Swal.fire('This function', 'Doesn\'t work at the moment', 'info')"
+            onclick="Swal.fire('This function', 'will be launched when event is held', 'info')"
           >
             Take Attendance!
           </button>
@@ -97,14 +100,14 @@
     <section id="what" class="text-center py-5 mb-5" data-aos="fade-up">
       <div class="container">
         <div class="title mb-5 justify-content-center">
-          <h2>What is Mawjood?</h2>
+          <h2 h1 class="span">What is Mawjood?</h2>
         </div>
         <div class="row justify-content-center align-items-center">
           <div class="col-md-6 mb-3 mb-md-0">
             <p class="text-start">
               This project solves a main problem which is taking
               <span>attendance</span> in classes, events, workshops, courses,
-              etc, that hold a large number of people.
+              etc, that hold a huge number of people.
             </p>
           </div>
           <div class="col-md-6">
@@ -115,10 +118,10 @@
     </section>
 
     <!-- features -->
-    <section id="features" class="mb-5" data-aos="fade-right">
+    <section id="features" class="mb-5" data-aos="fade-left">
       <div class="container">
         <div class="title mb-5">
-          <h2>Features</h2>
+          <h2><span>Features</span></h2>
         </div>
 
         <div class="row">
@@ -128,11 +131,8 @@
                 <h1 class="text-center">
                   <i class="fa-solid fa-clipboard-user"></i>
                 </h1>
-                <h5 class="card-title text-center">Taking Attendance</h5>
-                <p class="text-muted">
-                  This application allows to the event host take attendance
-                  easily.
-                </p>
+                <h5 class="card-title text-center">Take Attendance</h5>
+                
               </div>
             </div>
           </div>
@@ -142,10 +142,7 @@
                 <h1 class="text-center">
                   <i class="fa-solid fa-calendar-days"></i>
                 </h1>
-                <h5 class="card-title text-center">Events Lister</h5>
-                <p class="text-muted">
-                  Searching other events that are public.
-                </p>
+                <h5 class="card-title text-center">List of events</h5> 
               </div>
             </div>
           </div>
@@ -155,10 +152,8 @@
                 <h1 class="text-center">
                   <i class="fa-sharp fa-solid fa-certificate"></i>
                 </h1>
-                <h5 class="card-title text-center">Getting Certificates</h5>
-                <p class="text-muted">
-                  Event hoster can send certificates to the attendants.
-                </p>
+                <h5 class="card-title text-center">Get Certificate</h5>
+                
               </div>
             </div>
           </div>
@@ -169,21 +164,46 @@
                   <i class="fa-solid fa-magnifying-glass"></i>
                 </h1>
                 <h5 class="card-title text-center">Search for users</h5>
-                <p class="text-muted">
-                  See what kinds of activities your friends go to.
-                </p>
               </div>
             </div>
           </div>
         </div>
+        <br>
+        <div class="row">
+          <div class="col-md-3 mb-3 mb-md-0">
+            <div class="card">
+              <div class="card-body">
+                <h1 class="text-center">
+                  <i class="fa-solid fa-calendar-days"></i>
+                </h1>
+                <h5 class="card-title text-center">Create event</h5>
+                
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-md-3 mb-3 mb-md-0">
+            <div class="card">
+              <div class="card-body">
+                <h1 class="text-center">
+                  <i class="fa-solid fa-clipboard-user"></i>
+                </h1>
+                <h5 class="card-title text-center">Follow users</h5> 
+              </div>
+            </div>
+          </div>
+          
+          
+        </div>
+     
       </div>
     </section>
 
     <!-- team -->
     <section id="team" class="mb-5" data-aos="fade-left">
       <div class="container">
-        <div class="title mb-5 justify-content-end">
-          <h2>Our Team</h2>
+        <div class="title mb-5">
+                    <h2><span>Our Team</span> </h2>
         </div>
         <div class="row">
           <div class="col-md-4 mx-auto mb-3 mb-md-0">
@@ -192,7 +212,7 @@
               <div class="card-body">
                 <h5 class="card-title">Hassan Khalaf</h5>
                 <ul>
-                  <li>Project Master</li>
+                  <li>Project Leader</li>
                   <li>UI/UX</li>
                   <li>Front-End</li>
                   <li>Back-End</li>
@@ -203,7 +223,7 @@
           </div>
           <div class="col-md-4 mx-auto">
             <div class="card">
-              <img src="./imgs/rania.png" alt="Hassan's Picture" />
+              <img src="./imgs/rania.png" alt="Rania's Picture" />
               <div class="card-body">
                 <h5 class="card-title">Rania Kharnoub</h5>
                 <ul>
@@ -220,9 +240,72 @@
       </div>
     </section>
 
+
+
+    <section id="Contact" class="mb-5" data-aos="fade-left">
+      <div class="container">
+        <div class="title mb-5">
+          <h2> <span>Contact Us </span> </h2>
+        </div>
+        <div class="row">
+          <!-- ======= Contact Section ======= -->
+        <section id="contact" class="contact">
+          <div class="container" data-aos="fade-up">
+
+              <div class="section-title">
+                  
+                  <p>We do love to hear your feedback! If you have any concers, feedback or opinions. Please fill the following <a href="https://docs.google.com/forms/d/e/1FAIpQLScGpqm7Cvkpntv9ZLpvkFCTQsRgqXIesq3RLxjYA8hKDW4GjQ/viewform?vc=0&c=0&w=1&flr=0"> survey. </a></p>
+              </div>
+              <div class="row mt-5">
+<center>
+                  <div class="col-lg-10 mt-5 mt-lg-0 ">
+                      <form action="#" class="php-email-form">
+                          <div class="row">
+                              <div class="col-md-6 form-group mt-3">
+                                  <input type="text" name="name" class="form-control" id="name"
+                                      placeholder="Your Name" required>
+                              </div>
+                              <div class="col-md-6 form-group mt-3 mt-md-3">
+                                  <input type="email" class="form-control" name="email" id="email"
+                                      placeholder="Your Email" required>
+                              </div>
+                          </div>
+                          <div class="form-group mt-3">
+                              <input type="text" class="form-control" name="subject" id="subject"
+                                  placeholder="Subject" required>
+                          </div>
+                          <div class="form-group mt-3">
+                              <textarea class="form-control" name="message" rows="5" placeholder="Message"
+                                  required></textarea>
+                          </div>
+                          <div class="my-3">
+                              <div class="loading">Loading</div>
+                              <div class="error-message"></div>
+                              <div class="sent-message">Your message has been sent. Thank you!</div>
+                          </div>
+                          <button class="btn btn-primary">Send Message</button></a>
+
+                      </form>
+
+                  </div>
+
+              </div>
+          </center>
+          </div>
+        
+      </section>
+
+          
+        </div>
+      </div>
+    </section>
+
     <!-- footer -->
     <footer class="bg-dark text-center text-white py-3">
       Built with <span style="color: red">&hearts;</span> by Mawjood Team
+     
+
+
     </footer>
 
     <!-- JavaScript; -->
