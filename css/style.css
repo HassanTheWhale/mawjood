@@ -1,5 +1,5 @@
 :root {
-  --prime: #64bdc6ff;
+  --prime: rgb(49, 109, 116);
   --bg: #fffffb;
   --sec: #64bdc6ff;
   --primeTwo: #fcab64;
@@ -34,7 +34,7 @@ div.title h6 {
 
 /* main section */
 main {
-  background-image: url(../imgs/bg.gif);
+  background-image: url(../imgs/imageedit_1_5860066676.png);
   background-repeat: no-repeat;
   background-position: center;
   background-attachment: fixed;
