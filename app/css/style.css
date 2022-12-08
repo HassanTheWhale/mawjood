@@ -43,6 +43,10 @@
   height: 90% !important;
 }
 
+.content {
+  overflow-y: auto;
+}
+
 .span {
   color: var(--prime);
   text-decoration: none;

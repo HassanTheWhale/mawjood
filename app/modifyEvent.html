@@ -29,68 +29,102 @@
     <!-- icons and others -->
     <link rel="shortcut icon" href="./imgs/favicon.ico" type="image/x-icon" />
     <link rel="icon" href="./imgs/favicon.ico" type="image/x-icon" />
-    <title>| Mawjood > Events</title>
+    <title>| Mawjood > Modify Events</title>
   </head>
   <body>
     <div class="top h-8 bg-prime2 text-white text-center overflow-hidden">
       <div class="row h-100 justify-content-center align-items-center">
         <div class="col-2"></div>
-        <div class="col-8"><h4 class="m-0">Events</h4></div>
-        <a
-          href="./myEvents.html"
-          class="col-2 pe-5 h-100 d-flex justify-content-center align-items-center"
-        >
-          <img src="./imgs/plus.png" alt="Events" />
-        </a>
+        <div class="col-8"><h4 class="m-0">Modify Events</h4></div>
+        <div class="col-2 pe-5"></div>
       </div>
     </div>
     <div class="content h-84 py-4">
       <div class="container-fluid">
-        <input
-          type="text"
-          name="search"
-          id="search"
-          class="form-control mb-5"
-          placeholder="What are you looking for?"
-        />
-
-        <div class="card rounded overflow-hidden">
-          <img src="./imgs/event.png" alt="event" />
-          <div class="p-2">
-            <h4 class="span mb-3">491 Class</h4>
-            <p class="text-muted">
-              <small>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Est
-                animi obcaecati asperiores error maxime laboriosam consectetur
-                aspernatur quod sequi velit?
-              </small>
-            </p>
-            <p class="text-end mt-3 mb-1">
-              <a href="eventDetail.html" class="btn btn-primary text-white"
-                >Check Details</a
-              >
-            </p>
+        <form action="">
+          <div class="form-group mb-3">
+            <label for="eventName" class="span ms-3 mb-1"> Event Name </label>
+            <input
+              type="text"
+              name="eventName"
+              id="eventName"
+              placeholder="your event name"
+              class="form-control w-100 mb-1"
+            />
           </div>
-        </div>
 
-        <div class="card rounded overflow-hidden">
-          <img src="./imgs/event.png" alt="event" />
-          <div class="p-2">
-            <h4 class="span mb-3">492 Class</h4>
-            <p class="text-muted">
-              <small>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Est
-                animi obcaecati asperiores error maxime laboriosam consectetur
-                aspernatur quod sequi velit?
-              </small>
-            </p>
-            <p class="text-end mt-3 mb-1">
-              <a href="eventDetail2.html" class="btn btn-primary text-white"
-                >Check Details</a
-              >
-            </p>
+          <div class="form-group mb-3">
+            <label for="eventPic" class="span ms-3 mb-1"> Event Picture </label>
+            <input
+              type="file"
+              name="eventPic"
+              id="eventPic"
+              placeholder="your event pic"
+              class="form-control w-100 mb-1"
+            />
           </div>
-        </div>
+
+          <div class="form-group mb-3">
+            <label for="eventGrade" class="span ms-3 mb-1"> Min Grade </label>
+            <input
+              type="number"
+              name="eventGrade"
+              id="eventGrade"
+              placeholder="Min grade for sending certificates"
+              class="form-control w-100 mb-1"
+            />
+          </div>
+
+          <div class="form-group mb-3">
+            <label for="eventDate" class="span ms-3 mb-1"> Date </label>
+            <input
+              type="date"
+              name="eventDate"
+              id="eventDate"
+              placeholder=""
+              class="form-control w-100 mb-1"
+            />
+          </div>
+
+          <div class="form-group mb-3">
+            <label for="eventDesc" class="span ms-3 mb-1">
+              Event Description
+            </label>
+            <textarea
+              name="eventDesc"
+              id="eventDesc"
+              class="form-control"
+              placeholder="Your Event Description"
+            ></textarea>
+          </div>
+
+          <div class="form-group mb-3">
+            <label for="eventAttendance" class="span ms-3 mb-1">
+              Attendance Method
+            </label>
+            <select
+              name="eventAttendance"
+              id="eventAttendance"
+              class="form-control"
+              multiple
+            >
+              <option>User QR Scanning</option>
+              <option>Event QR Scanning</option>
+              <option>NFC</option>
+            </select>
+          </div>
+
+          <div class="form-group mb-3">
+            <input type="checkbox" name="eventStrange" id="eventStrange" />
+            <label for="eventStrange" class="span ms-3 mb-1 text-muted">
+              Allow unregistered users to attend.
+            </label>
+          </div>
+
+          <button class="btn btn-primary text-white w-100">
+            Create the event
+          </button>
+        </form>
       </div>
     </div>
     <div class="bottom h-8 bg-prime2 overflow-hidden">
