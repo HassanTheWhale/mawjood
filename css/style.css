@@ -1,9 +1,9 @@
 :root {
-  --prime: rgb(49, 109, 116);
-  --bg: #fffffb;
-  --sec: #64bdc6ff;
-  --primeTwo: #fcab64;
-  --secTwo: #fcd29f;
+  --bg: #fbfbfb;
+  --prime: #56c4cf;
+  --primeTwo: #60aeb6;
+  --sec: #9adce2;
+  --secTwo: #9adce2;
 }
 
 /* general style */

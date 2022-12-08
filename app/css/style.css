@@ -5,6 +5,18 @@
   --sec: #9adce2;
 }
 
+.h-5 {
+  height: 5% !important;
+}
+
+.h-8 {
+  height: 8% !important;
+}
+
+.h-10 {
+  height: 10% !important;
+}
+
 .h-20 {
   height: 20% !important;
 }
@@ -24,6 +36,9 @@
 .h-85 {
   height: 85% !important;
 }
+.h-84 {
+  height: 84% !important;
+}
 .h-90 {
   height: 90% !important;
 }
@@ -33,13 +48,26 @@
   text-decoration: none;
 }
 
+body {
+  background-color: var(--bg);
+  height: 100vh;
+  overflow: hidden;
+}
+
+.bg-prime2 {
+  background-color: var(--primeTwo);
+}
+.bg-secondary2,
+.active {
+  background-color: var(--sec);
+}
+
 body.landing {
   background-image: url(../imgs/landingbg.png);
   background-attachment: fixed;
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-  height: 100vh;
 }
 
 body.landing .landing-downlay {
