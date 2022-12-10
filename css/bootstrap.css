@@ -28,10 +28,11 @@
   --bs-light: #f8f9fa;
   --bs-dark: #212529;
   --prime: #7fd8be;
-  --bg: #fcefef;
-  --sec: #a1fcdf;
-  --primeTwo: #fcab64;
-  --secTwo: #fcd29f;
+  --bg: #fbfbfb;
+  --prime: #56c4cf;
+  --primeTwo: #60aeb6;
+  --sec: #9adce2;
+  --secTwo: #9adce2;
   --bs-font-sans-serif: system-ui, -apple-system, "Segoe UI", Roboto,
     "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
@@ -2788,7 +2789,9 @@ textarea.form-control-lg {
   border-bottom-right-radius: 0;
 }
 .input-group
-  > :not(:first-child):not(.dropdown-menu):not(.valid-tooltip):not(.valid-feedback):not(.invalid-tooltip):not(.invalid-feedback) {
+  > :not(:first-child):not(.dropdown-menu):not(.valid-tooltip):not(
+    .valid-feedback
+  ):not(.invalid-tooltip):not(.invalid-feedback) {
   margin-left: -1px;
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
@@ -7738,7 +7741,7 @@ fieldset:disabled .btn {
 }
 
 .bg-primary {
-  background-color: #0d6efd !important;
+  background-color: var(--prime) !important;
 }
 
 .bg-secondary {
