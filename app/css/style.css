@@ -1,8 +1,12 @@
 :root {
-  --bg: #fbfbfb;
+  --bg: #f7f7f7;
   --prime: #56c4cf;
   --primeTwo: #60aeb6;
   --sec: #9adce2;
+}
+
+.text-muted {
+  color: rgb(97, 97, 97) !important;
 }
 
 .h-5 {
@@ -62,8 +66,12 @@ body {
   background-color: var(--primeTwo);
 }
 .bg-secondary2,
-.active {
+.bottom .active {
   background-color: var(--sec);
+}
+
+.nav-link {
+  color: var(--prime);
 }
 
 body.landing {
@@ -72,6 +80,12 @@ body.landing {
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
+}
+
+@media screen and (min-width: 750px) {
+  body.landing .landing-bottom {
+    width: 50%;
+  }
 }
 
 body.landing .landing-downlay {

@@ -40,126 +40,142 @@
       </div>
     </div>
     <div class="content h-84 py-4">
-      <div class="container-fluid">
-        <form action="">
-          <div class="form-group mb-3">
-            <label for="eventName" class="span ms-3 mb-1"> Event Name </label>
-            <input
-              type="text"
-              name="eventName"
-              id="eventName"
-              placeholder="your event name"
-              class="form-control w-100 mb-1"
-            />
-          </div>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 mx-auto">
+            <form action="">
+              <div class="form-group mb-3">
+                <label for="eventName" class="span ms-3 mb-1">
+                  Event Name
+                </label>
+                <input
+                  type="text"
+                  name="eventName"
+                  id="eventName"
+                  placeholder="your event name"
+                  class="form-control w-100 mb-1"
+                />
+              </div>
 
-          <div class="form-group mb-3">
-            <label for="eventPic" class="span ms-3 mb-1"> Event Picture </label>
-            <input
-              type="file"
-              name="eventPic"
-              id="eventPic"
-              placeholder="your event pic"
-              class="form-control w-100 mb-1"
-            />
-          </div>
+              <div class="form-group mb-3">
+                <label for="eventPic" class="span ms-3 mb-1">
+                  Event Picture
+                </label>
+                <input
+                  type="file"
+                  name="eventPic"
+                  id="eventPic"
+                  placeholder="your event pic"
+                  class="form-control w-100 mb-1"
+                />
+              </div>
 
-          <div class="form-group mb-3">
-            <label for="eventGrade" class="span ms-3 mb-1"> Min Grade </label>
-            <input
-              type="number"
-              name="eventGrade"
-              id="eventGrade"
-              placeholder="Min grade for sending certificates"
-              class="form-control w-100 mb-1"
-            />
-          </div>
+              <div class="form-group mb-3">
+                <label for="eventGrade" class="span ms-3 mb-1">
+                  Min Grade
+                </label>
+                <input
+                  type="number"
+                  name="eventGrade"
+                  id="eventGrade"
+                  placeholder="Min grade for sending certificates"
+                  class="form-control w-100 mb-1"
+                />
+              </div>
 
-          <div class="form-group mb-3">
-            <label for="eventDate" class="span ms-3 mb-1"> Date </label>
-            <input
-              type="date"
-              name="eventDate"
-              id="eventDate"
-              placeholder=""
-              class="form-control w-100 mb-1"
-            />
-          </div>
+              <div class="form-group mb-3">
+                <label for="eventDate" class="span ms-3 mb-1"> Date </label>
+                <input
+                  type="date"
+                  name="eventDate"
+                  id="eventDate"
+                  placeholder=""
+                  class="form-control w-100 mb-1"
+                />
+              </div>
 
-          <div class="form-group mb-3">
-            <label for="eventDesc" class="span ms-3 mb-1">
-              Event Description
-            </label>
-            <textarea
-              name="eventDesc"
-              id="eventDesc"
-              class="form-control"
-              placeholder="Your Event Description"
-            ></textarea>
-          </div>
+              <div class="form-group mb-3">
+                <label for="eventDesc" class="span ms-3 mb-1">
+                  Event Description
+                </label>
+                <textarea
+                  name="eventDesc"
+                  id="eventDesc"
+                  class="form-control"
+                  placeholder="Your Event Description"
+                ></textarea>
+              </div>
 
-          <div class="form-group mb-3">
-            <label for="eventAttendance" class="span ms-3 mb-1">
-              Attendance Method
-            </label>
-            <select
-              name="eventAttendance"
-              id="eventAttendance"
-              class="form-control"
-              multiple
-            >
-              <option>User QR Scanning</option>
-              <option>Event QR Scanning</option>
-              <option>NFC</option>
-            </select>
-          </div>
+              <div class="form-group mb-3">
+                <label for="eventAttendance" class="span ms-3 mb-1">
+                  Attendance Method
+                </label>
+                <select
+                  name="eventAttendance"
+                  id="eventAttendance"
+                  class="form-control"
+                  multiple
+                >
+                  <option>User QR Scanning</option>
+                  <option>Event QR Scanning</option>
+                  <option>NFC</option>
+                </select>
+              </div>
 
-          <div class="form-group mb-3">
-            <input type="checkbox" name="eventStrange" id="eventStrange" />
-            <label for="eventStrange" class="span ms-3 mb-1 text-muted">
-              Allow unregistered users to attend.
-            </label>
-          </div>
+              <div class="form-group mb-3">
+                <input type="checkbox" name="eventStrange" id="eventStrange" />
+                <label for="eventStrange" class="span ms-3 mb-1 text-muted">
+                  Allow unregistered users to attend.
+                </label>
+              </div>
 
-          <button class="btn btn-primary text-white w-100">
-            Create the event
-          </button>
-        </form>
+              <button class="btn btn-primary text-white w-100">
+                Create the event
+              </button>
+            </form>
+          </div>
+        </div>
       </div>
     </div>
     <div class="bottom h-8 bg-prime2 overflow-hidden">
-      <div class="row h-100 bg-prime">
-        <a href="./events.html" class="d-block col-3 h-100 p-0">
-          <div
-            class="active w-100 h-100 d-flex justify-content-center align-items-center"
-          >
-            <img src="./imgs/home.png" alt="Home" />
-          </div>
-        </a>
+      <div class="row h-100">
+        <div class="col-0 col-md-3"></div>
+        <div class="col-12 col-md-6 h-100">
+          <div class="row h-100 bg-prime">
+            <a href="./events.html" class="d-block col-3 h-100 p-0">
+              <div
+                class="active w-100 h-100 d-flex justify-content-center align-items-center"
+              >
+                <img src="./imgs/home.png" alt="Home" />
+              </div>
+            </a>
 
-        <a href="./search.html" class="d-block col-3 h-100 p-0">
-          <div
-            class="w-100 h-100 d-flex justify-content-center align-items-center"
-          >
-            <img src="./imgs/search.png" alt="search for user" />
-          </div>
-        </a>
+            <a href="./search.html" class="d-block col-3 h-100 p-0">
+              <div
+                class="w-100 h-100 d-flex justify-content-center align-items-center"
+              >
+                <img src="./imgs/search.png" alt="search for user" />
+              </div>
+            </a>
 
-        <a href="./certificates.html" class="d-block col-3 h-100 p-0">
-          <div
-            class="w-100 h-100 d-flex justify-content-center align-items-center"
-          >
-            <img src="./imgs/certificate.png" alt="My certificates" />
-          </div>
-        </a>
+            <a href="./certificates.html" class="d-block col-3 h-100 p-0">
+              <div
+                class="w-100 h-100 d-flex justify-content-center align-items-center"
+              >
+                <img src="./imgs/certificate.png" alt="My certificates" />
+              </div>
+            </a>
 
-        <a href="./profile.html" class="d-block col-3 h-100 p-0">
-          <div
-            class="w-100 h-100 d-flex justify-content-center align-items-center"
-          >
-            <img src="./imgs/profile.png" alt="My Profile" />
+            <a href="./profile.html" class="d-block col-3 h-100 p-0">
+              <div
+                class="w-100 h-100 d-flex justify-content-center align-items-center"
+              >
+                <img src="./imgs/profile.png" alt="My Profile" />
+              </div>
+            </a>
           </div>
-        </a>
+        </div>
+        <div class="col-0 col-md-3"></div>
       </div>
     </div>
     <!-- JavaScript; -->
