@@ -1,0 +1,8 @@
+ check auth form errors
+ @if (Session::has('errors'))
+    <div class="text-center alert alert-light">
+        @if ($errors->any())
+            {!! implode('', $errors->all('<p style="color:red">:message</p>')) !!}
+        @endif
+    </div>
+@endif
