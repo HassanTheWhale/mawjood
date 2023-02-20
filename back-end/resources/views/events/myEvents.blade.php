@@ -15,6 +15,9 @@
             <div class="row">
                 <div class="col-0 col-md-3"></div>
                 <div class="col-12 col-md-6">
+                    @if (session()->has('type'))
+                        <div class="alert alert-{{ session('type') }}" role="alert"> {{ session('message') }} </div>
+                    @endif
                     <a href="myList" class="span text-muted mb-3 d-block">
                         <div class="card rounded overflow-hidden p-3">
                             <div class="d-flex justify-content-between align-items-center">

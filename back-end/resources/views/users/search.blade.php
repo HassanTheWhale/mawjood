@@ -14,15 +14,24 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6 mx-auto">
-                    <input type="text" name="search" id="search" class="form-control mb-5"
-                        placeholder="What are you looking for?" />
+                    <form action="{{ route('profile.search') }}" method="GET" id="search-form">
+                        <input type="text" name="search" value="{{ $query }}" id="search"
+                            class="form-control mb-5" placeholder="What are you looking for?" />
+                    </form>
 
-                    <div class="card rounded overflow-hidden p-2">
-                        <div class="d-flex align-items-center">
-                            <img src="./imgs/hassan.png" alt="event" width="64px" class="rounded-circle" />
-                            <span class="text-muted ms-3">@Hassan_TheWhale</span>
-                        </div>
-                    </div>
+                    @if (count($users) > 0)
+                        @foreach ($users as $user)
+                            <a href="/user/{{ $user->name }}" class="text-decoration-none">
+                                <div class="card rounded bg-white overflow-hidden p-2 mb-2">
+                                    <div class="d-flex align-items-center">
+                                        <img src="{{ $user->picture }}" alt="event" width="64px"
+                                            class="rounded-circle" />
+                                        <span class="text-muted ms-3 ">{{ $user->name }}</span>
+                                    </div>
+                                </div>
+                            </a>
+                        @endforeach
+                    @endif
                 </div>
             </div>
         </div>
@@ -60,4 +69,21 @@
             <div class="col-0 col-md-3"></div>
         </div>
     </div>
+@endsection
+@section('scripts')
+    <script>
+        let typingTimer;
+        const doneTypingInterval = 500;
+        const searchInput = document.querySelector('input[name="search"]');
+
+        searchInput.addEventListener('keyup', () => {
+            clearTimeout(typingTimer);
+            typingTimer = setTimeout(submitSearchForm, doneTypingInterval);
+        });
+
+        function submitSearchForm() {
+            const form = document.querySelector('#search-form');
+            form.submit();
+        }
+    </script>
 @endsection

@@ -12,29 +12,35 @@
     </div>
     <div class="content h-84 py-4">
         <div class="container">
+            @if (Session::has('errors'))
+                @if ($errors->any())
+                    {!! implode('', $errors->all('<div class="alert alert-danger" role="alert"> :message </div>')) !!}
+                @endif
+            @endif
             <div class="row">
                 <div class="col-md-6 mx-auto">
-                    <form action="">
+                    <form action="{{ route('events.createEvent') }}" method="POST" enctype="multipart/form-data">
+                        @csrf
                         <div class="form-group mb-3">
                             <label for="eventName" class="span ms-3 mb-1">
                                 Event Name
                             </label>
                             <input type="text" name="eventName" id="eventName" placeholder="your event name"
-                                class="form-control w-100 mb-1" />
+                                class="form-control w-100 mb-1" required />
                         </div>
 
                         <div class="form-group mb-3">
                             <label for="eventDesc" class="span ms-3 mb-1">
                                 Event Description
                             </label>
-                            <textarea name="eventDesc" id="eventDesc" class="form-control" placeholder="Your Event Description"></textarea>
+                            <textarea name="eventDesc" id="eventDesc" class="form-control" required placeholder="Your Event Description"></textarea>
                         </div>
 
                         <div class="form-group mb-3">
                             <label for="eventPic" class="span ms-3 mb-1">
                                 Event Picture
                             </label>
-                            <input type="file" name="eventPic" id="eventPic" placeholder="your event pic"
+                            <input type="file" name="eventPic" id="eventPic" accept="image/*" required
                                 class="form-control w-100 mb-1" />
                         </div>
 
@@ -43,74 +49,80 @@
                                 Min Grade
                             </label>
                             <input type="number" name="eventGrade" id="eventGrade"
-                                placeholder="Min grade for sending certificates" class="form-control w-100 mb-1" />
+                                placeholder="Min grade for sending certificates" required class="form-control w-100 mb-1" />
                         </div>
 
                         <hr>
 
                         <div class="form-group mb-3">
-                            <label for="eventSDate" class="span ms-3 mb-1"> Start Date </label>
-                            <input type="date" name="eventSDate" id="eventSDate" placeholder=""
+                            {{-- <label for="eventSDate" class="span ms-3 mb-1"> Start Date </label> --}}
+                            <label for="eventSDate" class="span ms-3 mb-1"> Date </label>
+                            <input type="date" name="eventSDate" id="eventSDate" required placeholder=""
                                 class="form-control w-100 mb-1" />
                         </div>
 
-                        <div class="form-group mb-3">
+                        {{-- <div class="form-group mb-3">
                             <label for="eventEDate" class="span ms-3 mb-1"> End Date </label>
-                            <input type="date" name="eventEDate" id="eventEDate" placeholder=""
+                            <input type="date" name="eventEDate" id="eventEDate" required placeholder=""
                                 class="form-control w-100 mb-1" />
                         </div>
 
                         <div class="form-group mb-3">
                             <label for="repeat" class="span ms-3 mb-1"> Repeat Every </label>
                             <br>
-                            <input type="checkbox" value="Saturday" name="eventRepeatDay" id="Saturday" />
+                            <input type="checkbox" value="Saturday" name="eventRepeatDay" required id="Saturday" />
                             <label for="Saturday" class="span ms-3 mb-1 text-muted">
                                 Saturday
                             </label>
                             <br>
-                            <input type="checkbox" value="Sunday" name="eventRepeatDay" id="Sunday" />
+                            <input type="checkbox" value="Sunday" name="eventRepeatDay" required id="Sunday" />
                             <label for="Sunday" class="span ms-3 mb-1 text-muted">
                                 Sunday
                             </label>
                             <br>
-                            <input type="checkbox" value="Monday" name="eventRepeatDay" id="Monday" />
+                            <input type="checkbox" value="Monday" name="eventRepeatDay" required id="Monday" />
                             <label for="Monday" class="span ms-3 mb-1 text-muted">
                                 Monday
                             </label>
                             <br>
-                            <input type="checkbox" value="Tuesday" name="eventRepeatDay" id="Tuesday" />
+                            <input type="checkbox" value="Tuesday" name="eventRepeatDay" required id="Tuesday" />
                             <label for="Tuesday" class="span ms-3 mb-1 text-muted">
                                 Tuesday
                             </label>
                             <br>
-                            <input type="checkbox" value="Wendsday" name="eventRepeatDay" id="Wendsday" />
+                            <input type="checkbox" value="Wendsday" name="eventRepeatDay" required id="Wendsday" />
                             <label for="Wendsday" class="span ms-3 mb-1 text-muted">
                                 Wendsday
                             </label>
                             <br>
-                            <input type="checkbox" value="Thursday" name="eventRepeatDay" id="Thursday" />
+                            <input type="checkbox" value="Thursday" name="eventRepeatDay" required id="Thursday" />
                             <label for="Thursday" class="span ms-3 mb-1 text-muted">
                                 Thursday
                             </label>
                             <br>
-                            <input type="checkbox" value="Friday" name="eventRepeatDay" id="Friday" />
+                            <input type="checkbox" value="Friday" name="eventRepeatDay" required id="Friday" />
                             <label for="Friday" class="span ms-3 mb-1 text-muted">
                                 Friday
                             </label>
-                        </div>
+                        </div> --}}
 
                         <hr>
 
                         <div class="form-group mb-3">
-                            <input type="checkbox" name="eventStrange" id="eventStrange" />
+                            <input type="checkbox" value="1" name="eventStrange" id="eventStrange" />
                             <label for="eventStrange" class="span ms-3 mb-1 text-muted">
                                 Allow unregistered users to attend.
                             </label>
                         </div>
 
-                        <button class="btn btn-primary text-white w-100">
-                            Create the event
-                        </button>
+                        <div class="form-group mb-3">
+                            <input type="checkbox" value="1" name="eventPrivate" id="eventPrivate" />
+                            <label for="eventPrivate" class="span ms-3 mb-1 text-muted">
+                                Private Event
+                            </label>
+                        </div>
+
+                        <input type="submit" value="Create the Event" class="btn btn-primary text-white w-100" />
                     </form>
                 </div>
             </div>

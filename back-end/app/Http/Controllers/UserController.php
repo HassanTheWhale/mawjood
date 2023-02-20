@@ -25,9 +25,17 @@ class UserController extends Controller
     }
 
     // load search view
-    public function search()
+    public function search(Request $request)
     {
-        return view('users.search');
+        $query = $request->input('search');
+
+        if ($request->has('search')) {
+            $users = User::where('username', 'LIKE', '%' . $query . '%')->take(5)->get();
+            return view('users.search', ['users' => $users, 'query' => $query]);
+        } else {
+            return view('users.search', ['users' => [], 'query' => ""]);
+        }
+
     }
 
     // load other user view
@@ -65,6 +73,10 @@ class UserController extends Controller
             'userPrivate' => ['bail', 'integer'],
         ]);
 
+        // $image = $request->file('image');
+        // $filename = $image->hashName();
+        // $image->storeAs('public/images', $filename);
+
         $user = Auth::user();
         $user->update([
             'name' => $request['userName'],
@@ -74,7 +86,6 @@ class UserController extends Controller
             'type' => is_null($request['userPrivate']) ? 0 : $request['userPrivate'],
         ]);
 
-        // return view('users.profile', compact('user'));
         return redirect("profile")->with('message', "Information was Updated");
     }
 }

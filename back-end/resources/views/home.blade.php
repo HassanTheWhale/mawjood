@@ -18,43 +18,26 @@
                 placeholder="What are you looking for?" />
 
             <div class="row">
-                <div class="col-md-4 mb-3">
-                    <div class="card rounded overflow-hidden">
-                        <img src="./imgs/event.png" alt="event" />
-                        <div class="p-2">
-                            <h4 class="span mb-3">491 Class</h4>
-                            <p class="text-muted">
-                                <small>
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Est
-                                    animi obcaecati asperiores error maxime laboriosam
-                                    consectetur aspernatur quod sequi velit?
-                                </small>
-                            </p>
-                            <p class="text-end mt-3 mb-1">
-                                <a href="eventDetail" class="btn btn-primary text-white">Check Details</a>
-                            </p>
+                @foreach ($events as $event)
+                    <div class="col-md-4 mb-3">
+                        <div class="card rounded overflow-hidden">
+                            <img src="{{ asset('storage/images/' . $event->picture) }}" alt="event" />
+                            <div class="p-2">
+                                <h4 class="span mb-3">{{ $event->name }}</h4>
+                                <p class="text-muted">
+                                    <small>
+                                        {{ $event->description }}
+                                    </small>
+                                </p>
+                                <p class="text-end mt-3 mb-1">
+                                    <a href="/event/{{ $event->id }}" class="btn btn-primary text-white">Check
+                                        Details</a>
+                                </p>
+                            </div>
                         </div>
                     </div>
-                </div>
+                @endforeach
 
-                <div class="col-md-4 mb-3">
-                    <div class="card rounded overflow-hidden">
-                        <img src="./imgs/event.png" alt="event" />
-                        <div class="p-2">
-                            <h4 class="span mb-3">492 Class</h4>
-                            <p class="text-muted">
-                                <small>
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Est
-                                    animi obcaecati asperiores error maxime laboriosam
-                                    consectetur aspernatur quod sequi velit?
-                                </small>
-                            </p>
-                            <p class="text-end mt-3 mb-1">
-                                <a href="eventDetail2" class="btn btn-primary text-white">Check Details</a>
-                            </p>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
