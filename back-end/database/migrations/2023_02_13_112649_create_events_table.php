@@ -24,6 +24,8 @@ return new class extends Migration {
             $table->integer('private')->default(0);
             $table->unsignedBigInteger('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->unsignedBigInteger('category')->unsigned();
+            $table->foreign('category')->references('id')->on('event_categories')->onDelete('cascade');
             $table->timestamps();
         });
     }
