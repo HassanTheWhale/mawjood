@@ -42,6 +42,10 @@ Route::get('/user/{id}/unfollow', [App\Http\Controllers\FollowControler::class, 
 // search for profile page
 Route::get('/search', [App\Http\Controllers\UserController::class, 'search'])->name('profile.search');
 
+
+//category page
+Route::get('/category/{id}', [App\Http\Controllers\CategoryController::class, 'category'])->name('category.category');
+
 // events page
 // Route::get('/myEvents', [App\Http\Controllers\EventContoller::class, 'myEvent'])->name('events');
 Route::get('/event/{id}', [App\Http\Controllers\EventContoller::class, 'event'])->name('events.event');

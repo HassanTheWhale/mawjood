@@ -7,8 +7,8 @@
             <div class="col-8">
                 <h4 class="m-0">Events</h4>
             </div>
-            <a href="./create" class="col-2 pe-5 h-100 d-flex justify-content-center align-items-center">
-                <img src="./imgs/plus.png" alt="Events" />
+            <a href="../create" class="col-2 pe-5 h-100 d-flex justify-content-center align-items-center">
+                <img src="../imgs/plus.png" alt="Events" />
             </a>
         </div>
     </div>
@@ -18,23 +18,34 @@
                 placeholder="What are you looking for?" />
 
             <div class="row">
-                @foreach ($catergories as $category)
-                    <div class="category col-md-4 mb-3" name="{{ $category->name }}">
+                <div class="col-12">
+                    {{-- @if (count($events) == 0) --}}
+                    <p>There are {{ count($events) }} events in this category.</p>
+                    {{-- @endif --}}
+                </div>
+                @foreach ($events as $event)
+                    <div class="event col-md-4 mb-3" name="{{ $event->name }}">
                         <div class="card rounded overflow-hidden">
-                            <img src="{{ $category->picture }}" alt="event" />
+                            @if (str_starts_with($event->picture, 'https'))
+                                <img src="{{ $event->picture }}" alt="event" />
+                            @else
+                                <img src="{{ asset('storage/images/' . $event->picture) }}" alt="event" />
+                            @endif
                             <div class="p-2">
-                                <h4 class="span mb-3">{{ $category->name }}</h4>
+                                <h4 class="span mb-3">{{ $event->name }}</h4>
+                                <p class="text-muted">
+                                    <small>
+                                        {{ $event->description }}
+                                    </small>
+                                </p>
                                 <p class="text-end mt-3 mb-1">
-                                    <a href="/category/{{ $category->id }}" class="btn btn-primary text-white">Check
-                                        Events</a>
+                                    <a href="/event/{{ $event->id }}" class="btn btn-primary text-white">Check
+                                        Details</a>
                                 </p>
                             </div>
                         </div>
                     </div>
                 @endforeach
-
-
-
             </div>
         </div>
     </div>
@@ -43,27 +54,27 @@
             <div class="col-0 col-md-3"></div>
             <div class="col-12 col-md-6 h-100">
                 <div class="row h-100 bg-prime">
-                    <a href="./home" class="d-block col-3 h-100 p-0">
+                    <a href="../home" class="d-block col-3 h-100 p-0">
                         <div class="w-100 active h-100 d-flex justify-content-center align-items-center">
-                            <img src="./imgs/home.png" alt="Home" />
+                            <img src="../imgs/home.png" alt="Home" />
                         </div>
                     </a>
 
-                    <a href="./search" class="d-block col-3 h-100 p-0">
+                    <a href="../search" class="d-block col-3 h-100 p-0">
                         <div class="w-100 h-100 d-flex justify-content-center align-items-center">
-                            <img src="./imgs/search.png" alt="search for user" />
+                            <img src="../imgs/search.png" alt="search for user" />
                         </div>
                     </a>
 
-                    <a href="./certificates" class="d-block col-3 h-100 p-0">
+                    <a href="../certificates" class="d-block col-3 h-100 p-0">
                         <div class="w-100 h-100 d-flex justify-content-center align-items-center">
-                            <img src="./imgs/certificate.png" alt="My certificates" />
+                            <img src="../imgs/certificate.png" alt="My certificates" />
                         </div>
                     </a>
 
                     <a href="#" class="d-block col-3 h-100 p-0" id="profileButton">
                         <div class="w-100 h-100 d-flex justify-content-center align-items-center">
-                            <img src="./imgs/profile.png" alt="My Profile" />
+                            <img src="../imgs/profile.png" alt="My Profile" />
                         </div>
                     </a>
                 </div>
@@ -75,7 +86,7 @@
 @section('scripts')
     <script>
         const searchBox = document.getElementById('search');
-        const listItems = document.querySelectorAll('.category');
+        const listItems = document.querySelectorAll('.event');
         searchBox.addEventListener('keyup', (event) => {
             const searchTerm = event.target.value.toLowerCase();
 
