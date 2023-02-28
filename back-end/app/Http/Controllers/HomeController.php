@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\eventCategory;
 use App\Models\events;
 use Illuminate\Http\Request;
 
@@ -24,7 +25,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $events = events::all();
-        return view('home', compact('events'));
+        // $events = events::all();
+        $catergories = eventCategory::all();
+        return view('home', compact('catergories'));
     }
 }
