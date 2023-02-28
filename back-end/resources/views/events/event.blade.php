@@ -27,14 +27,18 @@
                         {{-- <p class="text-muted">Sun - Mon - Thurs</p> --}}
                         <p class="text-muted">
                             From: {{ $event->start_date }} <br />
-                            {{-- To: 15/12/22 --}}
+                            To: {{ $event->end_date }}
                         </p>
                         <p class="text-muted">
                             {{ $event->description }}
                         </p>
                     </small>
                     <p class="text-end mt-3 mb-1">
-                        <a href="../event/{{ $event->id }}/signup" class="btn btn-primary text-white">Sign Up</a>
+                        @if ($event->user_id == $myuser->id)
+                            <a href="../modify/{{ $event->id }}/" class="btn btn-secondary text-white">Modify</a>
+                        @else
+                            <a href="../event/{{ $event->id }}/signup" class="btn btn-primary text-white">Sign Up</a>
+                        @endif
                     </p>
                 </div>
             </div>
