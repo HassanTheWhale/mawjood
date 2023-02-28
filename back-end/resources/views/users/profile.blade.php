@@ -48,7 +48,7 @@
                                     </small>
                                 </div>
                                 <div class="col-12 mt-3 d-flex justify-content-around align-items-center">
-                                   
+
                                 </div>
                             </div>
                         </div>
@@ -58,7 +58,32 @@
                 <div class="col-12 mb-2">
                     <div class="col-12 mt-4">
                         <div class="container row m-0">
-
+                            @foreach ($events as $event)
+                                <div class="event col-md-4 mb-3" name="{{ $event->name }}">
+                                    <div class="card rounded overflow-hidden">
+                                        @if (str_starts_with($event->picture, 'https'))
+                                            <img src="{{ $event->picture }}" alt="event" />
+                                        @else
+                                            <img src="{{ asset('storage/images/' . $event->picture) }}" alt="event" />
+                                        @endif
+                                        <div class="p-2">
+                                            <h4 class="span mb-3">{{ $event->name }}</h4>
+                                            <p class="text-muted">
+                                                <small>
+                                                    {{ $event->description }}
+                                                </small>
+                                            </p>
+                                            <p class="text-end mt-3 mb-1">
+                                                <a href="/event/{{ $event->id }}"
+                                                    class="btn btn-primary text-white">Check
+                                                    Details</a>
+                                                <a href="/modify/{{ $event->id }}"
+                                                    class="btn btn-secondary text-white">Modify</a>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
                             {{-- certificates --}}
                             {{-- <div class="col-md-4 mb-3">
                                 <div class="card rounded overflow-hidden mt-3">

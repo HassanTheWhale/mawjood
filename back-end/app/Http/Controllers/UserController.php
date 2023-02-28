@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\events;
 use App\Models\follow;
 use app\Models\User;
 use Auth;
@@ -21,7 +22,8 @@ class UserController extends Controller
         $user = Auth::user();
         $countFollowers = follow::where('follow_id', $user->id)->count();
         $countFollowing = follow::where('user_id', $user->id)->count();
-        return view('users.profile', compact('user', 'countFollowers', 'countFollowing'));
+        $events = events::where('user_id', $user->id)->get();
+        return view('users.profile', compact('user', 'countFollowers', 'countFollowing', 'events'));
     }
 
     // load search view
