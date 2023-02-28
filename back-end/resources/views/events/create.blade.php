@@ -30,6 +30,19 @@
                         </div>
 
                         <div class="form-group mb-3">
+                            <label for="eventCategory" class="span ms-3 mb-1">
+                                Event Category
+                            </label>
+                            <select name="eventCategory" id="eventCategory" class="form-control" required
+                                aria-placeholder="s">
+                                @foreach ($categories as $category)
+                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+
+                        <div class="form-group mb-3">
                             <label for="eventDesc" class="span ms-3 mb-1">
                                 Event Description
                             </label>

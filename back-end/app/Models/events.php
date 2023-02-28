@@ -18,16 +18,17 @@ class events extends Model
         'strange',
         'private',
         'user_id',
+        'category',
     ];
 
-    // check this
-    public function events()
-    {
-        return $this->belongsTo(events::class, 'events');
-    }
+// check this
+// public function events()
+// {
+//     return $this->belongsTo(events::class, 'events');
+// }
 
-    public function users()
-    {
-        return $this->belongsTo(User::class, 'users');
-    }
+// public function users()
+// {
+//     return $this->belongsTo(User::class, 'users');
+// }
 }

@@ -15,7 +15,7 @@ return new class extends Migration {
         Schema::create('event_categories', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('picture')->default('https://source.unsplash.com/category/funEvent/1920x1080/');
+            $table->string('picture')->default('https://source.unsplash.com/1920x1080/?Fun');
             $table->timestamps();
         });
     }

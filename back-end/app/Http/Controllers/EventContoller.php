@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\eventCategory;
 use App\Models\events;
 use Auth;
 use Illuminate\Http\Request;
@@ -20,7 +21,8 @@ class EventContoller extends Controller
 
     public function create()
     {
-        return view('events.create');
+        $categories = eventCategory::all();
+        return view('events.create', compact('categories'));
     }
 
     public function createEvent(Request $request)
@@ -48,6 +50,7 @@ class EventContoller extends Controller
             'picture' => $filename,
             'min_grade' => $request->input('eventGrade'),
             'start_date' => $request->input('eventSDate'),
+            'category' => $request->input('eventCategory'),
             'strange' => is_null($request->input('eventStrange')) ? 0 : $request->input('eventStrange'),
             'private' => is_null($request->input('eventPrivate')) ? 0 : $request->input('eventPrivate'),
         ]);
