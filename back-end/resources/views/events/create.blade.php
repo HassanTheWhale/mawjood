@@ -53,7 +53,7 @@
                             <label for="eventPic" class="span ms-3 mb-1">
                                 Event Picture
                             </label>
-                            <input type="file" name="eventPic" id="eventPic" accept="image/*" required
+                            <input type="file" name="eventPic" id="eventPic" accept="image/*"
                                 class="form-control w-100 mb-1" />
                         </div>
 
@@ -68,18 +68,17 @@
                         <hr>
 
                         <div class="form-group mb-3">
-                            {{-- <label for="eventSDate" class="span ms-3 mb-1"> Start Date </label> --}}
-                            <label for="eventSDate" class="span ms-3 mb-1"> Date </label>
-                            <input type="date" name="eventSDate" id="eventSDate" required placeholder=""
-                                class="form-control w-100 mb-1" />
+                            <label for="eventSDate" class="span ms-3 mb-1"> Start Date </label>
+                            <input type="date" name="eventSDate" id="eventSDate" min="{{ now()->format('Y-m-d') }}"
+                                required placeholder="" class="form-control w-100 mb-1" />
                         </div>
 
-                        {{-- <div class="form-group mb-3">
+                        <div class="form-group mb-3">
                             <label for="eventEDate" class="span ms-3 mb-1"> End Date </label>
-                            <input type="date" name="eventEDate" id="eventEDate" required placeholder=""
-                                class="form-control w-100 mb-1" />
+                            <input type="date" name="eventEDate" id="eventEDate" min="{{ now()->format('Y-m-d') }}"
+                                required placeholder="" class="form-control w-100 mb-1" />
                         </div>
-
+                        {{-- 
                         <div class="form-group mb-3">
                             <label for="repeat" class="span ms-3 mb-1"> Repeat Every </label>
                             <br>

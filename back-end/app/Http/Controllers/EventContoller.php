@@ -25,6 +25,12 @@ class EventContoller extends Controller
         return view('events.create', compact('categories'));
     }
 
+    public function event($id)
+    {
+        $event = events::where('id', $id)->firstOrFail();
+        return view('events.event', compact('event'));
+    }
+
     public function createEvent(Request $request)
     {
         // I need to check how this works!
@@ -39,29 +45,45 @@ class EventContoller extends Controller
 
         $myuser = Auth::user();
 
-        $image = $request->file('eventPic');
-        $filename = uniqid() . '.' . $image->getClientOriginalExtension();
-        $path = $image->storeAs('public/images', $filename);
+        if (!is_null($request->file("eventPic"))) {
+            $image = $request->file('eventPic');
+            $filename = uniqid() . '.' . $image->getClientOriginalExtension();
+            $path = $image->storeAs('public/images', $filename);
+            $event = events::create([
+                'user_id' => $myuser->id,
+                'name' => $request->input('eventName'),
+                'description' => $request->input('eventDesc'),
+                'picture' => $filename,
+                'min_grade' => $request->input('eventGrade'),
+                'start_date' => $request->input('eventSDate'),
+                'end_date' => $request->input('eventEDate'),
+                'category' => $request->input('eventCategory'),
+                'strange' => is_null($request->input('eventStrange')) ? 0 : $request->input('eventStrange'),
+                'private' => is_null($request->input('eventPrivate')) ? 0 : $request->input('eventPrivate'),
+            ]);
+        } else {
+            $event = events::create([
+                'user_id' => $myuser->id,
+                'name' => $request->input('eventName'),
+                'description' => $request->input('eventDesc'),
+                'min_grade' => $request->input('eventGrade'),
+                'start_date' => $request->input('eventSDate'),
+                'end_date' => $request->input('eventEDate'),
+                'category' => $request->input('eventCategory'),
+                'strange' => is_null($request->input('eventStrange')) ? 0 : $request->input('eventStrange'),
+                'private' => is_null($request->input('eventPrivate')) ? 0 : $request->input('eventPrivate'),
+            ]);
+        }
 
-        $event = events::create([
-            'user_id' => $myuser->id,
-            'name' => $request->input('eventName'),
-            'description' => $request->input('eventDesc'),
-            'picture' => $filename,
-            'min_grade' => $request->input('eventGrade'),
-            'start_date' => $request->input('eventSDate'),
-            'category' => $request->input('eventCategory'),
-            'strange' => is_null($request->input('eventStrange')) ? 0 : $request->input('eventStrange'),
-            'private' => is_null($request->input('eventPrivate')) ? 0 : $request->input('eventPrivate'),
-        ]);
+
 
         if ($event) {
-            return redirect('myEvents')->with([
+            return redirect('event')->with([
                 'type' => "success",
                 'message' => 'Event was created!',
             ]);
         } else {
-            return redirect('myEvents')->with([
+            return redirect('event')->with([
                 'type' => "error",
                 'message' => 'Event was not created!',
             ]);

@@ -44,6 +44,7 @@ Route::get('/search', [App\Http\Controllers\UserController::class, 'search'])->n
 
 // events page
 // Route::get('/myEvents', [App\Http\Controllers\EventContoller::class, 'myEvent'])->name('events');
+Route::get('/event/{id}', [App\Http\Controllers\EventContoller::class, 'event'])->name('events.event');
 // create new event
 Route::get('/create', [App\Http\Controllers\EventContoller::class, 'create'])->name('events.create');
 Route::post('/create', [App\Http\Controllers\EventContoller::class, 'createEvent'])->name('events.createEvent');
