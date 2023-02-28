@@ -18,25 +18,22 @@
                 placeholder="What are you looking for?" />
 
             <div class="row">
-                @foreach ($events as $event)
-                    <div class="col-md-4 mb-3">
+                @foreach ($catergories as $category)
+                    <div class="category col-md-4 mb-3" name="{{ $category->name }}">
                         <div class="card rounded overflow-hidden">
-                            <img src="{{ asset('storage/images/' . $event->picture) }}" alt="event" />
+                            <img src="{{ $category->picture }}" alt="event" />
                             <div class="p-2">
-                                <h4 class="span mb-3">{{ $event->name }}</h4>
-                                <p class="text-muted">
-                                    <small>
-                                        {{ $event->description }}
-                                    </small>
-                                </p>
+                                <h4 class="span mb-3">{{ $category->name }}</h4>
                                 <p class="text-end mt-3 mb-1">
-                                    <a href="/event/{{ $event->id }}" class="btn btn-primary text-white">Check
-                                        Details</a>
+                                    <a href="/category/{{ $category->id }}" class="btn btn-primary text-white">Check
+                                        Events</a>
                                 </p>
                             </div>
                         </div>
                     </div>
                 @endforeach
+
+
 
             </div>
         </div>
@@ -74,4 +71,21 @@
             <div class="col-0 col-md-3"></div>
         </div>
     </div>
+@endsection
+@section('scripts')
+    <script>
+        const searchBox = document.getElementById('search');
+        const listItems = document.querySelectorAll('.category');
+        searchBox.addEventListener('keyup', (event) => {
+            const searchTerm = event.target.value.toLowerCase();
+
+            listItems.forEach((item) => {
+                if (item.textContent.toLowerCase().includes(searchTerm)) {
+                    item.style.display = '';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+    </script>
 @endsection
