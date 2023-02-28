@@ -19,8 +19,8 @@ class UserController extends Controller
     public function profile()
     {
         $user = Auth::user();
-        $countFollowers = follow::where('follow_id', $user->first()->id)->count();
-        $countFollowing = follow::where('user_id', $user->first()->id)->count();
+        $countFollowers = follow::where('follow_id', $user->id)->count();
+        $countFollowing = follow::where('user_id', $user->id)->count();
         return view('users.profile', compact('user', 'countFollowers', 'countFollowing'));
     }
 
@@ -43,9 +43,9 @@ class UserController extends Controller
     {
         $user = User::where('username', $username)->firstOrFail();
 
-        $followed = follow::where('user_id', Auth::id())->where('follow_id', $user->first()->id)->exists();
-        $countFollowers = follow::where('follow_id', $user->first()->id)->count();
-        $countFollowing = follow::where('user_id', $user->first()->id)->count();
+        $followed = follow::where('user_id', Auth::id())->where('follow_id', $user->id)->exists();
+        $countFollowers = follow::where('follow_id', $user->id)->count();
+        $countFollowing = follow::where('user_id', $user->id)->count();
         // check if the user are the same, go to the same
         $myuser = Auth::user();
         if ($user->id == $myuser->id || $user->type == 1)

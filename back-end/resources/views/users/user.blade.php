@@ -116,9 +116,9 @@
                         </div>
                     </a>
 
-                    <a href="#" class="d-block col-3 h-100 p-0" id="profileButton">
+                    <a href="../profile" class="d-block col-3 h-100 p-0" id="profileButton">
                         <div class="w-100 h-100 d-flex justify-content-center align-items-center">
-                            <img src="./imgs/profile.png" alt="My Profile" />
+                            <img src="../imgs/profile.png" alt="My Profile" />
                         </div>
                     </a>
                 </div>

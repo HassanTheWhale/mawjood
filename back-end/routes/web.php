@@ -36,8 +36,8 @@ Route::post('/edit', [App\Http\Controllers\UserController::class, 'update'])->na
 Route::get('/user/{username}', [App\Http\Controllers\UserController::class, 'user'])->name('profile.user');
 
 // follow & Unfollow another user
-Route::get('/user/{username}/follow', [App\Http\Controllers\FollowControler::class, 'follow'])->name('profile.followUser');
-Route::get('/user/{username}/unfollow', [App\Http\Controllers\FollowControler::class, 'unfollow'])->name('profile.unfollowUser');
+Route::get('/user/{id}/follow', [App\Http\Controllers\FollowControler::class, 'follow'])->name('profile.followUser');
+Route::get('/user/{id}/unfollow', [App\Http\Controllers\FollowControler::class, 'unfollow'])->name('profile.unfollowUser');
 
 // search for profile page
 Route::get('/search', [App\Http\Controllers\UserController::class, 'search'])->name('profile.search');

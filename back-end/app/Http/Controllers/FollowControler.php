@@ -14,13 +14,16 @@ class FollowControler extends Controller
         $this->middleware('auth');
     }
 
-    public function follow(User $user)
+    public function follow($id)
     {
         $myuser = Auth::user();
+        $another_user = User::where('id', $id)->firstOrFail();
+        error_log($myuser->id);
+        error_log($another_user->id);
 
         $data = [
             "user_id" => $myuser->id,
-            "follow_id" => $user->first()->id,
+            "follow_id" => $another_user->id,
         ];
 
         $myuser->follows()->create($data);
@@ -28,9 +31,9 @@ class FollowControler extends Controller
         return redirect()->back()->with('message', 'Follow done');
     }
 
-    public function unfollow(User $user)
+    public function unfollow($id)
     {
-        $follow = follow::where('user_id', Auth::id())->where('follow_id', $user->first()->id)->first();
+        $follow = follow::where('user_id', Auth::id())->where('follow_id', $id)->first();
         $follow->delete();
         return redirect()->back()->with('message', 'UnFollow done');
     }
