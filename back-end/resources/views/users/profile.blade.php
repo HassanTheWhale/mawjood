@@ -7,8 +7,8 @@
             <div class="col-8">
                 <h4 class="m-0">{{ '@' . $user->username }}</h4>
             </div>
-            <a href="./myEvents" class="col-2 pe-5 h-100 d-flex justify-content-center align-items-center">
-                <img src="./imgs/plus.png" alt="Events" />
+            <a href="#" onclick="settings()" class="col-2 pe-5 h-100 d-flex justify-content-center align-items-center">
+                <img src="./imgs/dots.png" width="32px" alt="Events" />
             </a>
         </div>
     </div>
@@ -48,7 +48,7 @@
                                     </small>
                                 </div>
                                 <div class="col-12 mt-3 d-flex justify-content-around align-items-center">
-                                    <a href="./edit"><button class="btn btn-outline-secondary px-4">Edit</button></a>
+                                   
                                 </div>
                             </div>
                         </div>
@@ -119,4 +119,12 @@
             <div class="col-0 col-md-3"></div>
         </div>
     </div>
+@endsection
+
+@section('scripts')
+    <script>
+        function settings() {
+            profileModal.toggle();
+        }
+    </script>
 @endsection

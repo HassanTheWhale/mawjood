@@ -43,7 +43,7 @@ Route::get('/user/{id}/unfollow', [App\Http\Controllers\FollowControler::class, 
 Route::get('/search', [App\Http\Controllers\UserController::class, 'search'])->name('profile.search');
 
 // events page
-Route::get('/myEvents', [App\Http\Controllers\EventContoller::class, 'myEvent'])->name('events');
+// Route::get('/myEvents', [App\Http\Controllers\EventContoller::class, 'myEvent'])->name('events');
 // create new event
 Route::get('/create', [App\Http\Controllers\EventContoller::class, 'create'])->name('events.create');
 Route::post('/create', [App\Http\Controllers\EventContoller::class, 'createEvent'])->name('events.createEvent');

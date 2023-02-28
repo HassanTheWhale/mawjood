@@ -8,10 +8,14 @@
             <div class="modal-body text-black">
                 <div class="card rounded overflow-hidden p-2 mb-3">
                     <div class="d-flex align-items-center">
-                        <img src="./imgs/hassan.png" alt="event" width="64px" class="rounded-circle" />
-                        <span class="text-muted ms-3">@Hassan_TheWhale</span>
+                        <img src="{{ $user->picture }}" alt="event" width="64px" class="rounded-circle" />
+                        <span class="text-muted ms-3">{{ $user->username }}</span>
                     </div>
                 </div>
+                <a href="./create" class="mb-2 d-block"><button class="btn btn-primary text-white w-100 px-4">Create an
+                        Event</button></a>
+                <a href="./edit" class="mb-2 d-block"><button class="btn btn-secondary w-100 px-4">Edit
+                        Profile</button></a>
                 <a href="{{ route('logout') }}"
                     onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
                     class="d-block" />

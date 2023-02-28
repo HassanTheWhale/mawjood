@@ -5,7 +5,7 @@
         <div class="row h-100 justify-content-center align-items-center">
             <div class="col-2"></div>
             <div class="col-8">
-                <h4 class="m-0">Search</h4>
+                <h4 class="m-0">Explore Users</h4>
             </div>
             <div class="col-2 pe-5"></div>
         </div>
