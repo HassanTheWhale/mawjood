@@ -16,7 +16,7 @@
                 <div class="col-md-6 mx-auto">
                     <form action="{{ route('profile.search') }}" method="GET" id="search-form">
                         <input type="text" name="search" value="{{ $query }}" id="search"
-                            class="form-control mb-5" placeholder="What are you looking for?" />
+                            class="form-control mb-5" autofocus placeholder="What are you looking for?" />
                     </form>
 
                     @if (count($users) > 0)

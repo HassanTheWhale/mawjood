@@ -14,7 +14,7 @@
     </div>
     <div class="content h-84 py-4">
         <div class="container-fluid">
-            <input type="text" name="search" id="search" class="form-control mb-5"
+            <input type="text" name="search" id="search" class="form-control mb-5" autofocus
                 placeholder="What are you looking for?" />
 
             <div class="row">
