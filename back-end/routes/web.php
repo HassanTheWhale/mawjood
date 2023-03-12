@@ -49,6 +49,10 @@ Route::get('/category/{id}', [App\Http\Controllers\CategoryController::class, 'c
 // events page
 // Route::get('/myEvents', [App\Http\Controllers\EventContoller::class, 'myEvent'])->name('events');
 Route::get('/event/{id}', [App\Http\Controllers\EventContoller::class, 'event'])->name('events.event');
+
+Route::get('/event/{id}/signup', [App\Http\Controllers\EventSignController::class, 'signup'])->name('events.signup');
+Route::get('/event/{id}/withdraw', [App\Http\Controllers\EventSignController::class, 'withdraw'])->name('events.withdraw');
+
 // create new event
 Route::get('/create', [App\Http\Controllers\EventContoller::class, 'create'])->name('events.create');
 Route::post('/create', [App\Http\Controllers\EventContoller::class, 'createEvent'])->name('events.createEvent');

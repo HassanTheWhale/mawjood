@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Attend;
 use App\Models\eventCategory;
 use App\Models\events;
 use Auth;
@@ -29,7 +30,8 @@ class EventContoller extends Controller
     {
         $myuser = Auth::user();
         $event = events::where('id', $id)->firstOrFail();
-        return view('events.event', compact('event', 'myuser'));
+        $attend = Attend::where('user_id', Auth::id())->where('event_id', $id)->first();
+        return view('events.event', compact('event', 'myuser', 'attend'));
     }
 
     public function modify($id)
@@ -94,7 +96,7 @@ class EventContoller extends Controller
             ]);
         } else {
             return redirect('home/')->with([
-                'type' => "error",
+                'type' => "danger",
                 'message' => 'Event was not created!',
             ]);
         }

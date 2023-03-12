@@ -39,6 +39,9 @@
                     <p class="text-end mt-3 mb-1">
                         @if ($event->user_id == $myuser->id)
                             <a href="../modify/{{ $event->id }}/" class="btn btn-secondary text-white">Modify</a>
+                        @elseif ($attend)
+                            <a href="../event/{{ $event->id }}/withdraw"
+                                class="btn btn-secondary text-white">Withdraw</a>
                         @else
                             <a href="../event/{{ $event->id }}/signup" class="btn btn-primary text-white">Sign Up</a>
                         @endif
