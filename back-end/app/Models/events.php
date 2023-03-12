@@ -22,14 +22,8 @@ class events extends Model
         'category',
     ];
 
-// check this
-// public function events()
-// {
-//     return $this->belongsTo(events::class, 'events');
-// }
-
-// public function users()
-// {
-//     return $this->belongsTo(User::class, 'users');
-// }
+public function users()
+{
+    return $this->belongsTo(User::class, 'users');
+}
 }

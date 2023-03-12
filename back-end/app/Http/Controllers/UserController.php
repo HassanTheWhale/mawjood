@@ -24,7 +24,7 @@ class UserController extends Controller
         $countFollowing = follow::where('user_id', $user->id)->count();
         $countCertificate = 0;
         $events = events::where('user_id', $user->id)->get();
-        return view('users.profile', compact('user', 'countFollowers', 'countFollowing', 'events'));
+        return view('users.profile', compact('user', 'countFollowers', 'countFollowing', 'events', 'countCertificate'));
     }
 
     // load search view
@@ -55,7 +55,7 @@ class UserController extends Controller
         if ($user->id == $myuser->id || $user->type == 1)
             return redirect("profile")->with('user', $myuser);
 
-        return view('users.user', compact('user', 'followed', 'countFollowers', 'countFollowing'));
+        return view('users.user', compact('user', 'followed', 'countFollowers', 'countFollowing', 'countCertificate'));
     }
 
     // load edit view
