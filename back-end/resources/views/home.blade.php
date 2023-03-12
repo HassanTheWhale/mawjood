@@ -14,6 +14,9 @@
     </div>
     <div class="content h-84 py-4">
         <div class="container">
+            @if (session()->has('message'))
+                <div class="alert alert-{{ session('type') }}" role="alert"> {{ session('message') }} </div>
+            @endif
             <input type="text" name="search" id="search" class="form-control mb-5" autofocus
                 placeholder="What are you looking for?" />
 

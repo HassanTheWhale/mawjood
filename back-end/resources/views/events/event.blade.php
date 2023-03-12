@@ -22,6 +22,9 @@
         <div class="row">
             <div class="col-md-6 mx-auto">
                 <div class="p-2">
+                    @if (session()->has('message'))
+                        <div class="alert alert-{{ session('type') }}" role="alert"> {{ session('message') }} </div>
+                    @endif
                     <h4 class="span mb-3">{{ $event->name }}</h4>
                     <small>
                         {{-- <p class="text-muted">Sun - Mon - Thurs</p> --}}
