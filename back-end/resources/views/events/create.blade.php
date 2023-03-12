@@ -68,55 +68,51 @@
                         <hr>
 
                         <div class="form-group mb-3">
-                            <label for="eventSDate" class="span ms-3 mb-1"> Start Date </label>
-                            <input type="date" name="eventSDate" id="eventSDate" min="{{ now()->format('Y-m-d') }}"
-                                required placeholder="" class="form-control w-100 mb-1" />
+                            <label for="date_type" class="span ms-3 mb-1"> Date Type:</label>
+                            <select name="date_type" class="form-control" id="date_type">
+                                <option value="single">Single Date</option>
+                                <option value="range">Date Range</option>
+                            </select>
+                            <br>
+                            <div id="single-date">
+                                <label for="start_dateA" class="span ms-3 mb-1">Start Date:</label>
+                                <input type="date" name="eventSDateA" class="form-control"
+                                    min="{{ now()->format('Y-m-d') }}"max="{{ date('Y-m-d', strtotime('+1 year')) }}"
+                                    id="start_dateA">
+                                <br>
+                                <label for="start_timeA" class="span ms-3 mb-1">Start Time:</label>
+                                <input type="time" name="eventSTimeA" id="start_timeA" class="form-control">
+                                <br>
+                                <label for="end_timeA" class="span ms-3 mb-1">End Time:</label>
+                                <input type="time" name="eventETimeA" id="end_timeA" class="form-control">
+                            </div>
+                            <div id="range-dates" style="display: none;">
+                                <label for="start_dateB" class="span ms-3 mb-1">Start Date:</label>
+                                <input type="date" name="eventSDateB"
+                                    max="{{ date('Y-m-d', strtotime('+1 year')) }}"id="start_dateB"class="form-control"
+                                    min="{{ now()->format('Y-m-d') }}">
+                                <br>
+                                <label for="end_date" class="span ms-3 mb-1">End Date:</label>
+                                <input type="date" name="eventEDateB" max="{{ date('Y-m-d', strtotime('+1 year')) }}"
+                                    id="end_date"class="form-control" min="{{ now()->format('Y-m-d') }}">
+                                <br>
+                                <label for="start_timeb" class="span ms-3 mb-1">Start Time:</label>
+                                <input type="time" name="eventSTimeB" id="start_timeB" class="form-control">
+                                <br>
+                                <label for="end_timeb" class="span ms-3 mb-1">End Time:</label>
+                                <input type="time" name="eventETimeB" id="end_timeB" class="form-control">
+                                <br>
+                                <label for="weekdays" class="span ms-3 mb-1">Weekdays:</label>
+                                <br>
+                                <input type="checkbox" name="weekdays[]" value="saturday"> Saturday <br>
+                                <input type="checkbox" name="weekdays[]" value="sunday"> Sunday <br>
+                                <input type="checkbox" name="weekdays[]" value="monday"> Monday <br>
+                                <input type="checkbox" name="weekdays[]" value="tuesday"> Tuesday <br>
+                                <input type="checkbox" name="weekdays[]" value="wednesday"> Wednesday <br>
+                                <input type="checkbox" name="weekdays[]" value="thursday"> Thursday <br>
+                                <input type="checkbox" name="weekdays[]" value="friday"> Friday <br>
+                            </div>
                         </div>
-
-                        <div class="form-group mb-3">
-                            <label for="eventEDate" class="span ms-3 mb-1"> End Date </label>
-                            <input type="date" name="eventEDate" id="eventEDate" min="{{ now()->format('Y-m-d') }}"
-                                required placeholder="" class="form-control w-100 mb-1" />
-                        </div>
-                        {{-- 
-                        <div class="form-group mb-3">
-                            <label for="repeat" class="span ms-3 mb-1"> Repeat Every </label>
-                            <br>
-                            <input type="checkbox" value="Saturday" name="eventRepeatDay" required id="Saturday" />
-                            <label for="Saturday" class="span ms-3 mb-1 text-muted">
-                                Saturday
-                            </label>
-                            <br>
-                            <input type="checkbox" value="Sunday" name="eventRepeatDay" required id="Sunday" />
-                            <label for="Sunday" class="span ms-3 mb-1 text-muted">
-                                Sunday
-                            </label>
-                            <br>
-                            <input type="checkbox" value="Monday" name="eventRepeatDay" required id="Monday" />
-                            <label for="Monday" class="span ms-3 mb-1 text-muted">
-                                Monday
-                            </label>
-                            <br>
-                            <input type="checkbox" value="Tuesday" name="eventRepeatDay" required id="Tuesday" />
-                            <label for="Tuesday" class="span ms-3 mb-1 text-muted">
-                                Tuesday
-                            </label>
-                            <br>
-                            <input type="checkbox" value="Wendsday" name="eventRepeatDay" required id="Wendsday" />
-                            <label for="Wendsday" class="span ms-3 mb-1 text-muted">
-                                Wendsday
-                            </label>
-                            <br>
-                            <input type="checkbox" value="Thursday" name="eventRepeatDay" required id="Thursday" />
-                            <label for="Thursday" class="span ms-3 mb-1 text-muted">
-                                Thursday
-                            </label>
-                            <br>
-                            <input type="checkbox" value="Friday" name="eventRepeatDay" required id="Friday" />
-                            <label for="Friday" class="span ms-3 mb-1 text-muted">
-                                Friday
-                            </label>
-                        </div> --}}
 
                         <hr>
 
@@ -173,4 +169,22 @@
             <div class="col-0 col-md-3"></div>
         </div>
     </div>
+@endsection
+@section('scripts')
+    <script>
+        const dateTypeSelect = document.getElementById('date_type');
+        const singleDateFields = document.getElementById('single-date');
+        const rangeDateFields = document.getElementById('range-dates');
+
+
+        dateTypeSelect.addEventListener('change', () => {
+            if (dateTypeSelect.value === 'single') {
+                singleDateFields.style.display = 'block';
+                rangeDateFields.style.display = 'none';
+            } else {
+                singleDateFields.style.display = 'none';
+                rangeDateFields.style.display = 'block';
+            }
+        });
+    </script>
 @endsection

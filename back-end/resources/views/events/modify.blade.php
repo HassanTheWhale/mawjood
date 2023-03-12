@@ -73,57 +73,6 @@
 
                         <hr>
 
-                        <div class="form-group mb-3">
-                            <label for="eventSDate" class="span ms-3 mb-1"> Start Date </label>
-                            <input type="date" name="eventSDate" id="eventSDate" min="{{ now()->format('Y-m-d') }}"
-                                required placeholder="" value="{{ $event->start_date }}"class="form-control w-100 mb-1" />
-                        </div>
-
-                        <div class="form-group mb-3">
-                            <label for="eventEDate" class="span ms-3 mb-1"> End Date </label>
-                            <input type="date" name="eventEDate" id="eventEDate" min="{{ now()->format('Y-m-d') }}"
-                                required placeholder="" value="{{ $event->end_date }}" class="form-control w-100 mb-1" />
-                        </div>
-                        {{-- 
-                        <div class="form-group mb-3">
-                            <label for="repeat" class="span ms-3 mb-1"> Repeat Every </label>
-                            <br>
-                            <input type="checkbox" value="Saturday" name="eventRepeatDay" required id="Saturday" />
-                            <label for="Saturday" class="span ms-3 mb-1 text-muted">
-                                Saturday
-                            </label>
-                            <br>
-                            <input type="checkbox" value="Sunday" name="eventRepeatDay" required id="Sunday" />
-                            <label for="Sunday" class="span ms-3 mb-1 text-muted">
-                                Sunday
-                            </label>
-                            <br>
-                            <input type="checkbox" value="Monday" name="eventRepeatDay" required id="Monday" />
-                            <label for="Monday" class="span ms-3 mb-1 text-muted">
-                                Monday
-                            </label>
-                            <br>
-                            <input type="checkbox" value="Tuesday" name="eventRepeatDay" required id="Tuesday" />
-                            <label for="Tuesday" class="span ms-3 mb-1 text-muted">
-                                Tuesday
-                            </label>
-                            <br>
-                            <input type="checkbox" value="Wendsday" name="eventRepeatDay" required id="Wendsday" />
-                            <label for="Wendsday" class="span ms-3 mb-1 text-muted">
-                                Wendsday
-                            </label>
-                            <br>
-                            <input type="checkbox" value="Thursday" name="eventRepeatDay" required id="Thursday" />
-                            <label for="Thursday" class="span ms-3 mb-1 text-muted">
-                                Thursday
-                            </label>
-                            <br>
-                            <input type="checkbox" value="Friday" name="eventRepeatDay" required id="Friday" />
-                            <label for="Friday" class="span ms-3 mb-1 text-muted">
-                                Friday
-                            </label>
-                        </div> --}}
-
                         <hr>
 
                         <div class="form-group mb-3">

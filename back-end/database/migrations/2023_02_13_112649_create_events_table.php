@@ -19,7 +19,9 @@ return new class extends Migration {
             $table->string('picture')->default("https://source.unsplash.com/1920x1080/?school");
             $table->integer('min_grade')->default(-1);
             $table->date('start_date');
-            $table->date('end_date');
+            $table->date('end_date')->nullable();
+            $table->time('start_time');
+            $table->time('end_time');
             $table->integer('strange')->default(0);
             $table->integer('private')->default(0);
             $table->unsignedBigInteger('user_id')->unsigned();
@@ -29,7 +31,7 @@ return new class extends Migration {
             $table->timestamps();
         });
     }
- 
+
     /**
      * Reverse the migrations.
      *

@@ -16,14 +16,21 @@ class events extends Model
         'min_grade',
         'start_date',
         'end_date',
+        'start_time',
+        'end_time',
         'strange',
         'private',
         'user_id',
         'category',
     ];
 
-public function users()
-{
-    return $this->belongsTo(User::class, 'users');
-}
+    public function users()
+    {
+        return $this->belongsTo(User::class, 'users');
+    }
+
+    public function dates()
+    {
+        return $this->hasMany(EventInstances::class, 'event_id');
+    }
 }
