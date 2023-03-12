@@ -18,8 +18,6 @@ class FollowControler extends Controller
     {
         $myuser = Auth::user();
         $another_user = User::where('id', $id)->firstOrFail();
-        error_log($myuser->id);
-        error_log($another_user->id);
 
         $data = [
             "user_id" => $myuser->id,
