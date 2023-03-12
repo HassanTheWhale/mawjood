@@ -28,7 +28,7 @@
                         <div class="col-9 mt-4">
                             <div class="row text-center">
                                 <div class="col-4">
-                                    1 <br />
+                                    {{ $countCertificate }} <br />
                                     Certificates
                                 </div>
                                 <div class="col-4">

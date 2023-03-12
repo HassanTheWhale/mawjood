@@ -22,6 +22,7 @@ class UserController extends Controller
         $user = Auth::user();
         $countFollowers = follow::where('follow_id', $user->id)->count();
         $countFollowing = follow::where('user_id', $user->id)->count();
+        $countCertificate = 0;
         $events = events::where('user_id', $user->id)->get();
         return view('users.profile', compact('user', 'countFollowers', 'countFollowing', 'events'));
     }
@@ -48,6 +49,7 @@ class UserController extends Controller
         $followed = follow::where('user_id', Auth::id())->where('follow_id', $user->id)->exists();
         $countFollowers = follow::where('follow_id', $user->id)->count();
         $countFollowing = follow::where('user_id', $user->id)->count();
+        $countCertificate = 0;
         // check if the user are the same, go to the same
         $myuser = Auth::user();
         if ($user->id == $myuser->id || $user->type == 1)
