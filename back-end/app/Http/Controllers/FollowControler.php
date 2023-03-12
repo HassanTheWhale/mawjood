@@ -26,13 +26,13 @@ class FollowControler extends Controller
 
         $myuser->follows()->create($data);
 
-        return redirect()->back()->with('message1', 'Follow Done!');
+        return redirect()->back(); //->with('message1', 'Follow Done!');
     }
 
     public function unfollow($id)
     {
         $follow = follow::where('user_id', Auth::id())->where('follow_id', $id)->first();
         $follow->delete();
-        return redirect()->back()->with('message1', 'Unfollow Done!');
+        return redirect()->back(); //->with('message1', 'Unfollow Done!');
     }
 }
