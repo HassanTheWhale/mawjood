@@ -54,27 +54,27 @@
             <div class="col-0 col-md-3"></div>
             <div class="col-12 col-md-6 h-100">
                 <div class="row h-100 bg-prime">
-                    <a href="../home" class="d-block col-3 h-100 p-0">
-                        <div class="w-100 active h-100 d-flex justify-content-center align-items-center">
-                            <img src="../imgs/home.png" alt="Home" />
+                    <a href="{{ url('/home/') }}" class="d-block col-3 h-100 p-0">
+                        <div class="w-100 h-100 d-flex justify-content-center align-items-center">
+                            <img src="{{ asset('imgs/home.png') }}" alt="Home" />
                         </div>
                     </a>
 
-                    <a href="../search" class="d-block col-3 h-100 p-0">
+                    <a href="{{ url('/search') }}" class="d-block col-3 h-100 p-0">
                         <div class="w-100 h-100 d-flex justify-content-center align-items-center">
-                            <img src="../imgs/search.png" alt="search for user" />
+                            <img src="{{ asset('imgs/search.png') }}" alt="search for user" />
                         </div>
                     </a>
 
-                    <a href="../certificates" class="d-block col-3 h-100 p-0">
+                    <a href="{{ url('/certificates') }}" class="d-block col-3 h-100 p-0">
                         <div class="w-100 h-100 d-flex justify-content-center align-items-center">
-                            <img src="../imgs/certificate.png" alt="My certificates" />
+                            <img src="{{ asset('imgs/certificate.png') }}" alt="My certificates" />
                         </div>
                     </a>
 
-                    <a href="../profile" class="d-block col-3 h-100 p-0" id="profileButton">
+                    <a href="{{ url('/profile') }}" class="d-block col-3 h-100 p-0" id="profileButton">
                         <div class="w-100 h-100 d-flex justify-content-center align-items-center">
-                            <img src="../imgs/profile.png" alt="My Profile" />
+                            <img src="{{ asset('imgs/profile.png') }}" alt="My Profile" />
                         </div>
                     </a>
                 </div>
