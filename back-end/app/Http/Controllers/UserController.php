@@ -33,7 +33,7 @@ class UserController extends Controller
         $query = $request->input('search');
 
         if ($request->has('search')) {
-            $users = User::where('username', 'LIKE', '%' . $query . '%')->take(5)->get();
+            $users = User::where('username', 'LIKE', '%' . $query . '%')->where('type', 0)->take(5)->get();
             return view('users.search', ['users' => $users, 'query' => $query]);
         } else {
             return view('users.search', ['users' => [], 'query' => ""]);

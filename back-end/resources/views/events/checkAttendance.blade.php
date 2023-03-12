@@ -5,36 +5,30 @@
         <div class="row h-100 justify-content-center align-items-center">
             <div class="col-2"></div>
             <div class="col-8">
-                <h4 class="m-0">My Events</h4>
+                <h4 class="m-0">Check {{ $event->name }}</h4>
             </div>
             <div class="col-2 pe-5"></div>
         </div>
     </div>
-    <div class="content h-84 py-4">
-        <div class="container">
-            <div class="row">
-                <div class="col-0 col-md-3"></div>
-                <div class="col-12 col-md-6">
-                    @if (session()->has('type'))
-                        <div class="alert alert-{{ session('type') }}" role="alert"> {{ session('message') }} </div>
-                    @endif
-                    <a href="myList" class="span text-muted mb-3 d-block">
-                        <div class="card rounded overflow-hidden p-3">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <span>My Events</span> <span>&gt;</span>
-                            </div>
-                        </div>
-                    </a>
+    <div class="content h-84">
+        <div class="row">
+            <div class="col-md-6 mx-auto py-4">
+                @if (session()->has('message'))
+                    <div class="alert alert-{{ session('type') }}" role="alert"> {{ session('message') }} </div>
+                @endif
 
-                    <a href="create" class="span text-muted d-block mb-3">
-                        <div class="card rounded overflow-hidden p-3">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <span>Create Events</span> <span>&gt;</span>
+                @if (count($users) > 0)
+                    @foreach ($users as $user)
+                        <a href="/checkAttendance/{{ $event->id }}/{{ $user->id }}" class="text-decoration-none">
+                            <div class="card rounded bg-white overflow-hidden p-2 mb-2">
+                                <div class="d-flex align-items-center">
+                                    <img src="{{ $user->picture }}" alt="event" width="64px" class="rounded-circle" />
+                                    <span class="text-muted ms-3 ">{{ $user->name }}</span>
+                                </div>
                             </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-0 col-md-3"></div>
+                        </a>
+                    @endforeach
+                @endif
             </div>
         </div>
     </div>
@@ -44,7 +38,7 @@
             <div class="col-12 col-md-6 h-100">
                 <div class="row h-100 bg-prime">
                     <a href="{{ url('/home/') }}" class="d-block col-3 h-100 p-0">
-                        <div class="active w-100 h-100 d-flex justify-content-center align-items-center">
+                        <div class="w-100 h-100 d-flex justify-content-center align-items-center">
                             <img src="{{ asset('imgs/home.png') }}" alt="Home" />
                         </div>
                     </a>

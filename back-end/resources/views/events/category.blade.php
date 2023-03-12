@@ -55,7 +55,7 @@
             <div class="col-12 col-md-6 h-100">
                 <div class="row h-100 bg-prime">
                     <a href="{{ url('/home/') }}" class="d-block col-3 h-100 p-0">
-                        <div class="w-100 h-100 d-flex justify-content-center align-items-center">
+                        <div class="active w-100 h-100 d-flex justify-content-center align-items-center">
                             <img src="{{ asset('imgs/home.png') }}" alt="Home" />
                         </div>
                     </a>

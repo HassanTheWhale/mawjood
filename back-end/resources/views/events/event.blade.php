@@ -38,7 +38,11 @@
                     </small>
                     <p class="text-end mt-3 mb-1">
                         @if ($event->user_id == $myuser->id)
-                            <a href="../modify/{{ $event->id }}/" class="btn btn-secondary text-white">Modify</a>
+                            <div class="d-flex justify-content-around align-items-center"> <a
+                                    href="../modify/{{ $event->id }}/" class="btn btn-secondary text-white">Modify
+                                    Event</a>
+                                <a href="../check/{{ $event->id }}/" class="btn btn-primary text-white">Check Event</a>
+                            </div>
                         @elseif ($attend)
                             <a href="../event/{{ $event->id }}/withdraw"
                                 class="btn btn-secondary text-white">Withdraw</a>

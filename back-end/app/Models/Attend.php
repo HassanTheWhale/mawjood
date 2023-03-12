@@ -14,4 +14,9 @@ class Attend extends Model
         'event_id',
         'grade',
     ];
+
+    public function users()
+    {
+        return $this->hasMany(User::class, 'users');
+    }
 }

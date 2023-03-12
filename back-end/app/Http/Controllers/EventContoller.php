@@ -15,11 +15,6 @@ class EventContoller extends Controller
         $this->middleware('auth');
     }
 
-    // public function myEvent()
-    // {
-    //     return view('events.myEvents');
-    // }
-
     public function create()
     {
         $categories = eventCategory::all();

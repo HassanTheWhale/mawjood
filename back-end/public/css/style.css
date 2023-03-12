@@ -9,6 +9,11 @@
     color: rgb(97, 97, 97) !important;
 }
 
+.nav-link:hover,
+.nav-link:focus {
+    color: var(--prime);
+}
+
 .h-5 {
     height: 5% !important;
 }

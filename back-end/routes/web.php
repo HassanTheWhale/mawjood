@@ -50,8 +50,15 @@ Route::get('/category/{id}', [App\Http\Controllers\CategoryController::class, 'c
 // Route::get('/myEvents', [App\Http\Controllers\EventContoller::class, 'myEvent'])->name('events');
 Route::get('/event/{id}', [App\Http\Controllers\EventContoller::class, 'event'])->name('events.event');
 
+// signup and withdraw
 Route::get('/event/{id}/signup', [App\Http\Controllers\EventSignController::class, 'signup'])->name('events.signup');
 Route::get('/event/{id}/withdraw', [App\Http\Controllers\EventSignController::class, 'withdraw'])->name('events.withdraw');
+
+//check event
+Route::get('/check/{id}/', [App\Http\Controllers\EventControlController::class, 'check'])->name('events.check');
+Route::get('/checkAttendance/{id}/', [App\Http\Controllers\EventControlController::class, 'checkAttendance'])->name('events.checkAttendance');
+Route::get('/checkAttendance/{id}/{user}', [App\Http\Controllers\EventControlController::class, 'checkAttendanceUser'])->name('events.checkAttendanceUser');
+
 
 // create new event
 Route::get('/create', [App\Http\Controllers\EventContoller::class, 'create'])->name('events.create');
