@@ -45,15 +45,13 @@ class EventContoller extends Controller
 
     public function createEvent(Request $request)
     {
-        // I need to check how this works!
-
-        $validatedData = $request->validate([
-            //     'eventName' => 'required|max:50',
-            //     'eventDesc' => 'required|max:50',
-            //     'eventGrade' => 'required|integer|min:0',
-            // 'eventPic' => 'required|image',
-            //     'start_date' => 'required',
-        ]);
+        // $validatedData = $request->validate([
+        //         'eventName' => 'required|max:50',
+        //         'eventDesc' => 'required|max:50',
+        //         'eventGrade' => 'required|integer|min:0',
+        //     'eventPic' => 'required|image',
+        //         'start_date' => 'required',
+        // ]);
 
         $myuser = Auth::user();
 
@@ -95,7 +93,7 @@ class EventContoller extends Controller
                 'message' => 'Event was created!',
             ]);
         } else {
-            return redirect('event' . $event->id)->with([
+            return redirect('home/')->with([
                 'type' => "error",
                 'message' => 'Event was not created!',
             ]);
