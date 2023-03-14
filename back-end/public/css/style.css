@@ -9,6 +9,17 @@
     color: rgb(97, 97, 97) !important;
 }
 
+.swal2-popup {
+    height: auto !important;
+    max-height: 90% !important;
+}
+.swal2-container {
+    z-index: 99999 !important;
+}
+
+.swal2-shown {
+    height: auto !important;
+}
 .nav-link:hover,
 .nav-link:focus {
     color: var(--prime);
@@ -63,8 +74,11 @@
 
 body {
     background-color: var(--bg);
-    height: 100vh;
+    height: 100vh !important;
     overflow: hidden;
+}
+#body-hight {
+    height: 100vh !important;
 }
 
 .bg-prime2 {
