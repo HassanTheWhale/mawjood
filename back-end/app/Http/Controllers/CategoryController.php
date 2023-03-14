@@ -14,7 +14,7 @@ class CategoryController extends Controller
 
     public function category($id)
     {
-        $events = events::where('category', $id)->get();
+        $events = events::where('category', $id)->where('private', 0)->get();
         return view('events.category', compact('events'));
     }
 }

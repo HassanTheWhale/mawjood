@@ -16,25 +16,20 @@
                 @if (session()->has('message'))
                     <div class="alert alert-{{ session('type') }}" role="alert"> {{ session('message') }} </div>
                 @endif
-                <h4 class="span mb-3">{{ $event->name }}</h4>
-                <p class="text-muted">Registered attendance: {{ $registered }}</p>
-                <a href="{{ url('/checkAttendance/' . $event->id) }}" class="span text-muted d-block mb-3">
-                    <div class="card rounded overflow-hidden p-3">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <span>Attendance list</span> <span>&gt;</span>
-                        </div>
+
+                <form method="POST" action="{{ route('events.privateKeyModify', $event->id) }}">
+                    @csrf
+                    <label for="text" class="span mb-2">Private Key:</label>
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <input type="password" name="text" id="text" value="{{ $event->key }}"
+                            class="me-3 form-control" readonly>
                     </div>
-                </a>
-                <a href="{{ url('/PrivateKey/' . $event->id) }}" class="span text-muted d-block mb-3">
-                    <div class="card rounded overflow-hidden p-3">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <span>Private Key</span> <span>&gt;</span>
-                        </div>
+                    <div class="d-flex justify-content-around align-items-center">
+                        <button type="button" id="toggle" class="me-3 btn btn-secondary">Show/Hide</button>
+                        <button type="submit" class="btn btn-primary text-white">Generate new one</button>
                     </div>
-                </a>
-                {{-- <a href="" class="btn btn-primary text-white w-100">
-                    Send Certitficates
-                </a> --}}
+                </form>
+
             </div>
         </div>
     </div>
@@ -71,4 +66,20 @@
             <div class="col-0 col-md-3"></div>
         </div>
     </div>
+@endsection
+@section('scripts')
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const textInput = document.getElementById("text");
+            const toggleButton = document.getElementById("toggle");
+
+            toggleButton.addEventListener("click", function() {
+                if (textInput.type === "text") {
+                    textInput.type = "password";
+                } else {
+                    textInput.type = "text";
+                }
+            });
+        });
+    </script>
 @endsection

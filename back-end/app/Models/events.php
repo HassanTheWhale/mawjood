@@ -14,6 +14,7 @@ class events extends Model
         'description',
         'picture',
         'min_grade',
+        'type',
         'start_date',
         'end_date',
         'start_time',

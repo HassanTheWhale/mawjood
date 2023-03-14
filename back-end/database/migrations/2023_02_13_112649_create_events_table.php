@@ -18,6 +18,7 @@ return new class extends Migration {
             $table->string('description');
             $table->string('picture')->default("https://source.unsplash.com/1920x1080/?school");
             $table->integer('min_grade')->default(-1);
+            $table->integer('type');
             $table->date('start_date');
             $table->date('end_date')->nullable();
             $table->time('start_time', 0)->format('H:i');
@@ -25,7 +26,7 @@ return new class extends Migration {
             $table->integer('strange')->default(0);
             $table->integer('closed')->default(0);
             $table->integer('private')->default(0);
-            $table->string('key')->nullable();
+            $table->string('key')->nullable()->unique();
             $table->unsignedBigInteger('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->unsignedBigInteger('category')->unsigned();
