@@ -116,12 +116,12 @@
 
                         <hr>
 
-                        <div class="form-group mb-3">
+                        {{-- <div class="form-group mb-3">
                             <input type="checkbox" value="1" name="eventStrange" id="eventStrange" />
                             <label for="eventStrange" class="span ms-3 mb-1 text-muted">
                                 Allow unregistered users to attend.
                             </label>
-                        </div>
+                        </div> --}}
 
                         <div class="form-group mb-3">
                             <input type="checkbox" value="1" name="eventPrivate" id="eventPrivate" />

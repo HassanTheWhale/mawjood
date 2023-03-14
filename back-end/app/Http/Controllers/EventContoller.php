@@ -92,7 +92,7 @@ class EventContoller extends Controller
             $currentDate = Carbon::parse($startDate->format('Y-m-d') . ' ' . $startTime);
 
             dd($startDate, $endDate);
-            
+
             while ($currentDate->lte($endTime)) {
                 if (in_array($currentDate->dayOfWeek, $weekdays)) {
                     $created = $event->dates()->create([
@@ -104,18 +104,18 @@ class EventContoller extends Controller
                 }
                 $currentDate->addDay();
             }
+        }
 
-            if ($event) {
-                return redirect('event/' . $event->id)->with([
-                    'type' => "success",
-                    'message' => 'Event was created!',
-                ]);
-            } else {
-                return redirect('home/')->with([
-                    'type' => "danger",
-                    'message' => 'Event was not created!',
-                ]);
-            }
+        if ($event) {
+            return redirect('event/' . $event->id)->with([
+                'type' => "success",
+                'message' => 'Event was created!',
+            ]);
+        } else {
+            return redirect('home/')->with([
+                'type' => "danger",
+                'message' => 'Event was not created!',
+            ]);
         }
     }
 

@@ -75,7 +75,7 @@
 
                         <hr>
 
-                        <div class="form-group mb-3">
+                        {{-- <div class="form-group mb-3">
                             @if ($event->strange)
                                 <input type="checkbox" value="1" name="eventStrange" id="eventStrange" checked />
                             @else
@@ -84,7 +84,7 @@
                             <label for="eventStrange" class="span ms-3 mb-1 text-muted">
                                 Allow unregistered users to attend.
                             </label>
-                        </div>
+                        </div> --}}
 
                         <div class="form-group mb-3">
                             @if ($event->private)
