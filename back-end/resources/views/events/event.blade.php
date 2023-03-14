@@ -29,8 +29,13 @@
                     <small>
                         {{-- <p class="text-muted">Sun - Mon - Thurs</p> --}}
                         <p class="text-muted">
-                            From: {{ $event->start_date }} <br />
-                            To: {{ $event->end_date }}
+
+                            @if ($event->start_date == $event->end_date)
+                                Date: {{ $event->start_date }} <br />
+                            @else
+                                Date From: {{ $event->start_date }} - To: {{ $event->end_date }}
+                            @endif
+                            Time From: {{ $event->start_time }} - To: {{ $event->end_time }}
                         </p>
                         <p class="text-muted">
                             {{ $event->description }}
@@ -38,8 +43,10 @@
                     </small>
                     <p class="text-end mt-3 mb-1">
                         @if ($event->user_id == $myuser->id)
-                            <div class="d-flex justify-content-around align-items-center"> <a
-                                    href="../modify/{{ $event->id }}/" class="btn btn-secondary text-white">Modify
+                            <div class="d-flex justify-content-around align-items-center">
+                                <a href="#" onclick="removeEvent()" class="btn btn-outline-danger">Remove
+                                    Event</a>
+                                <a href="../modify/{{ $event->id }}/" class="btn btn-secondary text-white">Modify
                                     Event</a>
                                 <a href="../check/{{ $event->id }}/" class="btn btn-primary text-white">Check Event</a>
                             </div>
@@ -87,4 +94,26 @@
             <div class="col-0 col-md-3"></div>
         </div>
     </div>
+@endsection
+@section('scripts')
+    <script>
+        function removeEvent() {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#56c4cf',
+                confirmButtonText: 'Yes, delete it!',
+                customClass: {
+                    container: 'my-swal-container'
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = '../remove/{{ $event->id }}'
+                }
+            })
+        }
+    </script>
 @endsection

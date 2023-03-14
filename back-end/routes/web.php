@@ -63,5 +63,6 @@ Route::get('/checkAttendance/{id}/{user}', [App\Http\Controllers\EventControlCon
 // create new event
 Route::get('/create', [App\Http\Controllers\EventContoller::class, 'create'])->name('events.create');
 Route::post('/create', [App\Http\Controllers\EventContoller::class, 'createEvent'])->name('events.createEvent');
+Route::get('/remove/{id}', [App\Http\Controllers\EventContoller::class, 'remove'])->name('events.remove');
 Route::get('/modify/{id}', [App\Http\Controllers\EventContoller::class, 'modify'])->name('events.modify');
 Route::post('/modify/{id}', [App\Http\Controllers\EventContoller::class, 'modifyEvent'])->name('events.modifyEvent');

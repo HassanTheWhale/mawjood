@@ -41,6 +41,20 @@ class EventContoller extends Controller
         return view('events.modify', compact('event', 'categories'));
     }
 
+    public function remove($id)
+    {
+        $event = events::where('id', $id)->firstOrFail();
+        $myuser = Auth::user();
+        if ($event->user_id != $myuser->id) {
+            return redirect('event/' . $event->id);
+        }
+        $event->delete();
+        return redirect('home/')->with([
+            'type' => "success",
+            'message' => 'Event was removed!',
+        ]);
+    }
+
     public function createEvent(Request $request)
     {
         $myuser = Auth::user();
@@ -73,9 +87,7 @@ class EventContoller extends Controller
             $array['end_time'] = $request->input('eventETimeB');
         }
 
-
         $event = events::create($array);
-
 
         $startDate = Carbon::parse($request->input('start_date'));
         $endDate = Carbon::parse($request->input('end_date'));
