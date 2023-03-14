@@ -20,6 +20,7 @@ class events extends Model
         'end_time',
         'strange',
         'private',
+        'closed',
         'user_id',
         'category',
     ];
