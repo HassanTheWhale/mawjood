@@ -52,6 +52,7 @@ Route::get('/event/{id}', [App\Http\Controllers\EventContoller::class, 'event'])
 
 // signup and withdraw
 Route::get('/event/{id}/signup', [App\Http\Controllers\EventSignController::class, 'signup'])->name('events.signup');
+Route::get('/event/{id}/privatesignup', [App\Http\Controllers\EventSignController::class, 'privatesignup'])->name('events.privatesignup');
 Route::get('/event/{id}/withdraw', [App\Http\Controllers\EventSignController::class, 'withdraw'])->name('events.withdraw');
 
 //check event
@@ -66,3 +67,6 @@ Route::post('/create', [App\Http\Controllers\EventContoller::class, 'createEvent
 Route::get('/remove/{id}', [App\Http\Controllers\EventContoller::class, 'remove'])->name('events.remove');
 Route::get('/modify/{id}', [App\Http\Controllers\EventContoller::class, 'modify'])->name('events.modify');
 Route::post('/modify/{id}', [App\Http\Controllers\EventContoller::class, 'modifyEvent'])->name('events.modifyEvent');
+
+Route::get('/PrivateKey/{id}', [App\Http\Controllers\EventContoller::class, 'privateKey'])->name('events.privateKey');
+Route::post('/PrivateKey/{id}', [App\Http\Controllers\EventContoller::class, 'privateKeyModify'])->name('events.privateKeyModify');

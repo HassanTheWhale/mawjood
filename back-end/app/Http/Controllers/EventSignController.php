@@ -43,4 +43,23 @@ class EventSignController extends Controller
             'type' => 'danger'
         ]);
     }
+
+
+    public function privatesignup($key)
+    {
+        $event = events::where('key', $key)->firstOrFail();
+        $myuser = Auth::user();
+        if ($event->user_id == $myuser->id) {
+            return redirect('event/' . $event->id);
+        }
+        $data = [
+            "user_id" => $myuser->id,
+            "event_id" => $event->id,
+        ];
+        $myuser->attends()->create($data);
+        return redirect('event/' . $event->id)->with([
+            'type' => "success",
+            'message' => 'You have signed up!',
+        ]);
+    }
 }

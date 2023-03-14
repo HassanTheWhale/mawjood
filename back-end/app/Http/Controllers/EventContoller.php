@@ -8,6 +8,7 @@ use App\Models\events;
 use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Log;
 
 class EventContoller extends Controller
 {
@@ -26,7 +27,11 @@ class EventContoller extends Controller
     {
         $myuser = Auth::user();
         $event = events::where('id', $id)->firstOrFail();
-        $attend = Attend::where('user_id', Auth::id())->where('event_id', $id)->first();
+        $attend = null;
+        if ($event->type == 0)
+            $attend = Attend::where('user_id', Auth::id())->where('event_id', $id)->first();
+        else
+            $attend = Attend::where('user_id', Auth::id())->where('event_id', $id)->firstOrFail();
         return view('events.event', compact('event', 'myuser', 'attend'));
     }
 
@@ -63,8 +68,6 @@ class EventContoller extends Controller
             'name' => $request->input('eventName'),
             'description' => $request->input('eventDesc'),
             'min_grade' => $request->input('eventGrade'),
-            'start_date' => Carbon::parse($request->input('eventSDate')),
-            'end_date' => Carbon::parse($request->input('eventEDate')),
             'category' => $request->input('eventCategory'),
             'strange' => is_null($request->input('eventStrange')) ? 0 : $request->input('eventStrange'),
             'private' => is_null($request->input('eventPrivate')) ? 0 : $request->input('eventPrivate'),
@@ -77,42 +80,51 @@ class EventContoller extends Controller
             $array['picture'] = $filename;
         }
 
-        $dateType = $request->input('date_type');
+        $key = uniqid();
+        $key = substr($key, 0, 10);
+        $array['key'] = $key;
 
+        $dateType = $request->input('date_type');
         if ($dateType === 'single') {
             $array['start_time'] = $request->input('eventSTimeA');
             $array['end_time'] = $request->input('eventETimeA');
+            $array['start_date'] = $request->input('eventSDateA');
+            $array['end_date'] = $request->input('eventSDateA');
+            $array['type'] = 0;
         } else {
             $array['start_time'] = $request->input('eventSTimeB');
             $array['end_time'] = $request->input('eventETimeB');
+            $array['start_date'] = $request->input('eventSDateB');
+            $array['end_date'] = $request->input('eventEDateB');
+            $array['type'] = 1;
         }
 
         $event = events::create($array);
 
-        $startDate = Carbon::parse($request->input('start_date'));
-        $endDate = Carbon::parse($request->input('end_date'));
-        $startTime = $request->input('start_time') ?? null;
-        $endTime = $request->input('end_time') ?? null;
+        $startDate = Carbon::parse($array['start_date']);
+        $endDate = Carbon::parse($array['end_date']);
         $weekdays = $request->input('weekdays') ?? null;
 
+
         if ($dateType === 'single') {
-            $date = $startDate->format('Y-m-d') . ($startTime ? ' ' . $startTime : '');
+            $date = $startDate->format('Y-m-d');
             $event->dates()->create([
                 'date' => $date,
             ]);
         } else {
-            $currentDate = Carbon::parse($startDate->format('Y-m-d') . ' ' . $startTime);
-
-            dd($startDate, $endDate);
-
-            while ($currentDate->lte($endTime)) {
+            $weekdays = array_keys($weekdays);
+            if ($weekdays == null) {
+                return redirect('home/')->with([
+                    'type' => "danger",
+                    'message' => 'Event was not created because you didn\'nt mention the weekdays!',
+                ]);
+            }
+            $currentDate = Carbon::parse($startDate->format('Y-m-d'));
+            while ($currentDate->lte($endDate)) {
                 if (in_array($currentDate->dayOfWeek, $weekdays)) {
-                    $created = $event->dates()->create([
-                        'date' => $currentDate->format('Y-m-d H:i:s'),
+                    $event->dates()->create([
+                        'date' => $currentDate->format('Y-m-d'),
                     ]);
-                    if (!$created) {
-                        dd('Error creating date!');
-                    }
                 }
                 $currentDate->addDay();
             }
@@ -145,8 +157,6 @@ class EventContoller extends Controller
             'name' => $request->input('eventName'),
             'description' => $request->input('eventDesc'),
             'min_grade' => $request->input('eventGrade'),
-            'start_date' => Carbon::parse($request->input('eventSDate')),
-            'end_date' => Carbon::parse($request->input('eventEDate')),
             'category' => $request->input('eventCategory'),
             'strange' => is_null($request->input('eventStrange')) ? 0 : $request->input('eventStrange'),
             'private' => is_null($request->input('eventPrivate')) ? 0 : $request->input('eventPrivate'),
@@ -158,18 +168,88 @@ class EventContoller extends Controller
             $path = $image->storeAs('public/images', $filename);
             $array['picture'] = $filename;
         }
-        $event = events::create($array);
 
-        if ($event) {
+        $dateType = $request->input('date_type');
+        if ($dateType === 'single') {
+            $array['start_time'] = $request->input('eventSTimeA');
+            $array['end_time'] = $request->input('eventETimeA');
+            $array['start_date'] = $request->input('eventSDateA');
+            $array['end_date'] = $request->input('eventSDateA');
+            $array['type'] = 0;
+        } else {
+            $array['start_time'] = $request->input('eventSTimeB');
+            $array['end_time'] = $request->input('eventETimeB');
+            $array['start_date'] = $request->input('eventSDateB');
+            $array['end_date'] = $request->input('eventEDateB');
+            $array['type'] = 1;
+        }
+
+        $event->update($array);
+
+        $startDate = Carbon::parse($array['start_date']);
+        $endDate = Carbon::parse($array['end_date']);
+        $weekdays = $request->input('weekdays') ?? null;
+        if ($weekdays == null) {
+            return redirect('event/' . $event->id);
+        }
+        $weekdays = array_keys($weekdays);
+
+        $event->dates()->delete();
+        $create = null;
+        if ($dateType === 'single') {
+            $date = $startDate->format('Y-m-d');
+            $event->dates()->create([
+                'date' => $date,
+            ]);
+        } else {
+            $currentDate = Carbon::parse($startDate->format('Y-m-d'));
+            while ($currentDate->lte($endDate)) {
+                if (in_array($currentDate->dayOfWeek, $weekdays)) {
+                    $create = $event->dates()->create([
+                        'date' => $currentDate->format('Y-m-d'),
+                    ]);
+                }
+                $currentDate->addDay();
+            }
+        }
+
+        if ($event->wasChanged() || count($event->getChanges()) > 0 || $create) {
             return redirect('event/' . $event->id)->with([
                 'type' => "success",
                 'message' => 'Event was modified!',
             ]);
         } else {
-            return redirect('home/')->with([
-                'type' => "error",
-                'message' => 'Event was not created!',
+            return redirect('event/' . $event->id)->with([
+                'type' => "danger",
+                'message' => 'Event was not modified!',
             ]);
         }
+    }
+    public function privateKey($id)
+    {
+        $event = events::where('id', $id)->firstOrFail();
+        $myuser = Auth::user();
+        if ($event->user_id != $myuser->id) {
+            return redirect('event/' . $event->id);
+        }
+        return view('events.privateKey', compact('event'));
+    }
+
+    public function privateKeyModify(Request $request, $id)
+    {
+        $event = events::where('id', $id)->firstOrFail();
+        $myuser = Auth::user();
+        if ($event->user_id != $myuser->id) {
+            return redirect('event/' . $event->id);
+        }
+
+        $key = uniqid();
+        $key = substr($key, 0, 10);
+        $event->key = $key;
+        $event->save();
+        return redirect('PrivateKey/' . $event->id)->with([
+            'type' => "success",
+            'message' => 'Private Key was Modified!',
+        ]);
     }
 }
