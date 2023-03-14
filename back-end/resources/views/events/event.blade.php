@@ -33,9 +33,16 @@
                             @if ($event->start_date == $event->end_date)
                                 Date: {{ $event->start_date }} <br />
                             @else
-                                Date From: {{ $event->start_date }} - To: {{ $event->end_date }}
+                                Date Range: <br>
+                                @foreach ($dates as $date)
+                                    &nbsp; {{ date('l, d/m/Y', strtotime($date->date)) }}
+                                    <br>
+                                @endforeach
                             @endif
-                            Time From: {{ $event->start_time }} - To: {{ $event->end_time }}
+                            <br>
+                            Time From: {{ Carbon\Carbon::createFromFormat('H:i:s', $event->start_time)->format('h:i A') }} -
+                            To:
+                            {{ Carbon\Carbon::createFromFormat('H:i:s', $event->end_time)->format('h:i A') }}
                         </p>
                         <p class="text-muted">
                             {{ $event->description }}
@@ -46,9 +53,11 @@
                             <div class="d-flex justify-content-around align-items-center">
                                 <a href="#" onclick="removeEvent()" class="btn btn-outline-danger">Remove
                                     Event</a>
-                                <a href="../modify/{{ $event->id }}/" class="btn btn-secondary text-white">Modify
+                                <a href="../modify/{{ $event->id }}/" class="btn btn-outline-secondary">Modify
                                     Event</a>
-                                <a href="../check/{{ $event->id }}/" class="btn btn-primary text-white">Check Event</a>
+                                <a href="../check/{{ $event->id }}/" class="btn btn-outline-primary">Check
+                                    Event</a>
+                                <a href="../generateQR/{{ $event->id }}/" class="btn btn-primary text-white">QR Code</a>
                             </div>
                         @elseif ($attend)
                             <a href="../event/{{ $event->id }}/withdraw"

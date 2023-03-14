@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Attend;
 use App\Models\eventCategory;
+use App\Models\EventInstances;
 use App\Models\events;
 use Auth;
 use Illuminate\Http\Request;
@@ -28,11 +29,10 @@ class EventContoller extends Controller
         $myuser = Auth::user();
         $event = events::where('id', $id)->firstOrFail();
         $attend = null;
-        if ($event->type == 0)
-            $attend = Attend::where('user_id', Auth::id())->where('event_id', $id)->first();
-        else
+        if ($event->type == 1 && $event->user_id != $myuser->id)
             $attend = Attend::where('user_id', Auth::id())->where('event_id', $id)->firstOrFail();
-        return view('events.event', compact('event', 'myuser', 'attend'));
+        $dates = EventInstances::where("event_id", $event->id)->get();
+        return view('events.event', compact('event', 'myuser', 'attend', 'dates'));
     }
 
     public function modify($id)
