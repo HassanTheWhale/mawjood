@@ -75,37 +75,44 @@
                         <div class="form-group mb-3">
                             <label for="date_type" class="span ms-3 mb-1"> Date Type:</label>
                             <select name="date_type" class="form-control" id="date_type">
-                                <option value="single">Single Date</option>
-                                <option value="range">Date Range</option>
+                                <option value="single" @if ($event->type == 0) selected @endif>Single Date
+                                </option>
+                                <option value="range" @if ($event->type == 1) selected @endif>Date Range</option>
                             </select>
                             <br>
-                            <div id="single-date">
+                            <div id="single-date" style="@if ($event->type == 1) display:none; @endif">
                                 <label for="start_dateA" class="span ms-3 mb-1">Start Date:</label>
                                 <input type="date" name="eventSDateA" class="form-control"
-                                    min="{{ now()->format('Y-m-d') }}"max="{{ date('Y-m-d', strtotime('+1 year')) }}"
-                                    id="start_dateA">
+                                    min="{{ now()->format('Y-m-d') }}" value="{{ $event->start_date }}"
+                                    max="{{ date('Y-m-d', strtotime('+1 year')) }}" id="start_dateA">
                                 <br>
                                 <label for="start_timeA" class="span ms-3 mb-1">Start Time:</label>
-                                <input type="time" name="eventSTimeA" id="start_timeA" class="form-control">
+                                <input type="time" name="eventSTimeA" id="start_timeA" value="{{ $event->start_time }}"
+                                    class="form-control">
                                 <br>
                                 <label for="end_timeA" class="span ms-3 mb-1">End Time:</label>
-                                <input type="time" name="eventETimeA" id="end_timeA" class="form-control">
+                                <input type="time" name="eventETimeA" id="end_timeA" value="{{ $event->end_time }}"
+                                    class="form-control">
                             </div>
-                            <div id="range-dates" style="display: none;">
+                            <div id="range-dates" style="@if ($event->type == 0) display:none; @endif"">
                                 <label for="start_dateB" class="span ms-3 mb-1">Start Date:</label>
                                 <input type="date" name="eventSDateB"
-                                    max="{{ date('Y-m-d', strtotime('+1 year')) }}"id="start_dateB"class="form-control"
+                                    max="{{ date('Y-m-d', strtotime('+1 year')) }}"id="start_dateB"
+                                    value="{{ $event->start_date }}" class="form-control"
                                     min="{{ now()->format('Y-m-d') }}">
                                 <br>
                                 <label for="end_date" class="span ms-3 mb-1">End Date:</label>
-                                <input type="date" name="eventEDateB" max="{{ date('Y-m-d', strtotime('+1 year')) }}"
-                                    id="end_date"class="form-control" min="{{ now()->format('Y-m-d') }}">
+                                <input type="date" name="eventEDateB" value="{{ $event->end_date }}"
+                                    max="{{ date('Y-m-d', strtotime('+1 year')) }}" id="end_date"class="form-control"
+                                    min="{{ now()->format('Y-m-d') }}">
                                 <br>
                                 <label for="start_timeb" class="span ms-3 mb-1">Start Time:</label>
-                                <input type="time" name="eventSTimeB" id="start_timeB" class="form-control">
+                                <input type="time" name="eventSTimeB" id="start_timeB"
+                                    value="{{ $event->start_time }}"class="form-control">
                                 <br>
                                 <label for="end_timeb" class="span ms-3 mb-1">End Time:</label>
-                                <input type="time" name="eventETimeB" id="end_timeB" class="form-control">
+                                <input type="time" name="eventETimeB" id="end_timeB" value="{{ $event->end_time }}"
+                                    class="form-control">
                                 <br>
                                 <label for="weekdays" class="span ms-3 mb-1">Weekdays:</label>
                                 <br>
@@ -182,4 +189,22 @@
             <div class="col-0 col-md-3"></div>
         </div>
     </div>
+@endsection
+@section('scripts')
+    <script>
+        const dateTypeSelect = document.getElementById('date_type');
+        const singleDateFields = document.getElementById('single-date');
+        const rangeDateFields = document.getElementById('range-dates');
+
+
+        dateTypeSelect.addEventListener('change', () => {
+            if (dateTypeSelect.value === 'single') {
+                singleDateFields.style.display = 'block';
+                rangeDateFields.style.display = 'none';
+            } else {
+                singleDateFields.style.display = 'none';
+                rangeDateFields.style.display = 'block';
+            }
+        });
+    </script>
 @endsection
