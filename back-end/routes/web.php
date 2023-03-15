@@ -56,7 +56,8 @@ Route::get('/event/{id}/privatesignup', [App\Http\Controllers\EventSignControlle
 Route::get('/event/{id}/withdraw', [App\Http\Controllers\EventSignController::class, 'withdraw'])->name('events.withdraw');
 
 //attend
-Route::get('/generateQR/{id}', [App\Http\Controllers\AttendaneContoller::class, 'generateQRCode'])->name('events.attend');
+Route::get('/generateQR/{id}', [App\Http\Controllers\AttendaneContoller::class, 'generateQRCode'])->name('events.qr');
+Route::get('/attendEvent/{id}', [App\Http\Controllers\AttendaneContoller::class, 'attend'])->name('events.attend');
 
 //check event
 Route::get('/check/{id}/', [App\Http\Controllers\EventControlController::class, 'check'])->name('events.check');

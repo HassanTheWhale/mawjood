@@ -31,6 +31,8 @@ class EventContoller extends Controller
         $attend = null;
         if ($event->type == 1 && $event->user_id != $myuser->id)
             $attend = Attend::where('user_id', Auth::id())->where('event_id', $id)->firstOrFail();
+        else
+            $attend = Attend::where('user_id', Auth::id())->where('event_id', $id)->first();
         $dates = EventInstances::where("event_id", $event->id)->get();
         return view('events.event', compact('event', 'myuser', 'attend', 'dates'));
     }

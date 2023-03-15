@@ -25,6 +25,7 @@ return new class extends Migration {
             $table->time('end_time', 0)->format('H:i');
             $table->integer('strange')->default(0);
             $table->integer('closed')->default(0);
+            $table->integer('allowSignup')->default(0);
             $table->integer('private')->default(0);
             $table->string('key')->nullable()->unique();
             $table->unsignedBigInteger('user_id')->unsigned();
