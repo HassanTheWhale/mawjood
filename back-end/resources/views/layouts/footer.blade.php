@@ -73,15 +73,13 @@
     button.addEventListener("mousedown", function() {
         timeoutId = setTimeout(function() {
             isButtonHeld = true;
-            console.log("Button held for 3 seconds");
             profileModal.toggle();
-        }, 1000);
+        }, 500);
     });
 
     button.addEventListener("mouseup", function() {
         clearTimeout(timeoutId);
         if (isButtonHeld) return;
-        console.log("Button held bfore 3 seconds");
         window.location.assign("./profile");
     });
 </script>

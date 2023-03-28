@@ -20,14 +20,19 @@
                         @csrf
                         <div class="form-group mb-3">
                             <label for="username" class="span ms-3 mb-1"> Username </label>
-                            <input type="text" name="username" id="username" placeholder="@mawjood"
-                                class="form-control w-100 @error('username') is-invalid @enderror"
-                                value="{{ old('username') }}" required autofocus />
-                            @error('username')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="basic-addon1">@</span>
+                                <input type="text" name="username" id="username" aria-label="Username"
+                                    aria-describedby="basic-addon1" placeholder="mawjood"
+                                    class="form-control @error('username') is-invalid @enderror"
+                                    value="{{ old('username') }}" required autofocus />
+                                @error('username')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+
                         </div>
 
                         <div class="form-group mb-3">
@@ -40,8 +45,8 @@
                                 </span>
                             @enderror
                             <!-- <div class="d-flex justify-content-end">
-                                              <a href="" class="span text-muted">Forgot your password?</a>
-                                            </div> -->
+                                                                      <a href="" class="span text-muted">Forgot your password?</a>
+                                                                    </div> -->
                         </div>
                         <button type="submit" class="btn btn-primary text-white w-100 mb-3 py-2">Login</button>
                     </form>

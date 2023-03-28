@@ -28,6 +28,7 @@ return new class extends Migration {
             $table->integer('allowSignup')->default(0);
             $table->integer('private')->default(0);
             $table->string('key')->nullable()->unique();
+            $table->string('attendKey')->unique();
             $table->unsignedBigInteger('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->unsignedBigInteger('category')->unsigned();

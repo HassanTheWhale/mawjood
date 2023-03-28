@@ -57,7 +57,8 @@
                                     Event</a>
                                 <a href="../check/{{ $event->id }}/" class="btn btn-outline-primary">Check
                                     Event</a>
-                                <a href="../generateQR/{{ $event->id }}/" class="btn btn-primary text-white">QR Code</a>
+                                <a href="../generateQR/{{ $event->id }}/" target="_blank"
+                                    class="btn btn-primary text-white">QR Code</a>
                             </div>
                         @elseif ($attend)
                             <a href="../event/{{ $event->id }}/withdraw"

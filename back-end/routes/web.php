@@ -58,6 +58,8 @@ Route::get('/event/{id}/withdraw', [App\Http\Controllers\EventSignController::cl
 //attend
 Route::get('/generateQR/{id}', [App\Http\Controllers\AttendaneContoller::class, 'generateQRCode'])->name('events.qr');
 Route::get('/attendEvent/{id}', [App\Http\Controllers\AttendaneContoller::class, 'attend'])->name('events.attend');
+Route::get('/open/{id}', [App\Http\Controllers\AttendaneContoller::class, 'open'])->name('events.open');
+Route::get('/close/{id}', [App\Http\Controllers\AttendaneContoller::class, 'close'])->name('events.close');
 
 //check event
 Route::get('/check/{id}/', [App\Http\Controllers\EventControlController::class, 'check'])->name('events.check');

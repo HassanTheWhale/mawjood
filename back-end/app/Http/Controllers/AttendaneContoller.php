@@ -24,29 +24,50 @@ class AttendaneContoller extends Controller
             return redirect('event/' . $event->id);
         }
 
-        $url = "http://localhost:8000/attendEvent/" . $id;
+        $Attendkey = uniqid();
+        $Attendkey = substr($Attendkey, 0, 10);
+        $event->update(['attendKey' => $Attendkey]);
+
+        $url = "http://localhost:8000/attendEvent/" . $event->attendKey;
         $qrCode = QrCode::size(250)->generate($url);
 
         return view('events.qr', compact('event', 'qrCode'));
     }
 
-    function attend($id)
+    function open($id)
     {
         $event = events::where('id', $id)->firstOrFail();
         $myuser = Auth::user();
+        if ($event->user_id != $myuser->id) {
+            return redirect('event/' . $event->id);
+        }
+        $event->update(['closed' => 1]);
+        return redirect('generateQR/' . $id . '/');
+    }
+
+    function close($id)
+    {
+        $event = events::where('id', $id)->firstOrFail();
+        $myuser = Auth::user();
+        if ($event->user_id != $myuser->id) {
+            return redirect('event/' . $event->id);
+        }
+        $event->update(['closed' => 0]);
+        return redirect('generateQR/' . $id . '/');
+    }
+
+    function attend($id)
+    {
+        $event = events::where('attendKey', $id)->firstOrFail();
+        $myuser = Auth::user();
 
         if ($event->user_id == $myuser->id) {
-            return redirect('home/')->with([
+            return redirect('event/' . $event->id)->with([
                 'type' => "warning",
                 'message' => 'You are the owner of the event!',
             ]);
         } else if ($event->closed == 1) {
-            return redirect('home/')->with([
-                'type' => "warning",
-                'message' => 'No one is allowed to take his/her attendance!',
-            ]);
-        } else if ($event->closed == 1) {
-            return redirect('home/')->with([
+            return redirect('home/' . $event->id)->with([
                 'type' => "warning",
                 'message' => 'No one is allowed to take his/her attendance!',
             ]);
@@ -80,7 +101,7 @@ class AttendaneContoller extends Controller
             if ($attend) {
                 return redirect('event/' . $event->id)->with([
                     'type' => "success",
-                    'message' => 'You have taken your attendance up!',
+                    'message' => 'You have taken your attendance!',
                 ]);
             } else {
                 return redirect('home/')->with([
@@ -96,11 +117,5 @@ class AttendaneContoller extends Controller
                 'message' => 'Today is not part of the event!',
             ]);
         }
-
-        if (1) {
-
-        }
-
-
     }
 }

@@ -85,6 +85,9 @@ class EventContoller extends Controller
         $key = uniqid();
         $key = substr($key, 0, 10);
         $array['key'] = $key;
+        $Attendkey = uniqid();
+        $Attendkey = substr($Attendkey, 0, 10);
+        $array['attendKey'] = $Attendkey;
 
         $dateType = $request->input('date_type');
         if ($dateType === 'single') {
