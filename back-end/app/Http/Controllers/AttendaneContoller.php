@@ -52,19 +52,25 @@ class AttendaneContoller extends Controller
         //     ]);
         // }
 
-        return view('events.face');
-
-        $already = att::join('event_instances', 'atts.instance_id', '=', 'event_instances.id')
+        $already = att::select('atts.id', 'atts.done', 'atts.face', 'atts.voice', 'atts.done')
+            ->join('event_instances', 'atts.instance_id', '=', 'event_instances.id')
             ->where('atts.event_id', $event->id)
             ->where('atts.user_id', $myuser->id)
-            ->whereDate('event_instances.date', date('Y-m-d'))
+            ->whereDate('event_instances.date', Carbon::today()->format('Y-m-d'))
             ->first();
 
         if ($already) {
-            return redirect('event/' . $event->id)->with([
-                'type' => "warning",
-                'message' => 'You already have taken your attendance!',
-            ]);
+            if ($already->done == 1)
+                return redirect('event/' . $event->id)->with([
+                    'type' => "warning",
+                    'message' => 'You already have taken your attendance!',
+                ]);
+            else if ($already->face == 1)
+                return redirect('event/' . $event->id)->with([
+                    'type' => "success",
+                    'message' => 'You have taken your attendance!',
+                ]);
+            $already->delete();
         }
 
         $instance = EventInstances::where('event_id', $event->id)
@@ -76,21 +82,9 @@ class AttendaneContoller extends Controller
                 'user_id' => $myuser->id,
                 'event_id' => $event->id,
                 'instance_id' => $instance->id,
+                'qr' => 1,
             ]);
-
-            if ($attend) {
-                return redirect('event/' . $event->id)->with([
-                    'type' => "success",
-                    'message' => 'You have taken your attendance!',
-                ]);
-            } else {
-                return redirect('home/')->with([
-                    'type' => "warning",
-                    'message' => 'Today is not part of the event!',
-                ]);
-            }
-
-
+            return view('events.face', compact('event', 'myuser', 'instance'));
         } else {
             return redirect('home/')->with([
                 'type' => "warning",

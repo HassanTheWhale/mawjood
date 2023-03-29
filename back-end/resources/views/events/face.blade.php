@@ -45,7 +45,7 @@
             // Submit the form to the server
             const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-            fetch('/faceCheck', {
+            fetch('/faceCheck/{{ $event->id }}/{{ $myuser->id }}/{{ $instance->id }}', {
                     method: 'POST',
                     body: JSON.stringify(formData),
                     headers: {
@@ -54,7 +54,10 @@
                     }
                 })
                 .then(response => {
-                    console.log(`Server response: ${response.status}`);
+                    if (response.status == 404)
+                        window.location.href('/notAvailable')
+                    else
+                        location.reload();
                 })
                 .catch(error => {
                     console.error(`Error submitting form: ${error}`);

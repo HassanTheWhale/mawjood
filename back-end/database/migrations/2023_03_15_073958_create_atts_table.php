@@ -14,6 +14,12 @@ return new class extends Migration {
     {
         Schema::create('atts', function (Blueprint $table) {
             $table->id();
+            $table->integer('qr');
+            $table->integer('face')->default(0);
+            $table->integer('voice')->default(0);
+            $table->string('geo')->nullable();
+            $table->string('note')->nullable();
+            $table->string('done')->default(0);
             $table->unsignedBigInteger('user_id')->unsigned();
             $table->unsignedBigInteger('event_id')->unsigned();
             $table->unsignedBigInteger('instance_id')->unsigned();

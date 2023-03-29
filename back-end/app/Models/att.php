@@ -11,8 +11,15 @@ class att extends Model
 
 
     protected $fillable = [
-        'user_id',
         'event_id',
+        'id',
+        'user_id',
+        'qr',
+        'face',
+        'voice',
+        'geo',
+        'done',
+        'notes',
         'instance_id',
     ];
 }
