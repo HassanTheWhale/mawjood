@@ -42,8 +42,6 @@
             const formData = new FormData(document.getElementById('camera-form'));
             formData.append('image', image);
 
-            alert('done')
-
             // Submit the form to the server
             const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
