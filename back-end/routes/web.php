@@ -60,6 +60,7 @@ Route::get('/generateQR/{id}', [App\Http\Controllers\AttendaneContoller::class, 
 Route::get('/attendEvent/{id}', [App\Http\Controllers\AttendaneContoller::class, 'attend'])->name('events.attend');
 Route::get('/open/{id}', [App\Http\Controllers\EventControlController::class, 'open'])->name('events.open');
 Route::get('/close/{id}', [App\Http\Controllers\EventControlController::class, 'close'])->name('events.close');
+Route::post('/faceCheck', [App\Http\Controllers\AuthController::class, 'captureImage'])->name('auth.face');
 
 //check event
 Route::get('/check/{id}/', [App\Http\Controllers\EventControlController::class, 'check'])->name('events.check');

@@ -40,18 +40,19 @@ class AttendaneContoller extends Controller
         $event = events::where('attendKey', $id)->firstOrFail();
         $myuser = Auth::user();
 
-        if ($event->user_id == $myuser->id) {
-            return redirect('event/' . $event->id)->with([
-                'type' => "warning",
-                'message' => 'You are the owner of the event!',
-            ]);
-        } else
-            if ($event->closed == 0) {
-                return redirect('event/' . $event->id)->with([
-                    'type' => "warning",
-                    'message' => 'No one is allowed to take his/her attendance!',
-                ]);
-            }
+        // if ($event->user_id == $myuser->id) {
+        //     return redirect('event/' . $event->id)->with([
+        //         'type' => "warning",
+        //         'message' => 'You are the owner of the event!',
+        //     ]);
+        // } else if ($event->closed == 0) {
+        //     return redirect('event/' . $event->id)->with([
+        //         'type' => "warning",
+        //         'message' => 'No one is allowed to take his/her attendance!',
+        //     ]);
+        // }
+
+        return view('events.face');
 
         $already = att::join('event_instances', 'atts.instance_id', '=', 'event_instances.id')
             ->where('atts.event_id', $event->id)

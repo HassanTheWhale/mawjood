@@ -70,18 +70,20 @@
         })
     }
 
-    button.addEventListener("mousedown", function() {
-        timeoutId = setTimeout(function() {
-            isButtonHeld = true;
-            profileModal.toggle();
-        }, 500);
-    });
+    try {
+        button.addEventListener("mousedown", function() {
+            timeoutId = setTimeout(function() {
+                isButtonHeld = true;
+                profileModal.toggle();
+            }, 500);
+        });
 
-    button.addEventListener("mouseup", function() {
-        clearTimeout(timeoutId);
-        if (isButtonHeld) return;
-        window.location.assign("./profile");
-    });
+        button.addEventListener("mouseup", function() {
+            clearTimeout(timeoutId);
+            if (isButtonHeld) return;
+            window.location.assign("./profile");
+        });
+    } catch (error) {}
 </script>
 @yield('scripts')
 </body>
