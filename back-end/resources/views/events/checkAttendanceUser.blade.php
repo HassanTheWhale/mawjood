@@ -12,8 +12,12 @@
     </div>
     <div class="content h-84">
         <div class="container py-3">
+
             <div class="row">
                 <div class="col-md-6 mx-auto">
+                    @if (session()->has('message'))
+                        <div class="alert alert-{{ session('type') }}" role="alert"> {{ session('message') }} </div>
+                    @endif
                     <div class="card rounded bg-white overflow-hidden p-2 mb-2">
                         <div class="d-flex align-items-center">
                             <img src="{{ $user->picture }}" alt="event" width="64px" class="rounded-circle" />
@@ -41,60 +45,62 @@
                             aria-labelledby="Attendance-tab">
                             <p class="text-muted mt-2">Attendance will show here</p>
                             <div class="row my-2">
-                                <div class="col-12 mb-2">
-                                    <div class="d-flex justify-content-between align-items-center">
+                                @foreach ($attendDays as $aday)
+                                    <div class="col-12 mb-2">
                                         <div class="d-flex justify-content-between align-items-center">
-                                            <img src="{{ asset('imgs/yes.png') }}" alt="event" width="16px"
-                                                class="rounded-circle" />
-                                            <span class="text-muted ms-1">08/12/2022 - 16:01</span>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <img src="{{ asset('imgs/yes.png') }}" alt="event" width="16px"
+                                                    class="rounded-circle" />
+                                                <span class="text-muted ms-1">{{ $aday }}</span>
+                                            </div>
+                                            <a
+                                                href="{{ route('events.setAbsent', ['eid' => $event->id, 'uid' => $user->id, 'date' => $aday]) }}">
+                                                <button class="btn btn-sm btn-primary text-white">
+                                                    Set Absent
+                                                </button>
+                                            </a>
                                         </div>
-                                        <button class="btn btn-sm btn-primary text-white">
-                                            Set Absent
-                                        </button>
                                     </div>
-                                </div>
-
-                                <div class="col-12 mb-2">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <img src="{{ asset('imgs/yes.png') }}" alt="event" width="16px"
-                                                class="rounded-circle" />
-                                            <span class="text-muted ms-1">11/12/2022 - 12:32</span>
-                                        </div>
-                                        <button class="btn btn-sm btn-primary text-white">
-                                            Set Absent
-                                        </button>
-                                    </div>
-                                </div>
+                                @endforeach
                             </div>
                         </div>
                         <div class="fade tab-pane" id="absent" role="tabpanel" aria-labelledby="absent-tab">
                             <p class="text-muted mt-2">Absent will show here</p>
                             <div class="row my-2  ">
-                                {{-- <div class="col-12 mb-2">
-                                    <div class="d-flex justify-content-between align-items-center mb-4">
+                                @foreach ($absentDays as $aday)
+                                    <div class="col-12 mb-2">
                                         <div class="d-flex justify-content-between align-items-center">
-                                            <img src="{{ asset('imgs/no.png') }}" alt="event" width="16px"
-                                                class="rounded-circle" />
-                                            <span class="text-muted ms-1">06/12/2022</span>
-                                        </div>
-                                        <button class="btn btn-sm btn-primary text-white">
-                                            Set Attend
-                                        </button>
-                                    </div>
-                                </div> --}}
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <img src="{{ asset('imgs/no.png') }}" alt="event" width="16px"
+                                                    class="rounded-circle" />
+                                                <span class="text-muted ms-1">{{ $aday }}</span>
+                                            </div>
+                                            <a
+                                                href="{{ route('events.setAttend', ['eid' => $event->id, 'uid' => $user->id, 'date' => $aday]) }}">
+                                                <button class="btn btn-sm btn-primary text-white">
+                                                    Set Attend
+                                                </button>
 
+                                            </a>
+                                        </div>
+                                    </div>
+                                @endforeach
                             </div>
                         </div>
                     </div>
 
-                    <form action="" class="mt-3">
+                    <form action="{{ route('events.updateGrade', ['eid' => $event->id, 'uid' => $user->id]) }}"
+                        method="POST" class="mt-3">
+                        @csrf
                         <div class="form-group">
                             <label for="grade" class="span mb-1 ms-3">Grade</label>
-                            <input type="text" name="" id="" value="{{ $attend->grade }}"
+                            <input type="number" name="grade" id="grade" value="{{ $attend->grade }}"
                                 class="form-control" placeholder="Enter the grade here" />
                         </div>
+                        <div class="text-end"><button type="submit" class="btn btn-primary text-white mt-2">Save</button>
+                        </div>
                     </form>
+
                 </div>
             </div>
         </div>

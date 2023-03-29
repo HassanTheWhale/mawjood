@@ -58,14 +58,16 @@ Route::get('/event/{id}/withdraw', [App\Http\Controllers\EventSignController::cl
 //attend
 Route::get('/generateQR/{id}', [App\Http\Controllers\AttendaneContoller::class, 'generateQRCode'])->name('events.qr');
 Route::get('/attendEvent/{id}', [App\Http\Controllers\AttendaneContoller::class, 'attend'])->name('events.attend');
-Route::get('/open/{id}', [App\Http\Controllers\AttendaneContoller::class, 'open'])->name('events.open');
-Route::get('/close/{id}', [App\Http\Controllers\AttendaneContoller::class, 'close'])->name('events.close');
+Route::get('/open/{id}', [App\Http\Controllers\EventControlController::class, 'open'])->name('events.open');
+Route::get('/close/{id}', [App\Http\Controllers\EventControlController::class, 'close'])->name('events.close');
 
 //check event
 Route::get('/check/{id}/', [App\Http\Controllers\EventControlController::class, 'check'])->name('events.check');
 Route::get('/checkAttendance/{id}/', [App\Http\Controllers\EventControlController::class, 'checkAttendance'])->name('events.checkAttendance');
 Route::get('/checkAttendance/{id}/{user}', [App\Http\Controllers\EventControlController::class, 'checkAttendanceUser'])->name('events.checkAttendanceUser');
-
+Route::get('/updateGrade/{eid}/{uid}', [App\Http\Controllers\EventControlController::class, 'updateGrade'])->name('events.updateGrade');
+Route::get('/setAbsent/{eid}/{uid}/{date}', [App\Http\Controllers\EventControlController::class, 'setAbsent'])->name('events.setAbsent');
+Route::get('/setAttend/{eid}/{uid}/{date}', [App\Http\Controllers\EventControlController::class, 'setAttend'])->name('events.setAttend');
 
 // create new event
 Route::get('/create', [App\Http\Controllers\EventContoller::class, 'create'])->name('events.create');

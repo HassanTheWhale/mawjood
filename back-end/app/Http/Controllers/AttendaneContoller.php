@@ -8,6 +8,7 @@ use App\Models\EventInstances;
 use App\Models\events;
 use Auth;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use Illuminate\Support\Carbon;
 
 class AttendaneContoller extends Controller
 {
@@ -34,28 +35,6 @@ class AttendaneContoller extends Controller
         return view('events.qr', compact('event', 'qrCode'));
     }
 
-    function open($id)
-    {
-        $event = events::where('id', $id)->firstOrFail();
-        $myuser = Auth::user();
-        if ($event->user_id != $myuser->id) {
-            return redirect('event/' . $event->id);
-        }
-        $event->update(['closed' => 1]);
-        return redirect('generateQR/' . $id . '/');
-    }
-
-    function close($id)
-    {
-        $event = events::where('id', $id)->firstOrFail();
-        $myuser = Auth::user();
-        if ($event->user_id != $myuser->id) {
-            return redirect('event/' . $event->id);
-        }
-        $event->update(['closed' => 0]);
-        return redirect('generateQR/' . $id . '/');
-    }
-
     function attend($id)
     {
         $event = events::where('attendKey', $id)->firstOrFail();
@@ -66,12 +45,13 @@ class AttendaneContoller extends Controller
                 'type' => "warning",
                 'message' => 'You are the owner of the event!',
             ]);
-        } else if ($event->closed == 1) {
-            return redirect('home/' . $event->id)->with([
-                'type' => "warning",
-                'message' => 'No one is allowed to take his/her attendance!',
-            ]);
-        }
+        } else
+            if ($event->closed == 0) {
+                return redirect('event/' . $event->id)->with([
+                    'type' => "warning",
+                    'message' => 'No one is allowed to take his/her attendance!',
+                ]);
+            }
 
         $already = att::join('event_instances', 'atts.instance_id', '=', 'event_instances.id')
             ->where('atts.event_id', $event->id)
@@ -87,9 +67,8 @@ class AttendaneContoller extends Controller
         }
 
         $instance = EventInstances::where('event_id', $event->id)
-            ->whereDate('date', date('Y-m-d'))
+            ->whereDate('date', Carbon::today()->format('Y-m-d'))
             ->first();
-
 
         if ($instance) {
             $attend = att::create([
