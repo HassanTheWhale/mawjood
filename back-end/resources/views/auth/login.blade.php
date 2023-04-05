@@ -53,8 +53,8 @@
                                 </span>
                             @enderror
                             <!-- <div class="d-flex justify-content-end">
-                                                                                                                      <a href="" class="span text-muted">Forgot your password?</a>
-                                                                                                                    </div> -->
+                                                                                                                          <a href="" class="span text-muted">Forgot your password?</a>
+                                                                                                                        </div> -->
                         </div>
                         <button type="submit" class="btn btn-primary text-white w-100 mb-3 py-2">Login</button>
                     </form>
