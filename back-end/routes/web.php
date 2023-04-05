@@ -15,6 +15,11 @@ use Illuminate\Support\Facades\Route;
 
 // check if user login or not, auth auto..
 Auth::routes();
+Route::get('/auth/google', [App\Http\Controllers\Auth\LoginController::class, 'redirectToGoogle'])->name('login.google');
+Route::get('/auth/google/callback', [App\Http\Controllers\Auth\LoginController::class, 'handleGoogleCallback'])->name('login.googlecallback');
+Route::get('/auth/microsoft', [App\Http\Controllers\Auth\LoginController::class, 'redirectToMicrosoft'])->name('login.microsoft');
+Route::get('/auth/microsoft/callback', [App\Http\Controllers\Auth\LoginController::class, 'handleMicrosoftCallback'])->name('login.microsoftcallback');
+
 
 // landing page
 Route::get('/', function () {

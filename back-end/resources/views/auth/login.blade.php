@@ -9,9 +9,17 @@
                 <h4 class="text-center mb-3 text-white">Login to your account</h4>
                 <div class="landing-downlay bg-white h-90 w-100 p-3 overflow-auto">
                     <div class="text-center mb-5">
-                        {{-- <img src="./imgs/social media.png" alt="Social Media Icons to be replaced later with real buttons"
-                            class="mx-auto" />
-                        <p class="text-muted">or use your login information</p> --}}
+                        <div class="d-flex justify-content-center align-items-center flex-column">
+                            <a href="{{ route('login.google') }}" class="btn btn-outline-danger mb-3">
+                                <img src="{{ asset('imgs/google.svg') }}"
+                                    alt="Social Media Icons to be replaced later with real buttons" class="mx-auto" />
+                                Log In with Google
+                            </a>
+                            <a href="{{ route('login.microsoft') }}" class="btn btn-outline-info">
+                                Log In with Microsft
+                            </a>
+                        </div>
+                        <p class="text-muted">or use your login information</p>
                         <h3 class="text-muted mb-3">Welcome to Mawjood</h3>
                     </div>
 
@@ -45,8 +53,8 @@
                                 </span>
                             @enderror
                             <!-- <div class="d-flex justify-content-end">
-                                                                      <a href="" class="span text-muted">Forgot your password?</a>
-                                                                    </div> -->
+                                                                                                                      <a href="" class="span text-muted">Forgot your password?</a>
+                                                                                                                    </div> -->
                         </div>
                         <button type="submit" class="btn btn-primary text-white w-100 mb-3 py-2">Login</button>
                     </form>
