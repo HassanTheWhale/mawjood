@@ -15,7 +15,7 @@
                                     alt="Social Media Icons to be replaced later with real buttons" class="mx-auto" />
                                 Log In with Google
                             </a>
-                            <a href="{{ route('login.microsoft') }}" class="btn btn-outline-info">
+                            <a href="{{ route('microsoft.login') }}" class="btn btn-outline-info">
                                 Log In with Microsft
                             </a>
                         </div>
@@ -53,8 +53,8 @@
                                 </span>
                             @enderror
                             <!-- <div class="d-flex justify-content-end">
-                                                                                                                          <a href="" class="span text-muted">Forgot your password?</a>
-                                                                                                                        </div> -->
+                                                                                                                              <a href="" class="span text-muted">Forgot your password?</a>
+                                                                                                                            </div> -->
                         </div>
                         <button type="submit" class="btn btn-primary text-white w-100 mb-3 py-2">Login</button>
                     </form>

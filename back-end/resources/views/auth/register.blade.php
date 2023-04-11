@@ -16,7 +16,7 @@
                                     alt="Social Media Icons to be replaced later with real buttons" class="mx-auto" />
                                 Sign Up with Google
                             </a>
-                            <a href="{{ route('login.microsoft') }}" class="btn btn-outline-info">
+                            <a href="{{ route('microsoft.login') }}" class="btn btn-outline-info">
                                 Sign Up with Microsft
                             </a>
                         </div>

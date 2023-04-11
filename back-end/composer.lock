@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "637184d3eb7814e711c0eec76131cdd5",
+    "content-hash": "5ed916d8bbdcd926545328dcd73a6c2f",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -2020,16 +2020,16 @@
         },
         {
             "name": "microsoft/microsoft-graph",
-            "version": "1.93.0",
+            "version": "1.94.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/microsoftgraph/msgraph-sdk-php.git",
-                "reference": "61b408f4c54e3523ff230dcd2d3ada656389b0a0"
+                "reference": "c0a41246827cf2dadcd4d3bae1ab87fdbe51edf8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/microsoftgraph/msgraph-sdk-php/zipball/61b408f4c54e3523ff230dcd2d3ada656389b0a0",
-                "reference": "61b408f4c54e3523ff230dcd2d3ada656389b0a0",
+                "url": "https://api.github.com/repos/microsoftgraph/msgraph-sdk-php/zipball/c0a41246827cf2dadcd4d3bae1ab87fdbe51edf8",
+                "reference": "c0a41246827cf2dadcd4d3bae1ab87fdbe51edf8",
                 "shasum": ""
             },
             "require": {
@@ -2065,9 +2065,9 @@
             "homepage": "https://developer.microsoft.com/en-us/graph",
             "support": {
                 "issues": "https://github.com/microsoftgraph/msgraph-sdk-php/issues",
-                "source": "https://github.com/microsoftgraph/msgraph-sdk-php/tree/1.93.0"
+                "source": "https://github.com/microsoftgraph/msgraph-sdk-php/tree/1.94.0"
             },
-            "time": "2023-04-04T12:59:39+00:00"
+            "time": "2023-04-11T13:23:45+00:00"
         },
         {
             "name": "monolog/monolog",
