@@ -50,6 +50,7 @@ Route::get('/search', [App\Http\Controllers\UserController::class, 'search'])->n
 
 //category page
 Route::get('/category/{id}', [App\Http\Controllers\CategoryController::class, 'category'])->name('category.category');
+Route::get('/followingEvent', [App\Http\Controllers\CategoryController::class, 'following'])->name('category.following');
 
 // events page
 // Route::get('/myEvents', [App\Http\Controllers\EventContoller::class, 'myEvent'])->name('events');
