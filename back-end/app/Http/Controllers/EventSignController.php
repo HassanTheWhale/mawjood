@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\att;
 use App\Models\Attend;
+use App\Models\EventInstances;
 use App\Models\events;
 use App\Models\follow;
 use App\Models\User;
@@ -61,5 +63,16 @@ class EventSignController extends Controller
             'type' => "success",
             'message' => 'You have signed up!',
         ]);
+    }
+
+    public function certificate($eid)
+    {
+        $event = events::where('id', $eid)->firstOrFail();
+        $myuser = Auth::user();
+        $isattend = Attend::where('event_id', $eid)->where('user_id', $myuser->id)->firstOrFail();
+        $eventInstances = EventInstances::where('event_id', $eid)->count();
+        $attend = att::where('event_id', $eid)->where('user_id', $myuser->id)->count();
+
+        return view("users.cer", compact('event', 'eventInstances', 'attend', 'myuser'));
     }
 }
