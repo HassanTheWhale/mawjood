@@ -20,18 +20,19 @@
                         @endif
                     @endif
 
-                    <form action="{{ route('profile.update') }}" method="POST">
+                    <form action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group mb-3">
                             <div class="row">
                                 <div class="col-3 mx-auto">
-                                    <img src="{{ $user->picture }}" class="rounded-circle img-fluid"
-                                        alt='Profile Picture' />
+                                    <img src="{{ asset($user->picture) }}" id="profile-image"
+                                        class="rounded-circle img-fluid" alt='Profile Picture' />
                                 </div>
                             </div>
-                            <label for="editPicture" class="text-center w-100 my-2">
+                            <label for="editPicture" id="edit-profile" class="text-center w-100 my-2">
                                 Edit
                             </label>
+                            <input type="file" id="file-input" name="picture" accept="image/*" style="display:none;">
                         </div>
 
                         <div class="form-group mb-3">
@@ -129,4 +130,27 @@
             <div class="col-0 col-md-3"></div>
         </div>
     </div>
+@endsection
+
+@section('scripts')
+    <script>
+        document.getElementById("profile-image").addEventListener("click", function() {
+            document.getElementById("file-input").click();
+        });
+
+        document.getElementById("edit-profile").addEventListener("click", function() {
+            document.getElementById("file-input").click();
+        });
+
+        document.getElementById("file-input").addEventListener("change", (event) => {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = () => {
+                    document.getElementById("profile-image").src = reader.result;
+                };
+            }
+        });
+    </script>
 @endsection

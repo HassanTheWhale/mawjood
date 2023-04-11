@@ -23,7 +23,36 @@ class UserController extends Controller
         $countFollowers = follow::where('follow_id', $user->id)->count();
         $countFollowing = follow::where('user_id', $user->id)->count();
         $events = events::where('user_id', $user->id)->get();
-        return view('users.profile', compact('user', 'countFollowers', 'countFollowing', 'events'));
+        $verified = $user->verified;
+        return view('users.profile', compact('user', 'countFollowers', 'countFollowing', 'events', 'verified'));
+    }
+
+    public function verify()
+    {
+        $user = Auth::user();
+        if ($user->verified)
+            return redirect('/profile');
+        return view('users.auth');
+    }
+
+
+    public function verifyPost(Request $request)
+    {
+        $user = Auth::user();
+
+        // Generate unique names for the uploaded files
+        $pictureName = uniqid('picture_') . '.' . $request->picture->extension();
+        $voiceName = uniqid('voice_') . '.' . $request->voice->extension();
+
+        $request->picture->storeAs('public/pictures', $pictureName);
+        $request->voice->storeAs('public/voices', $voiceName);
+
+        $user->vpicture = 'storage/pictures/' . $pictureName;
+        $user->vaudio = 'storage/voices/' . $voiceName;
+        $user->verified = 1;
+
+        $user->save();
+        return redirect('/profile');
     }
 
     // load search view
@@ -66,18 +95,19 @@ class UserController extends Controller
     // update user profile
     public function update(Request $request)
     {
-        // dd($request->all());
-        $request->validate([
-            'userName' => ['bail', 'required', 'string', 'max:255'],
-            'userIDName' => ['bail', 'required', 'string', 'max:255'],
-            // 'userBio' => ['bail', 'string', 'max:255'],
-            // 'userEmail' => ['bail', 'required', 'string', 'email', 'max:255'],
-            'userPrivate' => ['bail', 'integer'],
-        ]);
+        // $request->validate([
+        //     'userName' => ['bail', 'required', 'string', 'max:255'],
+        //     'userIDName' => ['bail', 'required', 'string', 'max:255'],
+        //     // 'userBio' => ['bail', 'string', 'max:255'],
+        //     // 'userEmail' => ['bail', 'required', 'string', 'email', 'max:255'],
+        //     'userPrivate' => ['bail', 'integer'],
+        // ]);
 
-        // $image = $request->file('image');
-        // $filename = $image->hashName();
-        // $image->storeAs('public/images', $filename);
+        // dd($request);
+        // Generate unique names for the uploaded files
+        $pictureName = uniqid('picture_') . '.' . $request->picture->extension();
+
+        $request->picture->storeAs('public/profile', $pictureName);
 
         $user = Auth::user();
         $user->update([
@@ -85,6 +115,7 @@ class UserController extends Controller
             'username' => $request['userIDName'],
             // 'email' => $request['userEmail'],
             'bio' => $request['userBio'],
+            'picture' => 'storage/profile/' . $pictureName,
             'type' => is_null($request['userPrivate']) ? 0 : $request['userPrivate'],
         ]);
 

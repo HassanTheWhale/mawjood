@@ -17,12 +17,13 @@
             <div class="row">
                 <div class="col-0 col-md-3"></div>
                 <div class="col-0 col-md-6">
-                    @if (session()->has('message'))
-                        <div class="alert alert-success" role="alert"> {{ session('message') }} </div>
+                    @if (!$verified)
+                        <div class="alert alert-danger" role="alert"> Your account is not verified! <a
+                                href="{{ route('profile.verify') }}">Verify It!</a> </div>
                     @endif
                     <div class="row">
                         <div class="col-3 mt-3">
-                            <img {{ 'src=' . $user->picture }} class="rounded-circle img-fluid"
+                            <img src='{{ asset($user->picture) }}' class="rounded-circle img-fluid"
                                 alt={{ '@' . $user->username . ' Profile Picture' }} />
                         </div>
                         <div class="col-9 mt-4">

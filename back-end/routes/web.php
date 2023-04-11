@@ -37,6 +37,9 @@ Route::get('/profile', [App\Http\Controllers\UserController::class, 'profile'])-
 Route::get('/edit', [App\Http\Controllers\UserController::class, 'edit'])->name('profile.edit');
 Route::post('/edit', [App\Http\Controllers\UserController::class, 'update'])->name('profile.update');
 
+Route::get('/verify', [App\Http\Controllers\UserController::class, 'verify'])->name('profile.verify');
+Route::post('/verify', [App\Http\Controllers\UserController::class, 'verifyPost'])->name('profile.verify');
+
 // look for user
 Route::get('/user/{username}', [App\Http\Controllers\UserController::class, 'user'])->name('profile.user');
 
