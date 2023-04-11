@@ -26,12 +26,18 @@ class CategoryController extends Controller
         $myuser = Auth::user();
         $eventIds = Attend::whereIn('user_id', function ($query) use ($myuser) {
             $query->select('follow_id')
+
                 ->from('follows')
                 ->where('user_id', $myuser->id);
-        })->distinct()->pluck('event_id');
+        })
+            ->orWhere('user_id', $myuser->id)
+            ->distinct()->pluck('event_id');
+        // dd($eventIds);
+
         $events = events::whereIn('id', $eventIds)
-            ->where('end_date', '>=', Carbon::now())
+            // ->where('end_date', '>=', Carbon::now())
             ->get();
+
         return view('users.following', compact('events'));
     }
 

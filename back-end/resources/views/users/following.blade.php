@@ -20,7 +20,7 @@
             <div class="row">
                 <div class="col-12">
                     @if (count($events) == 0)
-                        <p>There are {{ count($events) }} events attending by your following.</p>
+                        <p>There are {{ count($events) }} events attending by you or your following.</p>
                     @endif
                 </div>
                 @foreach ($events as $event)

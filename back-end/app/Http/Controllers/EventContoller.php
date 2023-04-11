@@ -29,7 +29,7 @@ class EventContoller extends Controller
         $myuser = Auth::user();
         $event = events::where('id', $id)->firstOrFail();
         $attend = null;
-        if ($event->type == 1 && $event->user_id != $myuser->id)
+        if ($event->private == 1 && $event->user_id != $myuser->id)
             $attend = Attend::where('user_id', Auth::id())->where('event_id', $id)->firstOrFail();
         else
             $attend = Attend::where('user_id', Auth::id())->where('event_id', $id)->first();

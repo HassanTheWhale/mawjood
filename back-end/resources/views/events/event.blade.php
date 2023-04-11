@@ -63,6 +63,7 @@
                         @elseif ($attend)
                             <a href="../event/{{ $event->id }}/withdraw"
                                 class="btn btn-secondary text-white">Withdraw</a>
+                            <a href="../certificate/{{ $event->id }}" class="btn btn-primary text-white">Certificate</a>
                         @else
                             <a href="../event/{{ $event->id }}/signup" class="btn btn-primary text-white">Sign Up</a>
                         @endif

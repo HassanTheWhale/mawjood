@@ -129,6 +129,11 @@ class EventControlController extends Controller
         att::create([
             'user_id' => $uid,
             'event_id' => $eid,
+            'qr' => 1,
+            'face' => 1,
+            'voice' => 1,
+            'geo' => 1,
+            'done' => 1,
             'instance_id' => $instance->id,
         ]);
 
