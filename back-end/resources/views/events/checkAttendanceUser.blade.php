@@ -89,7 +89,7 @@
                         </div>
                     </div>
 
-                    <form action="{{ route('events.updateGrade', ['eid' => $event->id, 'uid' => $user->id]) }}"
+                    {{-- <form action="{{ route('events.updateGrade', ['eid' => $event->id, 'uid' => $user->id]) }}"
                         method="POST" class="mt-3">
                         @csrf
                         <div class="form-group">
@@ -99,7 +99,7 @@
                         </div>
                         <div class="text-end"><button type="submit" class="btn btn-primary text-white mt-2">Save</button>
                         </div>
-                    </form>
+                    </form> --}}
 
                 </div>
             </div>
@@ -122,9 +122,9 @@
                         </div>
                     </a>
 
-                    <a href="{{ url('/certificates') }}" class="d-block col-3 h-100 p-0">
+                    <a href="{{ url('/followingEvent') }}" class="d-block col-3 h-100 p-0">
                         <div class="w-100 h-100 d-flex justify-content-center align-items-center">
-                            <img src="{{ asset('imgs/certificate.png') }}" alt="My certificates" />
+                            <img src="{{ asset('imgs/followingEvent.png') }}" alt="My followingEvent" />
                         </div>
                     </a>
 

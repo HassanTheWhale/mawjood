@@ -55,9 +55,9 @@
                         </div>
                     </a>
 
-                    <a href="{{ url('/certificates') }}" class="d-block col-3 h-100 p-0">
+                    <a href="{{ url('/followingEvent') }}" class="d-block col-3 h-100 p-0">
                         <div class="w-100 h-100 d-flex justify-content-center align-items-center">
-                            <img src="{{ asset('imgs/certificate.png') }}" alt="My certificates" />
+                            <img src="{{ asset('imgs/followingEvent.png') }}" alt="My followingEvent" />
                         </div>
                     </a>
 

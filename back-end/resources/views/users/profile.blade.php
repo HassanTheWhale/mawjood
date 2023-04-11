@@ -27,15 +27,11 @@
                         </div>
                         <div class="col-9 mt-4">
                             <div class="row text-center">
-                                <div class="col-4">
-                                    {{ $countCertificate }} <br />
-                                    Certificates
-                                </div>
-                                <div class="col-4">
+                                <div class="col-6">
                                     {{ $countFollowers }} <br />
                                     Followers
                                 </div>
-                                <div class="col-4">
+                                <div class="col-6">
                                     {{ $countFollowing }} <br />
                                     Following
                                 </div>
@@ -84,26 +80,6 @@
                                     </div>
                                 </div>
                             @endforeach
-                            {{-- certificates --}}
-                            {{-- <div class="col-md-4 mb-3">
-                                <div class="card rounded overflow-hidden mt-3">
-                                    <img src="./imgs/event.png" alt="event" />
-                                    <div class="p-2">
-                                        <h4 class="span mb-3">491 Class</h4>
-                                        <p class="text-muted">
-                                            <small>
-                                                Lorem ipsum dolor sit amet consectetur adipisicing
-                                                elit. Est animi obcaecati asperiores error maxime
-                                                laboriosam consectetur aspernatur quod sequi velit?
-                                            </small>
-                                        </p>
-                                        <p class="text-end mt-3 mb-1">
-                                            <a href="eventDetail" class="btn btn-primary text-white">Check
-                                                Certificate</a>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div> --}}
 
                         </div>
                     </div>
@@ -128,9 +104,9 @@
                         </div>
                     </a>
 
-                    <a href="./certificates" class="d-block col-3 h-100 p-0">
+                    <a href="./followingEvent" class="d-block col-3 h-100 p-0">
                         <div class="w-100 h-100 d-flex justify-content-center align-items-center">
-                            <img src="./imgs/certificate.png" alt="My certificates" />
+                            <img src="./imgs/followingEvent.png" alt="My followingEvent" />
                         </div>
                     </a>
 

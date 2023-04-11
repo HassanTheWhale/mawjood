@@ -62,15 +62,6 @@
                                 class="form-control w-100 mb-1" />
                         </div>
 
-                        <div class="form-group mb-3">
-                            <label for="eventGrade" class="span ms-3 mb-1">
-                                Min Grade
-                            </label>
-                            <input type="number" name="eventGrade" id="eventGrade"
-                                placeholder="Min grade for sending certificates" value="{{ $event->min_grade }}" required
-                                class="form-control w-100 mb-1" />
-                        </div>
-
                         <hr>
                         <div class="form-group mb-3">
                             <label for="date_type" class="span ms-3 mb-1"> Date Type:</label>
@@ -173,9 +164,9 @@
                         </div>
                     </a>
 
-                    <a href="{{ url('/certificates') }}" class="d-block col-3 h-100 p-0">
+                    <a href="{{ url('/followingEvent') }}" class="d-block col-3 h-100 p-0">
                         <div class="w-100 h-100 d-flex justify-content-center align-items-center">
-                            <img src="{{ asset('imgs/certificate.png') }}" alt="My certificates" />
+                            <img src="{{ asset('imgs/followingEvent.png') }}" alt="My followingEvent" />
                         </div>
                     </a>
 
