@@ -52,7 +52,7 @@ class AttendaneContoller extends Controller
         //     ]);
         // }
 
-        $already = att::select('atts.id', 'atts.done', 'atts.face', 'atts.voice', 'atts.done')
+        $already = att::select('atts.id', 'atts.done', 'atts.face', 'atts.voice')
             ->join('event_instances', 'atts.instance_id', '=', 'event_instances.id')
             ->where('atts.event_id', $event->id)
             ->where('atts.user_id', $myuser->id)
