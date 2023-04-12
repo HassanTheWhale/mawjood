@@ -6,7 +6,7 @@ app = Flask(__name__)
 @app.route('/face_recognition')
 def face_recognition_endpoint():
     # Get the additional text from the request
-    original_text = '/Applications/XAMPP/xamppfiles/htdocs/mawjood-project/back-end/' + request.form['userImg']
+    original_text = '/Applications/XAMPP/xamppfiles/htdocs/mawjood-project/back-end/storage/app/public/' + request.form['userImg'].replace('storage/', '')
     # Load the original image
     original_image = face_recognition.load_image_file(original_text)
 
