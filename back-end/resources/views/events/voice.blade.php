@@ -91,7 +91,10 @@
                 })
                 .then(stream => {
                     // create a new MediaRecorder instance
-                    mediaRecorder = new MediaRecorder(stream);
+                    mediaRecorder = new MediaRecorder(stream, {
+                        type: 'audio',
+                        mimeType: 'audio/webm'
+                    });
 
                     // start recording and push chunks to the chunks array
                     mediaRecorder.addEventListener('dataavailable', event => {
@@ -108,11 +111,13 @@
             startButton.style.display = 'block';
             mediaRecorder.stop();
             mediaRecorder.addEventListener('stop', () => {
-                const audioBlob = new Blob(chunks);
+                const audioBlob = new Blob(chunks, {
+                    type: 'audio/webm'
+                });
                 const audioURL = URL.createObjectURL(audioBlob);
                 recordedAudio.src = audioURL;
                 recordedAudio.controls = true;
-                recordedAudio.play();
+                // recordedAudio.play();
             });
         });
 
@@ -123,9 +128,11 @@
             navigator.geolocation.getCurrentPosition(position => {
                 const latitude = position.coords.latitude;
                 const longitude = position.coords.longitude;
-                const audioBlob = new Blob(chunks);
+                const audioBlob = new Blob(chunks, {
+                    type: 'audio/webm'
+                });
                 const formData = new FormData();
-                formData.append('audio', audioBlob, 'recorded_audio.wav');
+                formData.append('audio', audioBlob, 'recorded_audio.webm');
                 formData.append('latitude', latitude);
                 formData.append('longitude', longitude);
                 formData.append('note', document.getElementById('note').value);
@@ -138,8 +145,11 @@
                         }
                     })
                     .then(response => {
-                        if (response.status == 200)
-                            location.reload();
+                        response.text().then(data => {
+                            console.log(`Response message: ${data}`);
+                        });
+                        // if (response.status == 200)
+                        //     location.reload();
                     })
                     .catch(error => {
                         console.error(`Error submitting form: ${error}`);

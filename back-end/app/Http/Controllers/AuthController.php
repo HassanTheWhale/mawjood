@@ -7,8 +7,15 @@ use App\Models\events;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
 use GuzzleHttp\Client;
+use FFMpeg\FFMpeg;
+use FFMpeg\Format\Audio\Wav;
+use JeroenDesloovere\Audio\Audio;
+use Illuminate\Support\Facades\Storage;
+use Symfony\Component\Process\Exception\ProcessFailedException;
+use Symfony\Component\Process\Process;
+use Acamposm\AudioAnalys\AudioAnalys;
+use Illuminate\Http\UploadedFile;
 
 class AuthController extends Controller
 {
@@ -86,9 +93,7 @@ class AuthController extends Controller
 
     public function captureVoice(Request $request, $eid, $uid, $iid)
     {
-        $audioData = $request->input('audio_data');
-        $audioData = base64_decode($audioData);
-        $filename = uniqid() . '.wav';
+
 
         // save the audio file to the storage/app/public directory
         // Storage::disk('public')->put($filename, $audioData);
@@ -128,9 +133,79 @@ class AuthController extends Controller
             return response('Voice captured', 200);
         }
 
-        $already->update(['voice' => 1]);
+        // $audio = new Audio($request->file('audio')->getPathname());
+        // $filename = uniqid() . '.wav';
+        // $audio->toWav(storage_path('public/audio/' . $filename));
+        $request->file('audio')->storeAs('public/profile', uniqid() . '.webm');
 
+        // Set the paths to the input and output files
+        $inputPath = $request->file('audio')->getPathname();
+        $outputPath = storage_path('public/audio/') . uniqid() . '.wav';
 
-        return response('Voice captured', 200);
+        // Set the conversion command
+        $command = "ffmpeg -i $inputPath -vn -ar 44100 -ac 2 -ab 192k -f wav $outputPath";
+
+        // Execute the command as a separate process
+        $descriptorspec = [
+            0 => ['pipe', 'r'],
+            1 => ['pipe', 'w'],
+            2 => ['pipe', 'w']
+        ];
+
+        $process = proc_open($command, $descriptorspec, $pipes);
+
+        // Check if the command executed successfully
+        if (is_resource($process)) {
+            // Wait for the process to finish
+            fclose($pipes[0]);
+            $stdout = stream_get_contents($pipes[1]);
+            $stderr = stream_get_contents($pipes[2]);
+            fclose($pipes[1]);
+            fclose($pipes[2]);
+            $status = proc_get_status($process);
+            while ($status['running']) {
+                $status = proc_get_status($process);
+            }
+
+            if ($status['exitcode'] === 0) {
+                // Conversion succeeded
+            } else {
+                // Conversion failed
+            }
+            proc_close($process);
+        }
+
+        // // check if face done
+        // $client = new Client();
+        // // Send a POST request to the Flask server with the image files
+        // $response = $client->request('GET', 'http://localhost:5000/voice_recognition', [
+        //     'multipart' => [
+        //         [
+        //             'name' => 'voice',
+        //             'contents' => $wav,
+        //             'filename' => $filename,
+        //             'headers' => [
+        //                 'Content-Type' => 'audio/wav'
+        //             ],
+        //         ],
+        //         [
+        //             'name' => 'userVoice',
+        //             'contents' => $myuser->vaudio,
+        //         ],
+        //     ],
+        // ]);
+
+        // // Get the response body as a string
+        // $body = $response->getBody()->getContents();
+        // return $body;
+        // if (strpos($body, '{"match":true}') !== false) {
+        //     // There's a match
+        //     $already->update(['voice' => 1]);
+        //     return response('voice captured', 200);
+        // } else {
+        //     // There's no match
+        //     $already->update(['voice' => 3]);
+        //     return response('No match', 404);
+        // }
     }
 }
