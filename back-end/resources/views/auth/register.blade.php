@@ -1,5 +1,7 @@
 @extends('layouts.master')
-
+@section('extraCss')
+    <script src="https://www.google.com/recaptcha/api.js?render=6LcdW38lAAAAAHeKpcAOiDXf1NpIC0U0GM8r0HWC"></script>
+@endsection
 @section('content')
     <div class="landing">
         <div class="landing-top d-flex justify-content-center align-items-center h-20">
@@ -17,7 +19,7 @@
                                 Sign Up with Google
                             </a>
                             <a href="{{ route('microsoft.login') }}" class="btn btn-outline-info">
-                                Sign Up with Microsft
+                                Sign Up with Microsoft
                             </a>
                         </div>
                         <p class="text-muted">or use your own information</p>

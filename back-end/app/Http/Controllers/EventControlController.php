@@ -72,7 +72,7 @@ class EventControlController extends Controller
                 array_push($absentDays, $instance->date);
         }
 
-        return view('events.checkAttendanceUser', compact('event', 'user', 'attend', 'attendDays', 'absentDays'));
+        return view('events.checkAttendanceUser', compact('event', 'user', 'attend', 'attendDays', 'absentDays', 'attendedDay'));
     }
 
     public function updateGrade(Request $request, $eid, $uid)

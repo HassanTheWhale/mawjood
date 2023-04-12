@@ -1,4 +1,7 @@
 @extends('layouts.master')
+@section('extraCss')
+    <script src="https://www.google.com/recaptcha/api.js?render=6LcdW38lAAAAAHeKpcAOiDXf1NpIC0U0GM8r0HWC"></script>
+@endsection
 @section('content')
     <div class="landing">
         <div class="landing-top d-flex justify-content-center align-items-center h-30">
@@ -16,7 +19,7 @@
                                 Log In with Google
                             </a>
                             <a href="{{ route('microsoft.login') }}" class="btn btn-outline-info">
-                                Log In with Microsft
+                                Log In with Microsoft
                             </a>
                         </div>
                         <p class="text-muted">or use your login information</p>
@@ -53,8 +56,8 @@
                                 </span>
                             @enderror
                             <!-- <div class="d-flex justify-content-end">
-                                                                                                                              <a href="" class="span text-muted">Forgot your password?</a>
-                                                                                                                            </div> -->
+                                                                                                                                                      <a href="" class="span text-muted">Forgot your password?</a>
+                                                                                                                                                    </div> -->
                         </div>
                         <button type="submit" class="btn btn-primary text-white w-100 mb-3 py-2">Login</button>
                     </form>

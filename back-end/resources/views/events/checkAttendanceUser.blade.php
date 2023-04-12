@@ -45,20 +45,48 @@
                             aria-labelledby="Attendance-tab">
                             <p class="text-muted mt-2">Attendance will show here</p>
                             <div class="row my-2">
-                                @foreach ($attendDays as $aday)
-                                    <div class="col-12 mb-2">
-                                        <div class="d-flex justify-content-between align-items-center">
+                                @foreach ($attendedDay as $aday)
+                                    <div class="col-12 mb-2 card py-3">
+                                        <div class="d-flex justify-content-between align-items-center ">
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <img src="{{ asset('imgs/yes.png') }}" alt="event" width="16px"
                                                     class="rounded-circle" />
-                                                <span class="text-muted ms-1">{{ $aday }}</span>
+                                                <span class="text-muted ms-1">{{ $aday->date }}</span>
                                             </div>
                                             <a
-                                                href="{{ route('events.setAbsent', ['eid' => $event->id, 'uid' => $user->id, 'date' => $aday]) }}">
+                                                href="{{ route('events.setAbsent', ['eid' => $event->id, 'uid' => $user->id, 'date' => $aday->date]) }}">
                                                 <button class="btn btn-sm btn-primary text-white">
                                                     Set Absent
                                                 </button>
                                             </a>
+                                        </div>
+                                        <div class="mt-2">
+                                            <p class="span">System Notes:</p>
+                                            <ol>
+                                                @if ($aday->face == 1)
+                                                    <li>The user completed the face recognition</li>
+                                                @elseif ($aday->face == 2)
+                                                    <li>The user skipped the face recognition</li>
+                                                @elseif ($aday->face == 3)
+                                                    <li>The user failed the face recognition</li>
+                                                @endif
+
+                                                @if ($aday->voice == 1)
+                                                    <li>The user completed the voice recognition</li>
+                                                @elseif ($aday->voice == 2)
+                                                    <li>The user skipped the voice recognition</li>
+                                                @elseif ($aday->voice == 3)
+                                                    <li>The user failed the voice recognition</li>
+                                                @endif
+
+                                                @if ($aday->geoCheck == 1)
+                                                    <li>The user within the location of the event</li>
+                                                @elseif ($aday->geoCheck == 2)
+                                                    <li>The user is not within the location of the event</li>
+                                                @endif
+                                            </ol>
+                                            <p class="span">User Notes:</p>
+                                            <p>{{ !$aday->note ? 'No Notes' : $aday->note }}</p>
                                         </div>
                                     </div>
                                 @endforeach

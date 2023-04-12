@@ -105,17 +105,21 @@ class UserController extends Controller
 
         // dd($request);
         // Generate unique names for the uploaded files
-        $pictureName = uniqid('picture_') . '.' . $request->file('picture')->extension();
-
-        $request->picture->storeAs('public/profile', $pictureName);
-
         $user = Auth::user();
+
+        if (isset($request['picture'])) {
+            $pictureName = uniqid('picture_') . '.' . $request->file('picture')->extension();
+            $request->picture->storeAs('public/profile', $pictureName);
+            $pictureName = 'storage/profile/' . $pictureName;
+        } else
+            $pictureName = $user->picture;
+
         $user->update([
             'name' => $request['userName'],
             'username' => $request['userIDName'],
             // 'email' => $request['userEmail'],
             'bio' => $request['userBio'],
-            'picture' => 'storage/profile/' . $pictureName,
+            'picture' => $pictureName,
             'type' => is_null($request['userPrivate']) ? 0 : $request['userPrivate'],
         ]);
 
