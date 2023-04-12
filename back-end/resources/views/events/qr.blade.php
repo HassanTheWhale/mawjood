@@ -7,9 +7,7 @@
 
             <div class="mt-4">
                 @if (!$event->closed)
-                    <a href="{{ route('events.open', $event->id) }}">
-                        <button class="btn btn-primary text-white w-100 px-4">Open Attendance</button>
-                    </a>
+                    <button onclick="openF()" class="btn btn-primary text-white w-100 px-4">Open Attendance</button>
                 @else
                     <a href="{{ route('events.close', $event->id) }}">
                         <button class="btn btn-primary text-white w-100 px-4">Close Attendance</button>
@@ -22,6 +20,20 @@
 
 @section('scripts')
     <script>
+        function openF() {
+
+            navigator.geolocation.getCurrentPosition(position => {
+                const latitude = position.coords.latitude;
+                const longitude = position.coords.longitude;
+                fetch(`/open/{{ $event->id }}/${latitude},${longitude}`, {
+                        method: 'GET',
+                    })
+                    .then(response => {
+                        if (response.status == 200)
+                            location.reload();
+                    });
+            });
+        }
         setInterval(function() {
             location.reload();
         }, 15000);

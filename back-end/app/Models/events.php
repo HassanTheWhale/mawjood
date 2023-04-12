@@ -22,6 +22,7 @@ class events extends Model
         'strange',
         'private',
         'key',
+        'geo',
         'attendKey',
         'closed',
         'user_id',

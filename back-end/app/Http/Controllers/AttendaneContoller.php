@@ -52,30 +52,70 @@ class AttendaneContoller extends Controller
         //     ]);
         // }
 
-        $already = att::select('atts.id', 'atts.done', 'atts.face', 'atts.voice')
+        $already = att::select('atts.id', 'atts.done', 'atts.qr', 'atts.face', 'atts.voice', 'atts.geo')
             ->join('event_instances', 'atts.instance_id', '=', 'event_instances.id')
             ->where('atts.event_id', $event->id)
             ->where('atts.user_id', $myuser->id)
             ->whereDate('event_instances.date', Carbon::today()->format('Y-m-d'))
             ->first();
 
+        $instance = EventInstances::where('event_id', $event->id)
+            ->whereDate('date', Carbon::today()->format('Y-m-d'))
+            ->first();
+
         if ($already) {
-            if ($already->done == 1)
+            if ($already->qr == 1 && $already->face == 1 && $already->voice == 1 && $already->done == 1)
                 return redirect('event/' . $event->id)->with([
                     'type' => "warning",
                     'message' => 'You already have taken your attendance!',
                 ]);
-            else if ($already->face == 1)
+            else if ($already->qr == 1 && $already->face == 1 && $already->voice == 1 && $already->done == 0) {
+
+                $geo = $event->geo;
+                $userGeo = $already->geo;
+
+                $point1 = explode(",", $geo);
+                $point2 = explode(",", $userGeo);
+
+                // Extract latitudes and longitudes from the arrays
+                $lat1 = $point1[0];
+                $lon1 = $point1[1];
+                $lat2 = $point2[0];
+                $lon2 = $point2[1];
+                // Convert latitude and longitude to radians
+                $lat1 = deg2rad($lat1);
+                $lon1 = deg2rad($lon1);
+                $lat2 = deg2rad($lat2);
+                $lon2 = deg2rad($lon2);
+
+                // Calculate the distance using the Haversine formula
+                $deltaLat = $lat2 - $lat1;
+                $deltaLon = $lon2 - $lon1;
+                $earthRadius = 6371; // in km
+                $a = sin($deltaLat / 2) * sin($deltaLat / 2) + cos($lat1) * cos($lat2) * sin($deltaLon / 2) * sin($deltaLon / 2);
+                $c = 2 * atan2(sqrt($a), sqrt(1 - $a));
+                $distance = $earthRadius * $c;
+
+                if ($distance <= 1) {
+                    $avgX = ($point1[0] + $point2[0]) / 2;
+                    $avgY = ($point1[1] + $point2[1]) / 2;
+                    $avgPoint = $avgX . ',' . $avgY;
+                    $event->update(['geo' => $avgPoint]);
+                } else {
+
+                }
+
+                $already->update(['done' => 1]);
                 return redirect('event/' . $event->id)->with([
                     'type' => "success",
                     'message' => 'You have taken your attendance!',
                 ]);
-            $already->delete();
+            } else if ($already->qr == 1 && $already->face == 1 && $already->voice == 0)
+                return view('events.voice', compact('event', 'myuser', 'instance'));
+            else if ($already->qr == 1 && $already->face == 0 && $already->voice == 0)
+                $already->delete();
         }
 
-        $instance = EventInstances::where('event_id', $event->id)
-            ->whereDate('date', Carbon::today()->format('Y-m-d'))
-            ->first();
 
         if ($instance) {
             $attend = att::create([

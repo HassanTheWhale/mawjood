@@ -69,9 +69,10 @@ Route::get('/certificate/{eid}', [App\Http\Controllers\EventSignController::clas
 //attend
 Route::get('/generateQR/{id}', [App\Http\Controllers\AttendaneContoller::class, 'generateQRCode'])->name('events.qr');
 Route::get('/attendEvent/{id}', [App\Http\Controllers\AttendaneContoller::class, 'attend'])->name('events.attend');
-Route::get('/open/{id}', [App\Http\Controllers\EventControlController::class, 'open'])->name('events.open');
+Route::get('/open/{id}/{location}', [App\Http\Controllers\EventControlController::class, 'open'])->name('events.open');
 Route::get('/close/{id}', [App\Http\Controllers\EventControlController::class, 'close'])->name('events.close');
 Route::post('/faceCheck/{eid}/{uid}/{iid}', [App\Http\Controllers\AuthController::class, 'captureImage'])->name('auth.facePost');
+Route::post('/voiceCheck/{eid}/{uid}/{iid}', [App\Http\Controllers\AuthController::class, 'captureVoice'])->name('auth.voicePost');
 
 //check event
 Route::get('/check/{id}/', [App\Http\Controllers\EventControlController::class, 'check'])->name('events.check');

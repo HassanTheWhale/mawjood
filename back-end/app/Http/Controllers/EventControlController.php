@@ -143,7 +143,7 @@ class EventControlController extends Controller
         ]);
     }
 
-    function open($id)
+    function open($id, $location)
     {
         $event = events::where('id', $id)->firstOrFail();
         $myuser = Auth::user();
@@ -151,6 +151,7 @@ class EventControlController extends Controller
             return redirect('event/' . $event->id);
         }
         $event->update(['closed' => 1]);
+        $event->update(['geo' => $location]);
         return redirect('generateQR/' . $id . '/');
     }
 
