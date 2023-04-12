@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use GuzzleHttp\Client;
 
 class AuthController extends Controller
 {
@@ -32,29 +33,55 @@ class AuthController extends Controller
             return response('Image cant be captured', 404);
 
 
+        // update geo
         $latitude = $request->input('latitude');
         $longitude = $request->input('longitude');
+
         $loc = $latitude . ',' . $longitude;
         $already->update(['geo' => $loc]);
 
+        // if skipped
         if ($request->input('cancel') == '1') {
             $already->update(['face' => 2]);
             return response('Image captured', 200);
         }
+
 
         $imageData = $request->input('image');
         $imageData = str_replace('data:image/png;base64,', '', $imageData);
         $imageData = str_replace(' ', '+', $imageData);
         $imageBinary = base64_decode($imageData);
         $filename = uniqid() . '.png';
-        $path = public_path('images/' . $filename);
 
         // check if face done
-        // $already->update(['done' => 1]);
-        $already->update(['face' => 1]);
+        $client = new Client();
+        // Send a POST request to the Flask server with the image file
+        $response = $client->request('GET', 'http://localhost:5000/face_recognition', [
+            'multipart' => [
+                [
+                    'name' => 'image',
+                    'contents' => $imageBinary,
+                    'filename' => $filename,
+                ],
+                [
+                    'name' => 'userImg',
+                    'contents' => $myuser->vpicture,
+                ],
+            ],
+        ]);
 
+        // Get the response body as a string
+        $body = $response->getBody()->getContents();
 
-        return response('Image captured', 200);
+        if (strpos($body, '{"match":true}') !== false) {
+            // There's a match
+            $already->update(['face' => 1]);
+            return response('Image captured', 200);
+        } else {
+            // There's no match
+            $already->update(['face' => 3]);
+            return response('No match', 404);
+        }
     }
 
     public function captureVoice(Request $request, $eid, $uid, $iid)

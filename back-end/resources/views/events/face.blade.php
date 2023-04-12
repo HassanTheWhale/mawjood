@@ -66,8 +66,11 @@
                         }
                     })
                     .then(response => {
-                        if (response.status == 200)
-                            location.reload();
+                        response.text().then(data => {
+                            console.log(`Response message: ${data}`);
+                        });
+                        // if (response.status == 200)
+                        // location.reload();
                     })
                     .catch(error => {
                         console.error(`Error submitting form: ${error}`);
