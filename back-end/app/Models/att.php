@@ -18,8 +18,9 @@ class att extends Model
         'face',
         'voice',
         'geo',
+        'geoCheck',
         'done',
-        'notes',
+        'note',
         'instance_id',
     ];
 }

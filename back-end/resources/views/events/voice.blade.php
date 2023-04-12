@@ -5,29 +5,37 @@
         <div class="row h-100 justify-content-center align-items-center">
             <div class="col-2"></div>
             <div class="col-8">
-                <h4 class="m-0">Voice Verification</h4>
+                <h4 class="m-0">Final Verification</h4>
             </div>
             <div class="col-2 pe-5"></div>
         </div>
     </div>
     <div class="content h-84 py-5">
         <div class="container py-5">
-            <div class="row">
-                <div class="col-md-6 mx-auto text-center py-5">
-                    <div class="mb-3">
-                        <p>Hello, You need now to verify your voice!</p>
-                        <p id="status" class="text-success">Recording is stoped!</p>
-                        <button id="startRecordingButton" class="btn btn-outline-primary">Start
-                            Recording</button>
-                        <button id="stopRecordingButton" class="btn btn-outline-danger">Stop Recording</button>
+            <form id="voice-check">
+                <div class="row">
+                    <div class="col-md-6 mx-auto text-center py-5">
+                        <label class="span text-start d-block mb-3">Voice Recording</label>
+                        <div class="mb-3 d-flex justify-content-center align-items-center">
+                            <audio id="recordedAudio" controls></audio>
+                            <button id="startRecordingButton" type="button" class="btn btn-outline-primary"
+                                style="margin: auto">Start
+                                Recording</button>
+                            <button id="stopRecordingButton" type="button" class="btn btn-outline-danger"
+                                style="display: none; margin: auto">Stop
+                                Recording</button>
+                        </div>
+                        <div class="mb-3">
+                            <label for="note" class="span text-start d-block">Note Section</label>
+                            <textarea name="note" id="note" placeholder="Add your notes here." class="form-control"></textarea>
+                        </div>
+                        <input type="hidden" id="cancel" name="cancel" value="">
+
+                        <button type="button" id="send" class="btn btn-primary text-white">Send Voice & Note</button>
+                        <button type="button" id="cancelBtn" class="btn btn-outline-primary">Cancel Voice</button>
                     </div>
-                    <div class="mb-3">
-                        <p class="text-muted">Sound will be shown here</p>
-                        <audio id="recordedAudio" controls></audio>
-                    </div>
-                    <button id="send" class="btn btn-primary text-white">Send Voice</button>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
     <div class="bottom h-8 bg-prime2 overflow-hidden">
@@ -76,8 +84,8 @@
 
         // when the start button is clicked, start recording
         startButton.addEventListener('click', () => {
-            document.getElementById('status').classList = 'text-danger';
-            document.getElementById('status').innerText = "Recording on going!";
+            stopButton.style.display = 'block';
+            startButton.style.display = 'none';
             navigator.mediaDevices.getUserMedia({
                     audio: true
                 })
@@ -96,8 +104,8 @@
 
         // when the stop button is clicked, stop recording and play back the recorded audio
         stopButton.addEventListener('click', () => {
-            document.getElementById('status').classList = 'text-success';
-            document.getElementById('status').innerText = "Recording is off";
+            stopButton.style.display = 'none';
+            startButton.style.display = 'block';
             mediaRecorder.stop();
             mediaRecorder.addEventListener('stop', () => {
                 const audioBlob = new Blob(chunks);
@@ -120,8 +128,41 @@
                 formData.append('audio', audioBlob, 'recorded_audio.wav');
                 formData.append('latitude', latitude);
                 formData.append('longitude', longitude);
+                formData.append('note', document.getElementById('note').value);
                 const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-                fetch('/voiceCheck/{{ $event->id }}/{{ $myuser->id }}/{{ $instance->id }}', {
+                fetch("{{ route('auth.voicePost', [$event->id, $myuser->id, $instance->id]) }}", {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'X-CSRF-TOKEN': csrfToken
+                        }
+                    })
+                    .then(response => {
+                        if (response.status == 200)
+                            location.reload();
+                    })
+                    .catch(error => {
+                        console.error(`Error submitting form: ${error}`);
+                    });
+            }, error => {
+                console.error(`Error getting geolocation coordinates: ${error}`);
+            });
+        });
+
+        // get the DOM elements
+        const cancelButton = document.getElementById('cancelBtn');
+        // when the send button is clicked, send the recorded audio to the controller
+        cancelButton.addEventListener('click', () => {
+            navigator.geolocation.getCurrentPosition(position => {
+                const latitude = position.coords.latitude;
+                const longitude = position.coords.longitude;
+                const formData = new FormData();
+                formData.append('latitude', latitude);
+                formData.append('longitude', longitude);
+                formData.append('cancel', '1');
+                formData.append('note', document.getElementById('note').value);
+                const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+                fetch("{{ route('auth.voicePost', [$event->id, $myuser->id, $instance->id]) }}", {
                         method: 'POST',
                         body: formData,
                         headers: {

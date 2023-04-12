@@ -52,7 +52,7 @@ class AttendaneContoller extends Controller
         //     ]);
         // }
 
-        $already = att::select('atts.id', 'atts.done', 'atts.qr', 'atts.face', 'atts.voice', 'atts.geo')
+        $already = att::select('atts.id', 'atts.done', 'atts.qr', 'atts.face', 'atts.voice', 'atts.geo', 'atts.geoCheck')
             ->join('event_instances', 'atts.instance_id', '=', 'event_instances.id')
             ->where('atts.event_id', $event->id)
             ->where('atts.user_id', $myuser->id)
@@ -96,13 +96,14 @@ class AttendaneContoller extends Controller
                 $c = 2 * atan2(sqrt($a), sqrt(1 - $a));
                 $distance = $earthRadius * $c;
 
-                if ($distance <= 1) {
+                if ($distance <= 2) {
                     $avgX = ($point1[0] + $point2[0]) / 2;
                     $avgY = ($point1[1] + $point2[1]) / 2;
                     $avgPoint = $avgX . ',' . $avgY;
                     $event->update(['geo' => $avgPoint]);
+                    $already->update(['geoCheck' => 1]);
                 } else {
-
+                    $already->update(['geoCheck' => 2]);
                 }
 
                 $already->update(['done' => 1]);

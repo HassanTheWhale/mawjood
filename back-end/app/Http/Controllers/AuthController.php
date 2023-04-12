@@ -69,7 +69,7 @@ class AuthController extends Controller
         $myuser = Auth::user();
         $event = events::where('id', $eid)->firstOrFail();
 
-        $already = att::select('atts.id', 'atts.done', 'atts.qr', 'atts.face', 'atts.voice', 'atts.geo')
+        $already = att::select('atts.id', 'atts.done', 'atts.qr', 'atts.face', 'atts.voice', 'atts.geo', 'atts.note')
             ->join('event_instances', 'atts.instance_id', '=', 'event_instances.id')
             ->where('atts.event_id', $event->id)
             ->where('atts.user_id', $myuser->id)
@@ -91,10 +91,18 @@ class AuthController extends Controller
         $avgLong = ($long1 + $long2) / 2;
 
         $avgGeoLocation = $avgLat . ',' . $avgLong;
+        $already->update(['geo' => $avgGeoLocation]);
+
+        $note = $request->input('note');
+        $already->update(['note' => $note]);
+
+        if ($request->input('cancel') == '1') {
+            $already->update(['voice' => 2]);
+            return response('Voice captured', 200);
+        }
 
         $already->update(['voice' => 1]);
 
-        $already->update(['geo' => $avgGeoLocation]);
 
         return response('Voice captured', 200);
     }

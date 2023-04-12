@@ -41,7 +41,7 @@
 
                 // Set the values of the hidden fields
                 document.getElementById('latitude').value = latitude;
-                document.getElementById('longitude').value = latitude;
+                document.getElementById('longitude').value = longitude;
 
                 // Continue with capturing the image and submitting the form
                 const video = document.getElementById('video');
@@ -55,7 +55,7 @@
                 const formData = new FormData(document.getElementById('camera-form'));
                 formData.append('image', image);
                 formData.append('latitude', latitude);
-                formData.append('latitude', latitude);
+                formData.append('longitude', longitude);
 
                 const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
                 fetch('/faceCheck/{{ $event->id }}/{{ $myuser->id }}/{{ $instance->id }}', {
@@ -86,14 +86,14 @@
 
                 // Set the values of the hidden fields
                 document.getElementById('latitude').value = latitude;
-                document.getElementById('longitude').value = latitude;
+                document.getElementById('longitude').value = longitude;
                 document.getElementById('cancel').value = '1';
 
 
                 const formData = new FormData(document.getElementById('camera-form'));
                 formData.append('cancel', '1');
                 formData.append('latitude', latitude);
-                formData.append('latitude', latitude);
+                formData.append('longitude', longitude);
 
                 const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
                 fetch('/faceCheck/{{ $event->id }}/{{ $myuser->id }}/{{ $instance->id }}', {
