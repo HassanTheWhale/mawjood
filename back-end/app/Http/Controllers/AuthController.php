@@ -31,6 +31,17 @@ class AuthController extends Controller
         if ($already->done == 1 || $already->face == 1 || $already->qr == 0)
             return response('Image cant be captured', 404);
 
+
+        $latitude = $request->input('latitude');
+        $longitude = $request->input('longitude');
+        $loc = $latitude . ',' . $longitude;
+        $already->update(['geo' => $loc]);
+
+        if ($request->input('cancel') == '1') {
+            $already->update(['face' => 2]);
+            return response('Image captured', 200);
+        }
+
         $imageData = $request->input('image');
         $imageData = str_replace('data:image/png;base64,', '', $imageData);
         $imageData = str_replace(' ', '+', $imageData);
@@ -41,10 +52,7 @@ class AuthController extends Controller
         // check if face done
         // $already->update(['done' => 1]);
         $already->update(['face' => 1]);
-        $latitude = $request->input('latitude');
-        $longitude = $request->input('longitude');
-        $loc = $latitude . ',' . $longitude;
-        $already->update(['geo' => $loc]);
+
 
         return response('Image captured', 200);
     }

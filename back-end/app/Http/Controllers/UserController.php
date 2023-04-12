@@ -41,8 +41,8 @@ class UserController extends Controller
         $user = Auth::user();
 
         // Generate unique names for the uploaded files
-        $pictureName = uniqid('picture_') . '.' . $request->picture->extension();
-        $voiceName = uniqid('voice_') . '.' . $request->voice->extension();
+        $pictureName = uniqid('picture_') . '.' . $request->file('picture')->extension();
+        $voiceName = uniqid('voice_') . '.' . $request->file('voice')->extension();
 
         $request->picture->storeAs('public/pictures', $pictureName);
         $request->voice->storeAs('public/voices', $voiceName);
@@ -105,7 +105,7 @@ class UserController extends Controller
 
         // dd($request);
         // Generate unique names for the uploaded files
-        $pictureName = uniqid('picture_') . '.' . $request->picture->extension();
+        $pictureName = uniqid('picture_') . '.' . $request->file('picture')->extension();
 
         $request->picture->storeAs('public/profile', $pictureName);
 

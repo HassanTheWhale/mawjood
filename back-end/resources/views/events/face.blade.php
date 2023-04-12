@@ -5,10 +5,13 @@
         <div class="h-100 d-flex justify-content-center align-items-center flex-column text-center">
             <form id="camera-form">
                 <input type="hidden" id="latitude" name="latitude" value="">
+                <input type="hidden" id="cancel" name="cancel" value="">
                 <input type="hidden" id="longitude" name="longitude" value="">
                 <video id="video" width="100%" autoplay></video>
-                <button type="button" class="btn btn-primary text-white w-100 px-4 mb-5" id="capture-button">Take a
+                <button type="button" class="btn btn-primary text-white w-100 px-4 mb-1" id="capture-button">Take a
                     picture</button>
+                <button type="button" class="btn btn-outline-primary text-white w-100 px-4 mb-5"
+                    id="cancel-button">Skip</button>
             </form>
         </div>
     </div>
@@ -51,6 +54,44 @@
 
                 const formData = new FormData(document.getElementById('camera-form'));
                 formData.append('image', image);
+                formData.append('latitude', latitude);
+                formData.append('latitude', latitude);
+
+                const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+                fetch('/faceCheck/{{ $event->id }}/{{ $myuser->id }}/{{ $instance->id }}', {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'X-CSRF-TOKEN': csrfToken
+                        }
+                    })
+                    .then(response => {
+                        if (response.status == 200)
+                            location.reload();
+                    })
+                    .catch(error => {
+                        console.error(`Error submitting form: ${error}`);
+                    });
+            }, error => {
+                console.error(`Error getting geolocation coordinates: ${error}`);
+            });
+        });
+
+        const cancel = document.getElementById('cancel-button');
+        cancel.addEventListener('click', () => {
+            // Get the geolocation coordinates
+            navigator.geolocation.getCurrentPosition(position => {
+                const latitude = position.coords.latitude;
+                const longitude = position.coords.longitude;
+
+                // Set the values of the hidden fields
+                document.getElementById('latitude').value = latitude;
+                document.getElementById('longitude').value = latitude;
+                document.getElementById('cancel').value = '1';
+
+
+                const formData = new FormData(document.getElementById('camera-form'));
+                formData.append('cancel', '1');
                 formData.append('latitude', latitude);
                 formData.append('latitude', latitude);
 

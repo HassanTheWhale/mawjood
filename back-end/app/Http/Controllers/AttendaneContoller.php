@@ -64,12 +64,12 @@ class AttendaneContoller extends Controller
             ->first();
 
         if ($already) {
-            if ($already->qr == 1 && $already->face == 1 && $already->voice == 1 && $already->done == 1)
+            if ($already->qr == 1 && $already->face >= 1 && $already->voice >= 1 && $already->done == 1)
                 return redirect('event/' . $event->id)->with([
                     'type' => "warning",
                     'message' => 'You already have taken your attendance!',
                 ]);
-            else if ($already->qr == 1 && $already->face == 1 && $already->voice == 1 && $already->done == 0) {
+            else if ($already->qr == 1 && $already->face >= 1 && $already->voice >= 1 && $already->done == 0) {
 
                 $geo = $event->geo;
                 $userGeo = $already->geo;
@@ -110,9 +110,11 @@ class AttendaneContoller extends Controller
                     'type' => "success",
                     'message' => 'You have taken your attendance!',
                 ]);
-            } else if ($already->qr == 1 && $already->face == 1 && $already->voice == 0)
+            } else if ($already->qr == 1 && $already->face >= 1 && $already->voice >= 0)
                 return view('events.voice', compact('event', 'myuser', 'instance'));
             else if ($already->qr == 1 && $already->face == 0 && $already->voice == 0)
+                $already->delete();
+            else
                 $already->delete();
         }
 
