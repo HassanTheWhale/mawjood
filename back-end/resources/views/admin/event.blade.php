@@ -13,22 +13,28 @@
             <thead>
                 <tr>
                     <th>Name</th>
-                    <th>Position</th>
-                    <th>Office</th>
-                    <th>Age</th>
+                    <th>Description</th>
+                    <th>Category</th>
+                    <th>Picture</th>
+                    <th>Is Private</th>
                     <th>Start date</th>
-                    <th>Salary</th>
+                    <th>End date</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Tiger Nixon</td>
-                    <td>System Architect</td>
-                    <td>Edinburgh</td>
-                    <td>61</td>
-                    <td>2011/04/25</td>
-                    <td>$320,800</td>
-                </tr>
+                @foreach ($events as $event)
+                    <tr>
+                        <td>{{ $event->name }}</td>
+                        <td>{{ $event->description }}</td>
+                        <td>{{ $event->categoryName }}</td>
+                        <td><img src="{{ asset($event->picture) }}" width="64px" alt="{{ $event->name }} Picture"></td>
+                        <td>{{ $event->private ? 'yes' : 'no' }}</td>
+                        <td>{{ $event->start_date }}</td>
+                        <td>{{ $event->end_date }}</td>
+                        <td><a href="{{ route('admin.removeEvent', $event->id) }}">Remove</a></td>
+                    </tr>
+                @endforeach
             </tbody>
         </table>
     </div>

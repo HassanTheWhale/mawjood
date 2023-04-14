@@ -34,6 +34,11 @@ class events extends Model
         return $this->belongsTo(User::class, 'users');
     }
 
+    public function cetegory()
+    {
+        return $this->belongsTo(eventCategory::class, 'category');
+    }
+
     public function dates()
     {
         return $this->hasMany(EventInstances::class, 'event_id');

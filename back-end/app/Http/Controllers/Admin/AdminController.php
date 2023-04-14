@@ -35,6 +35,7 @@ class AdminController extends Controller
 
     public function event()
     {
-        return view('admin.event');
+        $events = events::join('event_categories', 'events.category', '=', 'event_categories.id')->select('events.*', 'event_categories.name as categoryName')->get();
+        return view('admin.event', compact('events'));
     }
 }

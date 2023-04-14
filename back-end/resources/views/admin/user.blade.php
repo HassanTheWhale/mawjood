@@ -33,7 +33,6 @@
                         <td><a href="{{ route('admin.removeUser', $user->id) }}">Remove</a></td>
                     </tr>
                 @endforeach
-
             </tbody>
         </table>
     </div>
