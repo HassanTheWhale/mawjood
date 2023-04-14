@@ -20,7 +20,11 @@ Route::get('/auth/google/callback', [App\Http\Controllers\Auth\LoginController::
 Route::get('/auth/microsoft', [App\Http\Controllers\Auth\MicrosoftAuthController::class, 'redirectToMicrosoft'])->name('microsoft.login');
 Route::get('/auth/microsoft/callback', [App\Http\Controllers\Auth\MicrosoftAuthController::class, 'handleMicrosoftCallback'])->name('microsoft.callback');
 
+Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'admin']], function () {
+    // Your admin-only routes here
+    Route::get('/super/home', [App\Http\Controllers\Admin\AdminController::class, 'index'])->name('admin.home');
 
+});
 // landing page
 Route::get('/', function () {
     return view('index');
@@ -38,7 +42,7 @@ Route::get('/edit', [App\Http\Controllers\UserController::class, 'edit'])->name(
 Route::post('/edit', [App\Http\Controllers\UserController::class, 'update'])->name('profile.update');
 
 Route::get('/verify', [App\Http\Controllers\UserController::class, 'verify'])->name('profile.verify');
-Route::post('/verify', [App\Http\Controllers\UserController::class, 'verifyPost'])->name('profile.verify');
+Route::post('/verify', [App\Http\Controllers\UserController::class, 'verifyPost'])->name('profile.verifyPost');
 
 // look for user
 Route::get('/user/{username}', [App\Http\Controllers\UserController::class, 'user'])->name('profile.user');
