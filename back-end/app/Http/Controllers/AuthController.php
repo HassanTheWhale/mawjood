@@ -94,6 +94,10 @@ class AuthController extends Controller
     public function captureVoice(Request $request, $eid, $uid, $iid)
     {
 
+        $validatedData = $request->validate([
+            'audio' => 'required|file|max:1024', // max file size in KB
+            'note' => 'nullable|string|max:255',
+        ]);
 
         // save the audio file to the storage/app/public directory
         // Storage::disk('public')->put($filename, $audioData);

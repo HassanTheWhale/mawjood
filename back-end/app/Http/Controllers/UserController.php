@@ -40,6 +40,11 @@ class UserController extends Controller
     {
         $user = Auth::user();
 
+        $validatedData = $request->validate([
+            'picture' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'voice' => 'required|mimes:mp3,wav|max:2048',
+        ]);
+
         // Generate unique names for the uploaded files
         $pictureName = uniqid('picture_') . '.' . $request->file('picture')->extension();
         $voiceName = uniqid('voice_') . '.' . $request->file('voice')->extension();
@@ -102,6 +107,9 @@ class UserController extends Controller
         //     // 'userEmail' => ['bail', 'required', 'string', 'email', 'max:255'],
         //     'userPrivate' => ['bail', 'integer'],
         // ]);
+        $validatedData = $request->validate([
+            'picture' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
 
         // dd($request);
         // Generate unique names for the uploaded files

@@ -58,11 +58,7 @@
                             @foreach ($events as $event)
                                 <div class="event col-md-4 mb-3" name="{{ $event->name }}">
                                     <div class="card rounded overflow-hidden">
-                                        @if (str_starts_with($event->picture, 'https'))
-                                            <img src="{{ $event->picture }}" alt="event" />
-                                        @else
-                                            <img src="{{ asset('storage/images/' . $event->picture) }}" alt="event" />
-                                        @endif
+                                        <img src="{{ asset($event->picture) }}" alt="event" />
                                         <div class="p-2">
                                             <h4 class="span mb-3">{{ $event->name }}</h4>
                                             <p class="text-muted">

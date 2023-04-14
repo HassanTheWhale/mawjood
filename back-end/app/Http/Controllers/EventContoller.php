@@ -64,6 +64,11 @@ class EventContoller extends Controller
 
     public function createEvent(Request $request)
     {
+        $validatedData = $request->validate([
+            'eventName' => 'required|string|max:255',
+            'eventDesc' => 'nullable|string|max:255',
+            'eventPrivate' => 'nullable|boolean',
+        ]);
         $myuser = Auth::user();
         $array = [
             'user_id' => $myuser->id,
@@ -78,7 +83,7 @@ class EventContoller extends Controller
         if (!is_null($request->file("eventPic"))) {
             $image = $request->file('eventPic');
             $filename = uniqid() . '.' . $image->getClientOriginalExtension();
-            $path = $image->storeAs('public/images', $filename);
+            $path = 'storage/events' . $image->storeAs('public/events', $filename);
             $array['picture'] = $filename;
         }
 
@@ -151,6 +156,11 @@ class EventContoller extends Controller
 
     public function modifyEvent(Request $request, $id)
     {
+        $validatedData = $request->validate([
+            'eventName' => 'required|string|max:255',
+            'eventDesc' => 'nullable|string|max:255',
+            'eventPrivate' => 'nullable|boolean',
+        ]);
         $event = events::where('id', $id)->firstOrFail();
         $myuser = Auth::user();
         if ($event->user_id != $myuser->id) {

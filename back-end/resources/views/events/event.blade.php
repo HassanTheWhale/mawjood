@@ -13,7 +13,7 @@
     <div class="content h-84">
         <div class="w-100 h-30"
             style="
-        background-image: url({{ $event->picture }});
+        background-image: url({{ asset($event->picture) }});
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;
