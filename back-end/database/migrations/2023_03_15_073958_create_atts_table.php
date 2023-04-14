@@ -17,6 +17,7 @@ return new class extends Migration {
             $table->integer('qr');
             $table->integer('face')->default(0);
             $table->integer('voice')->default(0);
+            $table->integer('geoCheck')->default(0);
             $table->string('geo')->nullable();
             $table->string('note')->nullable();
             $table->string('done')->default(0);
