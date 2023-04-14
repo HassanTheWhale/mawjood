@@ -25,6 +25,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'a
     Route::get('/user', [App\Http\Controllers\Admin\AdminController::class, 'user'])->name('user');
     Route::get('/event', [App\Http\Controllers\Admin\AdminController::class, 'event'])->name('event');
     Route::get('/home', [App\Http\Controllers\Admin\AdminController::class, 'index'])->name('home');
+    Route::get('/removeUser/{id}', [App\Http\Controllers\Admin\AdminController::class, 'removeUser'])->name('removeUser');
+    Route::get('/removeEvent/{id}', [App\Http\Controllers\Admin\AdminController::class, 'removeEvent'])->name('removeEvent');
 });
 
 

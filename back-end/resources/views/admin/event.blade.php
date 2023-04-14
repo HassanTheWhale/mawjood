@@ -1,5 +1,35 @@
 @extends('admin.layouts.master')
 
+@section('scripts')
+    <script src="{{ asset('admin/ovendor/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('admin/ovendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('admin/js/demo/datatables-demo.js') }}"></script>
+@endsection
+
 @section('content')
-    <h2>Home</h2>
+    <h2>Events</h2>
+    <div class="table-responsive">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Position</th>
+                    <th>Office</th>
+                    <th>Age</th>
+                    <th>Start date</th>
+                    <th>Salary</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Tiger Nixon</td>
+                    <td>System Architect</td>
+                    <td>Edinburgh</td>
+                    <td>61</td>
+                    <td>2011/04/25</td>
+                    <td>$320,800</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 @endsection
