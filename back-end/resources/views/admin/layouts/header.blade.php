@@ -63,15 +63,15 @@
 
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('admin.home') }}">
-                    <span>Home</span></a>
+                    <i class="fas fa-home fa-2x text-gray-300"></i><span>Home</span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('admin.event') }}">
-                    <span>Event Check</span></a>
+                    <i class="fas fa-calendar fa-2x text-gray-300"></i><span>Event Check</span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('admin.user') }}">
-                    <span>Users Check</span></a>
+                    <i class="fas fa-user fa-2x text-gray-300"></i><span>Users Check</span></a>
             </li>
         </ul>
         <!-- End of Sidebar -->
