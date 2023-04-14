@@ -20,11 +20,14 @@ Route::get('/auth/google/callback', [App\Http\Controllers\Auth\LoginController::
 Route::get('/auth/microsoft', [App\Http\Controllers\Auth\MicrosoftAuthController::class, 'redirectToMicrosoft'])->name('microsoft.login');
 Route::get('/auth/microsoft/callback', [App\Http\Controllers\Auth\MicrosoftAuthController::class, 'handleMicrosoftCallback'])->name('microsoft.callback');
 
+// admin
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'admin']], function () {
-    // Your admin-only routes here
-    Route::get('/super/home', [App\Http\Controllers\Admin\AdminController::class, 'index'])->name('admin.home');
-
+    Route::get('/user', [App\Http\Controllers\Admin\AdminController::class, 'user'])->name('user');
+    Route::get('/event', [App\Http\Controllers\Admin\AdminController::class, 'event'])->name('event');
+    Route::get('/home', [App\Http\Controllers\Admin\AdminController::class, 'index'])->name('home');
 });
+
+
 // landing page
 Route::get('/', function () {
     return view('index');

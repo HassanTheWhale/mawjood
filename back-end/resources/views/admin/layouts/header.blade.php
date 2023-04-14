@@ -23,6 +23,14 @@
         rel="stylesheet">
 
     <link href="{{ asset('admin/css/sb-admin-2.min.css') }}" rel="stylesheet">
+
+    <style>
+        .bg-gradient-primary {
+            background-color: #05aab9;
+            background-image: none;
+            background-size: cover;
+        }
+    </style>
     @yield('css')
 
 </head>
@@ -40,7 +48,7 @@
                 <div class="sidebar-brand-icon">
                     <img src="{{ asset('imgs/logo.png') }}" width="64px" alt="">
                 </div>
-                <div class="sidebar-brand-text mx-3">Admin CP</div>
+                <div class="sidebar-brand-text mx-3">Admin</div>
             </a>
 
             <!-- Divider -->
@@ -48,14 +56,22 @@
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                Interface
+                Control
             </div>
 
             <!-- Nav Item -->
+
             <li class="nav-item">
-                <a class="nav-link" href="index.html">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Dashboard</span></a>
+                <a class="nav-link" href="{{ route('admin.home') }}">
+                    <span>Home</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('admin.event') }}">
+                    <span>Event Check</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('admin.user') }}">
+                    <span>Users Check</span></a>
             </li>
         </ul>
         <!-- End of Sidebar -->
@@ -91,7 +107,8 @@
                                 <a href="{{ route('logout') }} " class="dropdown-item"
                                     onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i> logout
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                        class="d-none">
                                         @csrf
                                     </form>
                                 </a>
