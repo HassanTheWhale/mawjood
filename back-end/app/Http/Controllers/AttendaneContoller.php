@@ -77,12 +77,10 @@ class AttendaneContoller extends Controller
                 $point1 = explode(",", $geo);
                 $point2 = explode(",", $userGeo);
 
-                // Extract latitudes and longitudes from the arrays
                 $lat1 = $point1[0];
                 $lon1 = $point1[1];
                 $lat2 = $point2[0];
                 $lon2 = $point2[1];
-                // Convert latitude and longitude to radians
                 $lat1 = deg2rad($lat1);
                 $lon1 = deg2rad($lon1);
                 $lat2 = deg2rad($lat2);
