@@ -25,6 +25,7 @@
                                 style="display: none; margin: auto">Stop
                                 Recording</button>
                         </div>
+                        <div id="waveform"></div>
                         <div class="mb-3">
                             <label for="note" class="span text-start d-block">Note Section</label>
                             <textarea name="note" id="note" placeholder="Add your notes here." class="form-control"></textarea>
@@ -148,8 +149,8 @@
                         response.text().then(data => {
                             console.log(`Response message: ${data}`);
                         });
-                        // if (response.status == 200)
-                        //     location.reload();
+                        if (response.status == 200)
+                            location.reload();
                     })
                     .catch(error => {
                         console.error(`Error submitting form: ${error}`);

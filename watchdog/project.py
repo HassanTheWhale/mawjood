@@ -1,14 +1,11 @@
 from flask import Flask, request, jsonify
 import face_recognition
-import librosa
 import numpy as np
-import tempfile
-import os
-from pydub.utils import mediainfo
 import subprocess
+import os
 import uuid
-from pydub import AudioSegment
-
+import librosa
+from sklearn.metrics.pairwise import cosine_similarity
 
 app = Flask(__name__)
 
@@ -41,39 +38,32 @@ def face_recognition_endpoint():
 
 @app.route('/voice_recognition')
 def voice_recognition_endpoint():
-    source = '/Applications/XAMPP/xamppfiles/htdocs/mawjood-project/back-end/storage/app/public/' + request.form['userVoice'].replace('storage/', '')
+
+    #import recorded sound and save it
     webm = request.files['voice']
-    rmse = compare_audio_files(source, webm)
+    unique_string = str(uuid.uuid4())
+    old_sound = unique_string+'.webm'
+    webm.save(old_sound)
 
-    # Remove the webm file
-    os.remove(webm.filename)
 
-    # Check if there is a match
-    # if dist < threshold:
-    #     return jsonify(match=True)
-    # else:
-    #     return jsonify(match=False)
+    #convert it to wav and remove old
+    sound = unique_string+'.wav'
+    subprocess.run(['ffmpeg', '-i', old_sound, sound])
+    os.remove(old_sound)
 
-def compare_audio_files(local_file_path, webm_file):
-    # Save the webm file
-    webm_file.save(webm_file.filename)
+    #bring other source
+    source = '/Applications/XAMPP/xamppfiles/htdocs/mawjood-project/back-end/storage/app/public/' + request.form['userVoice'].replace('storage/', '')
 
-    # Load the WAV and WebM files
-    local_audio = AudioSegment.from_file(local_file_path, format='wav')
-    webm_audio = AudioSegment.from_file(webm_file.filename, format='webm')
+    source, _ = librosa.load(source, sr=44100)
+    target, _ = librosa.load(sound, sr=44100)
+    source_mfcc = librosa.feature.mfcc(y=source, sr=44100)
+    target_mfcc = librosa.feature.mfcc(y=target, sr=44100)
+    os.remove(sound)
     
-    # Set both audio files to mono, 16-bit and 44.1kHz
-    local_audio = local_audio.set_channels(1).set_sample_width(2).set_frame_rate(44100)
-    webm_audio = webm_audio.set_channels(1).set_sample_width(2).set_frame_rate(44100)
-    
-    # Convert the audio files to numpy arrays for comparison
-    local_audio_np = np.array(local_audio.get_array_of_samples())
-    webm_audio_np = np.array(webm_audio.get_array_of_samples())
-    
-    # Calculate the root mean squared error (RMSE) between the two audio files
-    rmse = np.sqrt(np.mean((local_audio_np - webm_audio_np)**2))
-
-    return rmse
+    sim_score = cosine_similarity(source_mfcc.T, target_mfcc.T)
+    threshold = .5  # Change this value as needed
+    is_same_person = bool(sim_score[0].min() > threshold)
+    return jsonify(sim=is_same_person)
 
 
 @app.route("/")
