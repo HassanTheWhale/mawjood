@@ -7,6 +7,8 @@ use App\Models\follow;
 use app\Models\User;
 use Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+
 
 class UserController extends Controller
 {
@@ -128,7 +130,7 @@ class UserController extends Controller
             'username' => $request['userIDName'],
             // 'email' => $request['userEmail'],
             'bio' => $request['userBio'],
-            'picture' => $pictureName,
+            'picture' => $pictureUrl,
             'type' => is_null($request['userPrivate']) ? 0 : $request['userPrivate'],
         ]);
 
