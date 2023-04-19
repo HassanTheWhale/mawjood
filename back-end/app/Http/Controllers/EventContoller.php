@@ -84,8 +84,9 @@ class EventContoller extends Controller
         if (!is_null($request->file("eventPic"))) {
             $image = $request->file('eventPic');
             $filename = uniqid() . '.' . $image->getClientOriginalExtension();
-            $path = Storage::disk('s3')->putFileAs('events', $image, $filename);
-            $array['picture'] = $path;
+            $path = Storage::disk('s3')->putFileAs('images', $image, $filename, 'public');
+            $pictureUrl = Storage::disk('s3')->url('profile/' . $filename);
+            $array['picture'] = $pictureUrl;
         }
 
         $key = uniqid();
@@ -182,7 +183,8 @@ class EventContoller extends Controller
             $image = $request->file('eventPic');
             $filename = uniqid() . '.' . $image->getClientOriginalExtension();
             $path = Storage::disk('s3')->putFileAs('images', $image, $filename, 'public');
-            $array['picture'] = $path;
+            $pictureUrl = Storage::disk('s3')->url('profile/' . $filename);
+            $array['picture'] = $pictureUrl;
         }
 
         $dateType = $request->input('date_type');
