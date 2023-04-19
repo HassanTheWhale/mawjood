@@ -49,11 +49,11 @@ class UserController extends Controller
         $pictureName = uniqid('picture_') . '.' . $request->file('picture')->extension();
         $voiceName = uniqid('voice_') . '.' . $request->file('voice')->extension();
 
-        $request->picture->storeAs('public/pictures', $pictureName);
-        $request->voice->storeAs('public/voices', $voiceName);
+        Storage::disk('s3')->putFileAs('pictures', $request->file('picture'), $pictureName, 'public');
+        Storage::disk('s3')->putFileAs('voices', $request->file('voice'), $voiceName, 'public');
 
-        $user->vpicture = 'storage/pictures/' . $pictureName;
-        $user->vaudio = 'storage/voices/' . $voiceName;
+        $user->vpicture = Storage::disk('s3')->url('pictures/' . $pictureName);
+        $user->vaudio = Storage::disk('s3')->url('voices/' . $voiceName);
         $user->verified = 1;
 
         $user->save();
@@ -116,9 +116,10 @@ class UserController extends Controller
         $user = Auth::user();
 
         if (isset($request['picture'])) {
-            $pictureName = uniqid('picture_') . '.' . $request->file('picture')->extension();
-            $request->picture->storeAs('public/profile', $pictureName);
-            $pictureName = 'storage/profile/' . $pictureName;
+            $picture = $request->file('picture');
+            $pictureName = uniqid('picture_') . '.' . $picture->getClientOriginalExtension();
+            Storage::disk('s3')->putFileAs('profile', $picture, $pictureName, 'public');
+            $pictureUrl = Storage::disk('s3')->url('profile/' . $pictureName);
         } else
             $pictureName = $user->picture;
 

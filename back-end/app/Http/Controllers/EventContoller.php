@@ -9,6 +9,7 @@ use App\Models\events;
 use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Storage;
 use Log;
 
 class EventContoller extends Controller
@@ -83,7 +84,7 @@ class EventContoller extends Controller
         if (!is_null($request->file("eventPic"))) {
             $image = $request->file('eventPic');
             $filename = uniqid() . '.' . $image->getClientOriginalExtension();
-            $path = 'storage/events' . $image->storeAs('public/events', $filename);
+            $path = Storage::disk('s3')->putFileAs('events', $image, $filename);
             $array['picture'] = $filename;
         }
 
@@ -180,7 +181,7 @@ class EventContoller extends Controller
         if (!is_null($request->file("eventPic"))) {
             $image = $request->file('eventPic');
             $filename = uniqid() . '.' . $image->getClientOriginalExtension();
-            $path = $image->storeAs('public/images', $filename);
+            $path = Storage::disk('s3')->putFileAs('images', $image, $filename, 'public');
             $array['picture'] = $filename;
         }
 
