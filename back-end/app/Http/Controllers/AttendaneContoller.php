@@ -37,8 +37,12 @@ class AttendaneContoller extends Controller
 
     function attend($id)
     {
-        $event = events::where('attendKey', $id)->firstOrFail();
+        $event = events::where('attendKey', $id)->first();
         $myuser = Auth::user();
+        if (!$event) {
+            $alreadyScanned = att::where('attendKey', $id)->where('user_id', $myuser->id)->firstOrFail();
+            $event = events::where('id', $alreadyScanned->event_id)->firstOrFail();
+        }
 
         if ($event->user_id == $myuser->id) {
             return redirect('event/' . $event->id)->with([
@@ -124,6 +128,7 @@ class AttendaneContoller extends Controller
                 'event_id' => $event->id,
                 'instance_id' => $instance->id,
                 'qr' => 1,
+                'attendKey' => $id,
             ]);
             return view('events.face', compact('event', 'myuser', 'instance'));
         } else {

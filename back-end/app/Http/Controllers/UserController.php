@@ -32,18 +32,18 @@ class UserController extends Controller
         $user = Auth::user();
         if ($user->verified)
             return redirect('/profile');
-        return view('users.auth');
+        return view('users.auth', compact('user'));
     }
 
 
     public function verifyPost(Request $request)
     {
-        $user = Auth::user();
-
         $validatedData = $request->validate([
             'picture' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             'voice' => 'required|mimes:mp3,wav|max:2048',
         ]);
+
+        $user = Auth::user();
 
         // Generate unique names for the uploaded files
         $pictureName = uniqid('picture_') . '.' . $request->file('picture')->extension();

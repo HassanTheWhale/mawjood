@@ -64,25 +64,36 @@
                                             <p class="span">System Notes:</p>
                                             <ol>
                                                 @if ($aday->face == 1)
-                                                    <li>The user completed the face recognition</li>
+                                                    <li>The user <span class="text-success">completed</span> the face
+                                                        recognition</li>
                                                 @elseif ($aday->face == 2)
-                                                    <li>The user skipped the face recognition</li>
+                                                    <li>The user <span class="text-warning">skipped</span> the face
+                                                        recognition</li>
                                                 @elseif ($aday->face == 3)
-                                                    <li>The user failed the face recognition</li>
+                                                    <li>The user <span class="text-danger">failed</span> the face
+                                                        recognition</li>
                                                 @endif
 
                                                 @if ($aday->voice == 1)
-                                                    <li>The user completed the voice recognition</li>
+                                                    <li>The user <span class="text-success">completed</span> the voice
+                                                        recognition</li>
                                                 @elseif ($aday->voice == 2)
-                                                    <li>The user skipped the voice recognition</li>
+                                                    <li>The user <span class="text-warning">skipped</span> the voice
+                                                        recognition</li>
                                                 @elseif ($aday->voice == 3)
-                                                    <li>The user failed the voice recognition</li>
+                                                    <li>The user <span class="text-danger">failed</span> the voice
+                                                        recognition</li>
                                                 @endif
 
                                                 @if ($aday->geoCheck == 1)
-                                                    <li>The user within the location of the event</li>
+                                                    <li>The user <span class="text-success">within</span> the location of
+                                                        the event</li>
                                                 @elseif ($aday->geoCheck == 2)
-                                                    <li>The user is not within the location of the event</li>
+                                                    <li>The user is <span class="text-danger">not within</span> the location
+                                                        of the event</li>
+                                                @elseif ($aday->geoCheck == 3)
+                                                    <li>The user is <span class="text-warning">Manully</span> set attend by
+                                                        the host</li>
                                                 @endif
                                             </ol>
                                             <p class="span">User Notes:</p>

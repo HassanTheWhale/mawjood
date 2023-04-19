@@ -16,6 +16,10 @@
                 <div class="row">
                     <div class="col-md-6 mx-auto text-center py-5">
                         <label class="span text-start d-block mb-3">Voice Recording</label>
+                        <p class="text-muted text-start"> You must say: 'Hello. My name is {{ $myuser->name }}. I am
+                            approving my sound
+                            to
+                            Mawjood Application'.</p>
                         <div class="mb-3 d-flex justify-content-center align-items-center">
                             <audio id="recordedAudio" controls></audio>
                             <button id="startRecordingButton" type="button" class="btn btn-outline-primary"
@@ -28,12 +32,14 @@
                         <div id="waveform"></div>
                         <div class="mb-3">
                             <label for="note" class="span text-start d-block">Note Section</label>
+                            <p class="text-muted text-start">Add your comments here if you have any comment.</p>
                             <textarea name="note" id="note" placeholder="Add your notes here." class="form-control"></textarea>
                         </div>
                         <input type="hidden" id="cancel" name="cancel" value="">
 
                         <button type="button" id="send" class="btn btn-primary text-white">Send Voice & Note</button>
-                        <button type="button" id="cancelBtn" class="btn btn-outline-primary">Cancel Voice</button>
+                        <button type="button" id="cancelBtn" class="btn btn-outline-primary">Skip Voice & Send
+                            Note</button>
                     </div>
                 </div>
             </form>

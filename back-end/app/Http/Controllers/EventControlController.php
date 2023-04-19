@@ -130,9 +130,9 @@ class EventControlController extends Controller
             'user_id' => $uid,
             'event_id' => $eid,
             'qr' => 1,
-            'face' => 1,
-            'voice' => 1,
-            'geo' => 1,
+            'face' => 2,
+            'voice' => 2,
+            'geoCheck' => 3,
             'done' => 1,
             'instance_id' => $instance->id,
         ]);

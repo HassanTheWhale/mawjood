@@ -21,6 +21,7 @@ class att extends Model
         'geoCheck',
         'done',
         'note',
+        'attendKey',
         'instance_id',
     ];
 }

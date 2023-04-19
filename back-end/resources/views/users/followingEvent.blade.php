@@ -7,9 +7,6 @@
             <div class="col-8">
                 <h4 class="m-0">Events</h4>
             </div>
-            <a href="./create" class="col-2 pe-5 h-100 d-flex justify-content-center align-items-center">
-                <img src="./imgs/plus.png" alt="Events" />
-            </a>
         </div>
     </div>
     <div class="content h-84 py-4">

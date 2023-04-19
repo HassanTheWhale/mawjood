@@ -32,7 +32,10 @@
                             <label for="voice" class="span ms-3 mb-1">Voice</label>
                             <input type="file" class="form-control" id="voice" required name="voice">
                             <small id="voiceHelp" class="form-text text-muted">Please upload an audio file (MP3 or
-                                WAV).</small>
+                                WAV)
+                                <br>
+                                You must say: 'Hello. My name is {{ $user->name }}. I am approving my sound to
+                                Mawjood Application'.</small>
                         </div>
                         <button type="submit" class="btn btn-primary text-white w-100 px-4 mb-5"
                             id="submit-button">Submit</button>

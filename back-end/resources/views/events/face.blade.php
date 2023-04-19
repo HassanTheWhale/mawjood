@@ -66,11 +66,20 @@
                         }
                     })
                     .then(response => {
-                        // response.text().then(data => {
-                        //     console.log(`Response message: ${data}`);
-                        // });
                         if (response.status == 200)
                             location.reload();
+                        else if (response.status == 404)
+                            Swal.fire(
+                                'Warning',
+                                'Your image did not match the one saved',
+                                'warning',
+                            )
+                        else if (response.status == 500)
+                            Swal.fire(
+                                'Error',
+                                'Your image could not be captured, please try again',
+                                'error',
+                            )
                     })
                     .catch(error => {
                         console.error(`Error submitting form: ${error}`);

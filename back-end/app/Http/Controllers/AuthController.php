@@ -30,20 +30,19 @@ class AuthController extends Controller
             ->firstOrFail();
 
         if ($already->done == 1 || $already->face == 1 || $already->qr == 0)
-            return response('Image cant be captured', 404);
+            return response('Image cant be captured', 500);
 
 
         // update geo
         $latitude = $request->input('latitude');
         $longitude = $request->input('longitude');
-
         $loc = $latitude . ',' . $longitude;
         $already->update(['geo' => $loc]);
 
         // if skipped
         if ($request->input('cancel') == '1') {
             $already->update(['face' => 2]);
-            return response('Image captured', 200);
+            return response('Image Canceled', 200);
         }
 
 
@@ -79,8 +78,8 @@ class AuthController extends Controller
             return response('Image captured', 200);
         } else {
             // There's no match
-            $already->update(['face' => 3]);
-            return response('No match', 404);
+            // $already->update(['face' => 3]);
+            // return response('No match', 404);
         }
     }
 
@@ -107,7 +106,7 @@ class AuthController extends Controller
             ->firstOrFail();
 
         if ($already->done == 1 || $already->face == 0 || $already->qr == 0 || $already->voice == 1)
-            return response('Image cant be captured', 404);
+            return response('Image cant be captured', 500);
 
         $latitude = $request->input('latitude');
         $longitude = $request->input('longitude');
