@@ -85,7 +85,7 @@ class EventContoller extends Controller
             $image = $request->file('eventPic');
             $filename = uniqid() . '.' . $image->getClientOriginalExtension();
             $path = Storage::disk('s3')->putFileAs('events', $image, $filename);
-            $array['picture'] = $filename;
+            $array['picture'] = $path;
         }
 
         $key = uniqid();
@@ -182,7 +182,7 @@ class EventContoller extends Controller
             $image = $request->file('eventPic');
             $filename = uniqid() . '.' . $image->getClientOriginalExtension();
             $path = Storage::disk('s3')->putFileAs('images', $image, $filename, 'public');
-            $array['picture'] = $filename;
+            $array['picture'] = $path;
         }
 
         $dateType = $request->input('date_type');

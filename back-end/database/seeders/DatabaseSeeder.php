@@ -31,5 +31,6 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Educational Events',
         //     'picture' => 'https://source.unsplash.com/1920x1080/?Education'
         // ]);
+        $this->call(EventCategorySeeder::class);
     }
 }
