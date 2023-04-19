@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('extraCss')
-    <script src="https://www.google.com/recaptcha/api.js?render=6LcdW38lAAAAAHeKpcAOiDXf1NpIC0U0GM8r0HWC"></script>
+    <script src="https://www.google.com/recaptcha/api.js?render=6LedlaAlAAAAAKS70s9psz1GXHNPwqDp-3hDaRVk"></script>
 @endsection
 @section('content')
     <div class="landing">
@@ -56,8 +56,8 @@
                                 </span>
                             @enderror
                             <!-- <div class="d-flex justify-content-end">
-                                                                                                                                                      <a href="" class="span text-muted">Forgot your password?</a>
-                                                                                                                                                    </div> -->
+                                                                                                                                                          <a href="" class="span text-muted">Forgot your password?</a>
+                                                                                                                                                        </div> -->
                         </div>
                         <button type="submit" class="btn btn-primary text-white w-100 mb-3 py-2">Login</button>
                     </form>
