@@ -37,14 +37,19 @@ class AttendaneContoller extends Controller
 
     function attend($id)
     {
-        $event = events::where('attendKey', $id)->first();
         $myuser = Auth::user();
+        $event = events::where('attendKey', $id)->first();
         if (!$event) {
             $alreadyScanned = att::where('attendKey', $id)->where('user_id', $myuser->id)->firstOrFail();
             $event = events::where('id', $alreadyScanned->event_id)->firstOrFail();
         }
 
-        if ($event->user_id == $myuser->id) {
+        if (!$myuser->verified)
+            return redirect('event/' . $event->id)->with([
+                'type' => "warning",
+                'message' => 'You need to verifiy you account first',
+            ]);
+        else if ($event->user_id == $myuser->id) {
             return redirect('event/' . $event->id)->with([
                 'type' => "warning",
                 'message' => 'You are the owner of the event!',
