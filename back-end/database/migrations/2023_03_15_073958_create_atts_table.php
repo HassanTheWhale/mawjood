@@ -24,6 +24,7 @@ return new class extends Migration {
             $table->unsignedBigInteger('user_id')->unsigned();
             $table->unsignedBigInteger('event_id')->unsigned();
             $table->unsignedBigInteger('instance_id')->unsigned();
+            $table->string('attendKey')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('event_id')->references('id')->on('events')->onDelete('cascade');
             $table->foreign('instance_id')->references('id')->on('event_instances')->onDelete('cascade');

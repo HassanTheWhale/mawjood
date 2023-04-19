@@ -31,7 +31,6 @@ return new class extends Migration {
             $table->string('attendKey')->unique();
             $table->string('geo')->nullable();
             $table->integer('geoCheck')->default(0);
-            $table->string('attendKey')->nullable();
             $table->unsignedBigInteger('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->unsignedBigInteger('category')->unsigned();
