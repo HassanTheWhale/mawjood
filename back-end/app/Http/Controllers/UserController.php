@@ -51,11 +51,11 @@ class UserController extends Controller
         $pictureName = uniqid('picture_') . '.' . $request->file('picture')->extension();
         $voiceName = uniqid('voice_') . '.' . $request->file('voice')->extension();
 
-        Storage::disk('s3')->putFileAs('pictures', $request->file('picture'), $pictureName, 'public');
-        Storage::disk('s3')->putFileAs('voices', $request->file('voice'), $voiceName, 'public');
+        Storage::disk('s3')->putFileAs('authPic', $request->file('picture'), $pictureName, 'public');
+        Storage::disk('s3')->putFileAs('authVoice', $request->file('voice'), $voiceName, 'public');
 
-        $user->vpicture = Storage::disk('s3')->url('pictures/' . $pictureName);
-        $user->vaudio = Storage::disk('s3')->url('voices/' . $voiceName);
+        $user->vpicture = Storage::disk('s3')->url('authPic/' . $pictureName);
+        $user->vaudio = Storage::disk('s3')->url('authVoice/' . $voiceName);
         $user->verified = 1;
 
         $user->save();
