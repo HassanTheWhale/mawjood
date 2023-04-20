@@ -157,6 +157,8 @@
                         });
                         if (response.status == 200)
                             location.reload();
+                        else if (response.status == 404)
+                            Swal.fire('Warning', 'Voice did not match!', 'warning');
                     })
                     .catch(error => {
                         console.error(`Error submitting form: ${error}`);

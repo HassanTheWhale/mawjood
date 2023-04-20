@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 import face_recognition
 import numpy as np
 import subprocess
+import requests
 import os
 import uuid
 import librosa
@@ -18,9 +19,9 @@ def face_recognition_endpoint():
     filename = str(uuid.uuid4()) + '.jpg'
 
     # Download the image from the URL
-    response = request.urlopen(url)
+    response = requests.get(url)
     with open(filename, 'wb') as f:
-        f.write(response.read())
+        f.write(response.content)
 
     original_image = face_recognition.load_image_file(filename)
 
@@ -49,32 +50,44 @@ def face_recognition_endpoint():
 @app.route('/voice_recognition')
 def voice_recognition_endpoint():
 
-    #import recorded sound and save it
+    # import recorded sound and save it
     webm = request.files['voice']
     unique_string = str(uuid.uuid4())
     old_sound = unique_string+'.webm'
     webm.save(old_sound)
 
-
-    #convert it to wav and remove old
+    # convert it to wav and remove old
     sound = unique_string+'.wav'
     subprocess.run(['ffmpeg', '-i', old_sound, sound])
-    os.remove(old_sound)
+    # os.remove(old_sound)
 
-    #bring other source
-    source = request.form['userVoice']
+    # bring other source
+    url = request.form['userVoice']
+    # Generate a unique filename for the downloaded audio file
+    filenamea = str(uuid.uuid4()) + '.wav'
+    filename = filenamea
+    # Download the audio file from the URL
+    response = requests.get(url)
+    with open(filename, 'wb') as f:
+        f.write(response.content)
 
-    source, _ = librosa.load(source, sr=44100)
-    target, _ = librosa.load(sound, sr=44100)
-    source_mfcc = librosa.feature.mfcc(y=source, sr=44100)
-    target_mfcc = librosa.feature.mfcc(y=target, sr=44100)
-    os.remove(sound)
-    
-    sim_score = cosine_similarity(source_mfcc.T, target_mfcc.T)
-    threshold = .5  # Change this value as needed
-    is_same_person = bool(sim_score[0].min() > threshold)
-    return jsonify(sim=is_same_person)
+    try:
+        # Load the downloaded audio file using librosa
+        source, _ = librosa.load(filename, sr=44100)
+        target, _ = librosa.load(sound, sr=44100)
+        source_mfcc = librosa.feature.mfcc(y=source, sr=44100)
+        target_mfcc = librosa.feature.mfcc(y=target, sr=44100)
+        os.remove(sound)
 
+        sim_score = cosine_similarity(source_mfcc.T, target_mfcc.T)
+        threshold = .5  # Change this value as needed
+        is_same_person = bool(sim_score[0].min() > threshold)
+        return jsonify(sim=is_same_person)
+    except Exception as e:
+        os.remove(filename)
+        # Handle exception here
+        print(f'Error: {e}')
+        return jsonify(sim=False) 
 
 @app.route("/")
 def hello():
