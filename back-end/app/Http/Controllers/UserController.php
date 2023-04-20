@@ -110,7 +110,7 @@ class UserController extends Controller
         //     'userPrivate' => ['bail', 'integer'],
         // ]);
         $validatedData = $request->validate([
-            'picture' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'picture' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         // dd($request);
