@@ -144,7 +144,7 @@
                 formData.append('longitude', longitude);
                 formData.append('note', document.getElementById('note').value);
                 const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-                fetch("https://mawjood.click/voiceCheck/$event->id/$myuser->id/$instance->id", {
+                fetch("https://mawjood.click/voiceCheck/{{ $event->id }}/{{ $myuser->id }}/{{ $instance->id }}", {
                         method: 'POST',
                         body: formData,
                         headers: {
@@ -179,7 +179,7 @@
                 formData.append('cancel', '1');
                 formData.append('note', document.getElementById('note').value);
                 const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-                fetch("https://mawjood.click/voiceCheck/$event->id/$myuser->id/$instance->id", {
+                fetch("https://mawjood.click/voiceCheck/{{ $event->id }}/{{ $myuser->id }}/{{ $instance->id }}", {
                         method: 'POST',
                         body: formData,
                         headers: {
