@@ -29,7 +29,7 @@ class AttendaneContoller extends Controller
         $Attendkey = substr($Attendkey, 0, 10);
         $event->update(['attendKey' => $Attendkey]);
 
-        $url = "http://localhost:8000/attendEvent/" . $event->attendKey;
+        $url = "https://mawjood.click/attendEvent/" . $event->attendKey;
         $qrCode = QrCode::size(250)->generate($url);
 
         return view('events.qr', compact('event', 'qrCode'));
