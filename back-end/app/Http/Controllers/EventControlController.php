@@ -152,7 +152,7 @@ class EventControlController extends Controller
         }
         $event->update(['closed' => 1]);
         $event->update(['geo' => $location]);
-        return redirect('generateQR/' . $id . '/');
+        return response('qr done', 200);
     }
 
     function close($id)

@@ -29,6 +29,9 @@
     height: 5% !important;
 }
 
+.mh-8 {
+    min-height: 8% !important;
+}
 .h-8 {
     height: 8% !important;
 }

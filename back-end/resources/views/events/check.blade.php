@@ -1,40 +1,61 @@
 @extends('layouts.master')
 
 @section('content')
-    <div class="top h-8 bg-prime2 text-white text-center overflow-hidden">
-        <div class="row h-100 justify-content-center align-items-center">
-            <div class="col-2"></div>
-            <div class="col-8">
-                <h4 class="m-0">Check {{ $event->name }}</h4>
+    <div class="top mh-8 pt-2 bg-prime2 text-white text-center overflow-hidden">
+        <nav class="navbar navbar-dark">
+            <div class="container d-flex align-items-center">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <h4 class="m-2">Check {{ $event->name }}</h4>
+                <div class="collapse navbar-collapse mt-3" id="navbarSupportedContent">
+                    <ul class="navbar-nav mb-2 mb-lg-0">
+                        <li class="nav-item mb-2 text-start">
+                            <a class="nav-link active" aria-current="page" href="{{ url('/home/') }}">Home</a>
+                        </li>
+                        <li class="nav-item mb-2 text-start">
+                            <a class="nav-link active" aria-current="page" href="{{ url('/search') }}">Search for users</a>
+                        </li>
+                        <li class="nav-item mb-2 text-start">
+                            <a class="nav-link active" aria-current="page" href="{{ url('/followingEvent') }}">My Following
+                                Events</a>
+                        </li>
+                        <li class="nav-item mb-2 text-start">
+                            <a class="nav-link active" aria-current="page" href="{{ url('/profile') }}">My Profile</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
-            <div class="col-2 pe-5"></div>
-        </div>
+        </nav>
     </div>
     <div class="content h-84">
-        <div class="row">
-            <div class="col-md-6 mx-auto py-4">
-                @if (session()->has('message'))
-                    <div class="alert alert-{{ session('type') }}" role="alert"> {{ session('message') }} </div>
-                @endif
-                <h4 class="span mb-3">{{ $event->name }}</h4>
-                <p class="text-muted">Registered attendance: {{ $registered }}</p>
-                <a href="{{ url('/checkAttendance/' . $event->id) }}" class="span text-muted d-block mb-3">
-                    <div class="card rounded overflow-hidden p-3">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <span>Attendance list</span> <span>&gt;</span>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 mx-auto py-4">
+                    @if (session()->has('message'))
+                        <div class="alert alert-{{ session('type') }}" role="alert"> {{ session('message') }} </div>
+                    @endif
+                    <h4 class="span mb-3">{{ $event->name }}</h4>
+                    <p class="text-muted">Registered attendance: {{ $registered }}</p>
+                    <a href="{{ url('/checkAttendance/' . $event->id) }}" class="span text-muted d-block mb-3">
+                        <div class="card rounded overflow-hidden p-3">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span>Attendance list</span> <span>&gt;</span>
+                            </div>
                         </div>
-                    </div>
-                </a>
-                <a href="{{ url('/PrivateKey/' . $event->id) }}" class="span text-muted d-block mb-3">
-                    <div class="card rounded overflow-hidden p-3">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <span>Private Key</span> <span>&gt;</span>
+                    </a>
+                    <a href="{{ url('/PrivateKey/' . $event->id) }}" class="span text-muted d-block mb-3">
+                        <div class="card rounded overflow-hidden p-3">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span>Private Key</span> <span>&gt;</span>
+                            </div>
                         </div>
-                    </div>
-                </a>
-                {{-- <a href="" class="btn btn-primary text-white w-100">
-                    Send Certitficates
-                </a> --}}
+                    </a>
+                    {{-- <a href="" class="btn btn-primary text-white w-100">
+                        Send Certitficates
+                    </a> --}}
+                </div>
             </div>
         </div>
     </div>

@@ -1,36 +1,59 @@
 @extends('layouts.master')
 
 @section('content')
-    <div class="top h-8 bg-prime2 text-white text-center overflow-hidden">
-        <div class="row h-100 justify-content-center align-items-center">
-            <div class="col-2"></div>
-            <div class="col-8">
-                <h4 class="m-0">Check {{ $event->name }}</h4>
+    <div class="top mh-8 pt-2 bg-prime2 text-white text-center overflow-hidden">
+        <nav class="navbar navbar-dark">
+            <div class="container d-flex align-items-center">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <h4 class="m-2">Check {{ $event->name }}</h4>
+                <div class="collapse navbar-collapse mt-3" id="navbarSupportedContent">
+                    <ul class="navbar-nav mb-2 mb-lg-0">
+                        <li class="nav-item mb-2 text-start">
+                            <a class="nav-link active" aria-current="page" href="{{ url('/home/') }}">Home</a>
+                        </li>
+                        <li class="nav-item mb-2 text-start">
+                            <a class="nav-link active" aria-current="page" href="{{ url('/search') }}">Search for users</a>
+                        </li>
+                        <li class="nav-item mb-2 text-start">
+                            <a class="nav-link active" aria-current="page" href="{{ url('/followingEvent') }}">My Following
+                                Events</a>
+                        </li>
+                        <li class="nav-item mb-2 text-start">
+                            <a class="nav-link active" aria-current="page" href="{{ url('/profile') }}">My Profile</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
-            <div class="col-2 pe-5"></div>
-        </div>
+        </nav>
     </div>
     <div class="content h-84">
-        <div class="row">
-            <div class="col-md-6 mx-auto py-4">
-                @if (session()->has('message'))
-                    <div class="alert alert-{{ session('type') }}" role="alert"> {{ session('message') }} </div>
-                @endif
+        <div class="container">
 
-                <form method="POST" action="{{ route('events.privateKeyModify', $event->id) }}">
-                    @csrf
-                    <label for="text" class="span mb-2">Private Key:</label>
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <input type="password" name="text" id="text" value="{{ $event->key }}"
-                            class="me-3 form-control" readonly>
-                    </div>
-                    <div class="d-flex justify-content-around align-items-center">
-                        <button type="button" id="toggle" class="me-3 btn btn-secondary">Show/Hide</button>
-                        <button type="submit" class="btn btn-primary text-white">Generate new one</button>
-                    </div>
-                </form>
+            <div class="row">
+                <div class="col-md-6 mx-auto py-4">
+                    @if (session()->has('message'))
+                        <div class="alert alert-{{ session('type') }}" role="alert"> {{ session('message') }} </div>
+                    @endif
 
+                    <form method="POST" action="{{ route('events.privateKeyModify', $event->id) }}">
+                        @csrf
+                        <label for="text" class="span mb-2">Private Key:</label>
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <input type="password" name="text" id="text" value="{{ $event->key }}"
+                                class="me-3 form-control" readonly>
+                        </div>
+                        <div class="d-flex justify-content-around align-items-center">
+                            <button type="button" id="toggle" class="me-3 btn btn-secondary">Show/Hide</button>
+                            <button type="submit" class="btn btn-primary text-white">Generate new one</button>
+                        </div>
+                    </form>
+
+                </div>
             </div>
+
         </div>
     </div>
     <div class="bottom h-8 bg-prime2 overflow-hidden">

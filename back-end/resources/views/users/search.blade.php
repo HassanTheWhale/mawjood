@@ -1,14 +1,33 @@
 @extends('layouts.master')
 
 @section('content')
-    <div class="top h-8 bg-prime2 text-white text-center overflow-hidden">
-        <div class="row h-100 justify-content-center align-items-center">
-            <div class="col-2"></div>
-            <div class="col-8">
-                <h4 class="m-0">Explore Users</h4>
+    <div class="top mh-8 pt-2 bg-prime2 text-white text-center overflow-hidden">
+        <nav class="navbar navbar-dark">
+            <div class="container d-flex align-items-center">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <h4 class="m-2">Explore Users</h4>
+                <div class="collapse navbar-collapse mt-3" id="navbarSupportedContent">
+                    <ul class="navbar-nav mb-2 mb-lg-0">
+                        <li class="nav-item mb-2 text-start">
+                            <a class="nav-link active" aria-current="page" href="{{ url('/home/') }}">Home</a>
+                        </li>
+                        <li class="nav-item mb-2 text-start">
+                            <a class="nav-link active" aria-current="page" href="{{ url('/search') }}">Search for users</a>
+                        </li>
+                        <li class="nav-item mb-2 text-start">
+                            <a class="nav-link active" aria-current="page" href="{{ url('/followingEvent') }}">My Following
+                                Events</a>
+                        </li>
+                        <li class="nav-item mb-2 text-start">
+                            <a class="nav-link active" aria-current="page" href="{{ url('/profile') }}">My Profile</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
-            <div class="col-2 pe-5"></div>
-        </div>
+        </nav>
     </div>
     <div class="content h-84 py-4">
         <div class="container">

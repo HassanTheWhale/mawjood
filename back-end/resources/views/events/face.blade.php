@@ -29,7 +29,7 @@
                     video.srcObject = stream;
                     video.play();
                 })
-                .catch(error => {
+                .catch(error => {   
                     console.error(`Error accessing device camera: ${error}`);
                 });
         } catch (error) {
