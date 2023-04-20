@@ -19,18 +19,27 @@
 
 @section('scripts')
     <script>
-        // Get access to the device camera
-        navigator.mediaDevices.getUserMedia({
-                video: true
-            })
-            .then(stream => {
-                const video = document.getElementById('video');
-                video.srcObject = stream;
-                video.play();
-            })
-            .catch(error => {
-                console.error(`Error accessing device camera: ${error}`);
-            });
+        try {
+            // Get access to the device camera
+            navigator.mediaDevices.getUserMedia({
+                    video: true
+                })
+                .then(stream => {
+                    const video = document.getElementById('video');
+                    video.srcObject = stream;
+                    video.play();
+                })
+                .catch(error => {
+                    console.error(`Error accessing device camera: ${error}`);
+                });
+        } catch (error) {
+            Swal.fire(
+                'Warning',
+                'Your browser can not open the camera'
+                'warning'
+            )
+
+        }
 
         const captureButton = document.getElementById('capture-button');
         captureButton.addEventListener('click', () => {
