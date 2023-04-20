@@ -67,7 +67,7 @@
                 formData.append('longitude', longitude);
 
                 const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-                fetch('/faceCheck/{{ $event->id }}/{{ $myuser->id }}/{{ $instance->id }}', {
+                fetch('https://mawjood.click/faceCheck/{{ $event->id }}/{{ $myuser->id }}/{{ $instance->id }}', {
                         method: 'POST',
                         body: formData,
                         headers: {
@@ -117,7 +117,7 @@
                 formData.append('longitude', longitude);
 
                 const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-                fetch('/faceCheck/{{ $event->id }}/{{ $myuser->id }}/{{ $instance->id }}', {
+                fetch('https://mawjood.click/faceCheck/{{ $event->id }}/{{ $myuser->id }}/{{ $instance->id }}', {
                         method: 'POST',
                         body: formData,
                         headers: {
