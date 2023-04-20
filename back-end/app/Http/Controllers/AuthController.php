@@ -55,7 +55,7 @@ class AuthController extends Controller
         // check if face done
         $client = new Client();
         // Send a POST request to the Flask server with the image file
-        $response = $client->request('GET', 'http://localhost:5000/face_recognition', [
+        $response = $client->request('GET', 'http://18.198.50.161:8000//face_recognition', [
             'multipart' => [
                 [
                     'name' => 'image',
@@ -137,7 +137,7 @@ class AuthController extends Controller
         // // check if face done
         $client = new Client();
         // Send a POST request to the Flask server with the image files
-        $response = $client->request('GET', 'http://localhost:5000/voice_recognition', [
+        $response = $client->request('GET', 'http://18.198.50.161:8000//voice_recognition', [
             'multipart' => [
                 [
                     'name' => 'voice',
