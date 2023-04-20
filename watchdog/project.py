@@ -12,9 +12,17 @@ app = Flask(__name__)
 @app.route('/face_recognition')
 def face_recognition_endpoint():
     # Get the additional text from the request
-    original_text = request.form['userImg']
-    # Load the original image
-    original_image = face_recognition.load_image_file(original_text)
+    url = request.form['userImg']
+
+    # Generate a unique filename for the downloaded image
+    filename = str(uuid.uuid4()) + '.jpg'
+
+    # Download the image from the URL
+    response = request.urlopen(url)
+    with open(filename, 'wb') as f:
+        f.write(response.read())
+
+    original_image = face_recognition.load_image_file(filename)
 
     # Get the uploaded image from the request
     uploaded_image_file = request.files['image']
@@ -30,6 +38,8 @@ def face_recognition_endpoint():
 
     # Compare the faces in the uploaded image with the faces in the original image
     matches = face_recognition.compare_faces(original_face_encodings, uploaded_face_encodings[0])
+
+    os.remove(filename)
     # Check if there is a match
     if True in matches:
         return jsonify(match=True)
