@@ -35,8 +35,8 @@
         } catch (error) {
             Swal.fire(
                 'Warning',
-                'Your browser can not open the camera'
-                'warning'
+                'Your browser can not open the camera',
+                'warning',
             )
 
         }
