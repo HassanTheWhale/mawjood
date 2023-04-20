@@ -58,9 +58,19 @@ def voice_recognition_endpoint():
 
     # convert it to wav and remove old
     sound = unique_string+'.wav'
-    subprocess.run(['ffmpeg', '-i', old_sound, sound])
-    # os.remove(old_sound)
-
+    try:
+         subprocess.run(['ffmpeg', '-i', old_sound, sound])
+    except Exception as e:
+        # Handle exception here
+        print(f'Error: {e}')
+        os.remove(old_sound)
+        return jsonify(sim=False) 
+    if os.path.exists(sound):
+        print("File exists!")
+    else:
+        os.remove('old_sound')
+        return jsonify(sim=False) 
+    
     # bring other source
     url = request.form['userVoice']
     # Generate a unique filename for the downloaded audio file
@@ -77,13 +87,13 @@ def voice_recognition_endpoint():
         target, _ = librosa.load(sound, sr=44100)
         source_mfcc = librosa.feature.mfcc(y=source, sr=44100)
         target_mfcc = librosa.feature.mfcc(y=target, sr=44100)
-        os.remove(sound)
 
         sim_score = cosine_similarity(source_mfcc.T, target_mfcc.T)
-        threshold = .5  # Change this value as needed
-        is_same_person = bool(sim_score[0].min() > threshold)
+        threshold = .9  # Change this value as needed
+        is_same_person = bool(sim_score[0].max() > threshold)
         return jsonify(sim=is_same_person)
     except Exception as e:
+        os.remove(sound)
         os.remove(filename)
         # Handle exception here
         print(f'Error: {e}')

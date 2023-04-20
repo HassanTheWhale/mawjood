@@ -91,6 +91,9 @@
                                                 @elseif ($aday->face == 3)
                                                     <li>The user <span class="text-danger">failed</span> the face
                                                         recognition</li>
+                                                @else
+                                                    <li>The user <span class="text-danger">Did not Complete</span> the face
+                                                        recognition</li>
                                                 @endif
 
                                                 @if ($aday->voice == 1)
@@ -101,6 +104,9 @@
                                                         recognition</li>
                                                 @elseif ($aday->voice == 3)
                                                     <li>The user <span class="text-danger">failed</span> the voice
+                                                        recognition</li>
+                                                @else
+                                                    <li>The user <span class="text-danger">Did not Complete</span> the voice
                                                         recognition</li>
                                                 @endif
 
@@ -113,6 +119,9 @@
                                                 @elseif ($aday->geoCheck == 3)
                                                     <li>The user is <span class="text-warning">Manully</span> set attend by
                                                         the host</li>
+                                                @else
+                                                    <li>The user's location <span class="text-danger">Unknown</span> do to
+                                                        not completing the process</li>
                                                 @endif
                                             </ol>
                                             <p class="span">User Notes:</p>
