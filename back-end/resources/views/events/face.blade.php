@@ -7,7 +7,7 @@
                 <input type="hidden" id="latitude" name="latitude" value="">
                 <input type="hidden" id="cancel" name="cancel" value="">
                 <input type="hidden" id="longitude" name="longitude" value="">
-                <video id="video" width="100%" autoplay></video>
+                <video id="video" playsinline='true' muted='true' width="100%" autoplay='true'></video>
                 <button type="button" class="btn btn-primary text-white w-100 px-4 mb-1" id="capture-button">Take a
                     picture</button>
                 <button type="button" class="btn btn-outline-primary text-white w-100 px-4 mb-5"
@@ -29,7 +29,7 @@
                     video.srcObject = stream;
                     video.play();
                 })
-                .catch(error => {   
+                .catch(error => {
                     console.error(`Error accessing device camera: ${error}`);
                 });
         } catch (error) {
