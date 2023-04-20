@@ -12,7 +12,7 @@ app = Flask(__name__)
 @app.route('/face_recognition')
 def face_recognition_endpoint():
     # Get the additional text from the request
-    original_text = '/Applications/XAMPP/xamppfiles/htdocs/mawjood-project/back-end/storage/app/public/' + request.form['userImg'].replace('storage/', '')
+    original_text = request.form['userImg']
     # Load the original image
     original_image = face_recognition.load_image_file(original_text)
 
@@ -52,7 +52,7 @@ def voice_recognition_endpoint():
     os.remove(old_sound)
 
     #bring other source
-    source = '/Applications/XAMPP/xamppfiles/htdocs/mawjood-project/back-end/storage/app/public/' + request.form['userVoice'].replace('storage/', '')
+    source = request.form['userVoice']
 
     source, _ = librosa.load(source, sr=44100)
     target, _ = librosa.load(sound, sr=44100)
