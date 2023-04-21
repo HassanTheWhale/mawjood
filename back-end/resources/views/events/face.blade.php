@@ -4,9 +4,9 @@
     <div class="landing">
         <div class="h-100 d-flex justify-content-center align-items-center flex-column text-center">
             <div class="container">
-                <form id="camera-form" class="container">
+                <form id="camera-form" class="mx-auto">
                     <input type="hidden" id="longitude" name="longitude" value="">
-                    <video id="video" playsinline='true' muted='true' width="100%" autoplay='true'></video>
+                    <video id="video" playsinline='true' muted='true' width="750px" autoplay='true'></video>
                     <button type="button" class="btn btn-primary text-white w-100 px-4 mb-1" id="capture-button">Take a
                         picture</button>
                     <button type="button" class="btn btn-outline-primary text-white w-100 px-4 mb-5"
