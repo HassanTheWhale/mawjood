@@ -71,7 +71,6 @@ class AuthController extends Controller
 
         // Get the response body as a string
         $body = $response->getBody()->getContents();
-
         if (strpos($body, '{"match":true}') !== false) {
             // There's a match
             $already->update(['face' => 1]);
@@ -79,7 +78,7 @@ class AuthController extends Controller
         } else {
             // There's no match
             // $already->update(['face' => 3]);
-            // return response('No match', 404);
+            return response('No match', 404);
         }
     }
 

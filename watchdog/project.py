@@ -12,39 +12,43 @@ app = Flask(__name__)
 
 @app.route('/face_recognition')
 def face_recognition_endpoint():
-    # Get the additional text from the request
-    url = request.form['userImg']
+    try:
+        # Get the additional text from the request
+        url = request.form['userImg']
 
-    # Generate a unique filename for the downloaded image
-    filename = str(uuid.uuid4()) + '.jpg'
+        # Generate a unique filename for the downloaded image
+        filename = str(uuid.uuid4()) + '.jpg'
 
-    # Download the image from the URL
-    response = requests.get(url)
-    with open(filename, 'wb') as f:
-        f.write(response.content)
+        # Download the image from the URL
+        response = requests.get(url)
+        with open(filename, 'wb') as f:
+            f.write(response.content)
 
-    original_image = face_recognition.load_image_file(filename)
+        original_image = face_recognition.load_image_file(filename)
 
-    # Get the uploaded image from the request
-    uploaded_image_file = request.files['image']
-    uploaded_image = face_recognition.load_image_file(uploaded_image_file)
+        # Get the uploaded image from the request
+        uploaded_image_file = request.files['image']
+        uploaded_image = face_recognition.load_image_file(uploaded_image_file)
 
-    # Find all the faces in the uploaded image
-    uploaded_face_locations = face_recognition.face_locations(uploaded_image)
-    uploaded_face_encodings = face_recognition.face_encodings(uploaded_image, uploaded_face_locations)
+        # Find all the faces in the uploaded image
+        uploaded_face_locations = face_recognition.face_locations(uploaded_image)
+        uploaded_face_encodings = face_recognition.face_encodings(uploaded_image, uploaded_face_locations)
 
-    # Find all the faces in the original image
-    original_face_locations = face_recognition.face_locations(original_image)
-    original_face_encodings = face_recognition.face_encodings(original_image, original_face_locations)
+        # Find all the faces in the original image
+        original_face_locations = face_recognition.face_locations(original_image)
+        original_face_encodings = face_recognition.face_encodings(original_image, original_face_locations)
 
-    # Compare the faces in the uploaded image with the faces in the original image
-    matches = face_recognition.compare_faces(original_face_encodings, uploaded_face_encodings[0])
+        # Compare the faces in the uploaded image with the faces in the original image
+        matches = face_recognition.compare_faces(original_face_encodings, uploaded_face_encodings[0])
 
-    os.remove(filename)
-    # Check if there is a match
-    if True in matches:
-        return jsonify(match=True)
-    else:
+        os.remove(filename)
+        # Check if there is a match
+        if True in matches:
+            return jsonify(match=True)
+        else:
+            return jsonify(match=False)
+    except Exception as e:
+        # Handle exceptions and return an error response
         return jsonify(match=False)
 
 @app.route('/voice_recognition')
