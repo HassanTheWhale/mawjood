@@ -20,18 +20,54 @@
 
 @section('scripts')
     <script>
-        function openF() {
-            navigator.geolocation.getCurrentPosition(position => {
-                const latitude = position.coords.latitude;
-                const longitude = position.coords.longitude;
-                fetch(`/open/{{ $event->id }}/${latitude},${longitude}`, {
-                        method: 'GET',
-                    })
-                    .then(response => {
-                        if (response.status == 200)
-                            location.reload();
+        async function openF() {
+            try {
+                // Check for geolocation support
+                if ("geolocation" in navigator) {
+                    // Check for secure (HTTPS) connection
+                    if (window.location.protocol === "https:") {
+                        // Get current position
+                        const position = await new Promise((resolve, reject) => {
+                            navigator.geolocation.getCurrentPosition(resolve, reject);
+                        });
+                        const latitude = position.coords.latitude;
+                        const longitude = position.coords.longitude;
+                        fetch(`/open/{{ $event->id }}/${latitude},${longitude}`, {
+                                method: 'GET',
+                            })
+                            .then(response => {
+                                if (response.ok) {
+                                    location.reload();
+                                } else {
+                                    Swal.fire(
+                                        'Error',
+                                        'Unknown Error',
+                                        'error',
+                                    );
+                                }
+                            });
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'Geolocation requires a secure (HTTPS) connection'
+                        });
+                    }
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Geolocation not supported in this browser'
                     });
-            });
+                }
+            } catch (error) {
+                Swal.fire(
+                    'Error',
+                    'Error: ' + error,
+                    'error',
+                );
+                console.error(error);
+            }
         }
         setInterval(function() {
             location.reload();
