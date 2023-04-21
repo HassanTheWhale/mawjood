@@ -93,8 +93,7 @@
                             <div id="single-date" style="@if ($event->type == 1) display:none; @endif">
                                 <label for="start_dateA" class="span ms-3 mb-1">Start Date:</label>
                                 <input type="date" name="eventSDateA" class="form-control"
-                                    min="{{ now()->format('Y-m-d') }}" value="{{ $event->start_date }}"
-                                    max="{{ date('Y-m-d', strtotime('+1 year')) }}" id="start_dateA">
+                                    value="{{ $event->start_date }}" id="start_dateA">
                                 <br>
                                 <label for="start_timeA" class="span ms-3 mb-1">Start Time:</label>
                                 <input type="time" name="eventSTimeA" id="start_timeA" value="{{ $event->start_time }}"
@@ -106,15 +105,13 @@
                             </div>
                             <div id="range-dates" style="@if ($event->type == 0) display:none; @endif"">
                                 <label for="start_dateB" class="span ms-3 mb-1">Start Date:</label>
-                                <input type="date" name="eventSDateB"
-                                    max="{{ date('Y-m-d', strtotime('+1 year')) }}"id="start_dateB"
-                                    value="{{ $event->start_date }}" class="form-control"
-                                    min="{{ now()->format('Y-m-d') }}">
+                                <input type="date" name="eventSDateB" id="start_dateB"
+                                    value="{{ $event->start_date }}" class="form-control">
                                 <br>
                                 <label for="end_date" class="span ms-3 mb-1">End Date:</label>
-                                <input type="date" name="eventEDateB" value="{{ $event->end_date }}"
-                                    max="{{ date('Y-m-d', strtotime('+1 year')) }}" id="end_date"class="form-control"
-                                    min="{{ now()->format('Y-m-d') }}">
+                                <input type="date" name="eventEDateB" value="{{ $event->end_date }}" id="end_date"
+                                    class="form-control">
+
                                 <br>
                                 <label for="start_timeb" class="span ms-3 mb-1">Start Time:</label>
                                 <input type="time" name="eventSTimeB" id="start_timeB"
