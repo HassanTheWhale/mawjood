@@ -55,66 +55,57 @@
                 if ("geolocation" in navigator) {
                     // Check for secure (HTTPS) connection
                     if (window.location.protocol === "https:") {
-                        // Request geolocation permission
-                        const permissionStatus = await navigator.geolocation.requestAuthorization();
-                        if (permissionStatus === "granted") {
-                            // Get current position
-                            const position = await new Promise((resolve, reject) => {
-                                navigator.geolocation.getCurrentPosition(resolve, reject);
+                        // Get current position
+                        const position = await new Promise((resolve, reject) => {
+                            navigator.geolocation.getCurrentPosition(resolve, reject);
+                        });
+                        const latitude = position.coords.latitude;
+                        const longitude = position.coords.longitude;
+                        // Continue with capturing the image and submitting the form
+                        const video = document.getElementById('video');
+                        const canvas = document.createElement('canvas');
+                        const context = canvas.getContext('2d');
+                        canvas.width = video.videoWidth;
+                        canvas.height = video.videoHeight;
+                        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+                        const image = canvas.toDataURL();
+                        const formData = new FormData(document.getElementById('camera-form'));
+                        formData.append('image', image);
+                        formData.append('latitude', latitude);
+                        formData.append('longitude', longitude);
+                        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute(
+                            'content');
+                        const response = await fetch(
+                            'https://mawjood.click/faceCheck/{{ $event->id }}/{{ $myuser->id }}/{{ $instance->id }}', {
+                                method: 'POST',
+                                body: formData,
+                                headers: {
+                                    'X-CSRF-TOKEN': csrfToken
+                                }
                             });
-                            const latitude = position.coords.latitude;
-                            const longitude = position.coords.longitude;
-                            // Continue with capturing the image and submitting the form
-                            const video = document.getElementById('video');
-                            const canvas = document.createElement('canvas');
-                            const context = canvas.getContext('2d');
-                            canvas.width = video.videoWidth;
-                            canvas.height = video.videoHeight;
-                            context.drawImage(video, 0, 0, canvas.width, canvas.height);
-                            const image = canvas.toDataURL();
-                            const formData = new FormData(document.getElementById('camera-form'));
-                            formData.append('image', image);
-                            formData.append('latitude', latitude);
-                            formData.append('longitude', longitude);
-                            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute(
-                                'content');
-                            const response = await fetch(
-                                'https://mawjood.click/faceCheck/{{ $event->id }}/{{ $myuser->id }}/{{ $instance->id }}', {
-                                    method: 'POST',
-                                    body: formData,
-                                    headers: {
-                                        'X-CSRF-TOKEN': csrfToken
-                                    }
-                                });
-                            if (response.ok) {
-                                location.reload();
-                            } else if (response.status === 404) {
-                                Swal.fire(
-                                    'Warning',
-                                    'Your image did not match the one saved',
-                                    'warning',
-                                );
-                            } else if (response.status === 500) {
-                                const data = await response.json();
-                                Swal.fire(
-                                    'Warning',
-                                    'Your image did not match the one saved. Error: ' + data.message,
-                                    'warning'
-                                );
-                            } else {
-                                Swal.fire(
-                                    'Error',
-                                    'Unknown Error',
-                                    'error',
-                                );
-                            }
+                        if (response.ok) {
+                            location.reload();
+                        } else if (response.status === 404) {
+                            Swal.fire(
+                                'Warning',
+                                'Your image did not match the one saved',
+                                'warning',
+                            );
+                        } else if (response.status === 500) {
+                            const data = await response.json();
+                            Swal.fire(
+                                'Warning',
+                                'Your image did not match the one saved. Error: ' + data.message,
+                                'warning'
+                            );
                         } else {
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Permission Denied',
-                                text: 'Permission denied for geolocation'
-                            });
+                            Swal.fire(
+                                'Error',
+                                'Unknown Error',
+                                'error',
+                            );
                         }
+
                     } else {
                         Swal.fire({
                             icon: 'error',
@@ -132,7 +123,7 @@
             } catch (error) {
                 Swal.fire(
                     'Error',
-                    'Error capturing image or contacting the server.',
+                    'Error capturing image or contacting the server. Error:' + error,
                     'error',
                 );
                 console.error(error);
@@ -148,21 +139,11 @@
                 let longitude;
                 if ("geolocation" in navigator) {
                     if (window.location.protocol === "https:") {
-                        const permissionStatus = await navigator.geolocation.requestAuthorization();
-                        if (permissionStatus === "granted") {
-                            const position = await new Promise((resolve, reject) => {
-                                navigator.geolocation.getCurrentPosition(resolve, reject);
-                            });
-                            latitude = position.coords.latitude;
-                            longitude = position.coords.longitude;
-                        } else {
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Permission Denied',
-                                text: 'Permission denied for geolocation'
-                            });
-                            return; // Return early on error
-                        }
+                        const position = await new Promise((resolve, reject) => {
+                            navigator.geolocation.getCurrentPosition(resolve, reject);
+                        });
+                        latitude = position.coords.latitude;
+                        longitude = position.coords.longitude;
                     } else {
                         Swal.fire({
                             icon: 'error',

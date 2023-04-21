@@ -103,7 +103,7 @@ class AttendaneContoller extends Controller
                 $c = 2 * atan2(sqrt($a), sqrt(1 - $a));
                 $distance = $earthRadius * $c;
 
-                if ($distance <= 2) {
+                if ($distance <= 5) {
                     $avgX = ($point1[0] + $point2[0]) / 2;
                     $avgY = ($point1[1] + $point2[1]) / 2;
                     $avgPoint = $avgX . ',' . $avgY;
