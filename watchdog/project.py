@@ -93,7 +93,7 @@ def voice_recognition_endpoint():
         target_mfcc = librosa.feature.mfcc(y=target, sr=44100)
 
         sim_score = cosine_similarity(source_mfcc.T, target_mfcc.T)
-        threshold = .9  # Change this value as needed
+        threshold = .99  # Change this value as needed
         is_same_person = bool(sim_score[0].max() > threshold)
         return jsonify(sim=is_same_person)
     except Exception as e:
