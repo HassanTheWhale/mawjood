@@ -123,7 +123,7 @@ class UserController extends Controller
             Storage::disk('s3')->putFileAs('profile', $picture, $pictureName, 'public');
             $pictureUrl = Storage::disk('s3')->url('profile/' . $pictureName);
         } else
-            $pictureName = $user->picture;
+            $pictureUrl = $user->picture;
 
         $user->update([
             'name' => $request['userName'],
