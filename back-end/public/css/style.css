@@ -8,7 +8,9 @@
 .text-muted {
     color: rgb(97, 97, 97) !important;
 }
-
+video {
+    max-width: 100%;
+}
 .swal2-popup {
     height: auto !important;
     max-height: 90% !important;
