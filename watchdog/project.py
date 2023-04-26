@@ -30,15 +30,15 @@ def face_recognition_endpoint():
         uploaded_image_file = request.files['image']
         uploaded_image = face_recognition.load_image_file(uploaded_image_file)
 
-        # Find all the faces in the uploaded image
+        # Find the face in the uploaded image
         uploaded_face_locations = face_recognition.face_locations(uploaded_image)
         uploaded_face_encodings = face_recognition.face_encodings(uploaded_image, uploaded_face_locations)
 
-        # Find all the faces in the original image
+        # Find the face in the original image
         original_face_locations = face_recognition.face_locations(original_image)
         original_face_encodings = face_recognition.face_encodings(original_image, original_face_locations)
 
-        # Compare the faces in the uploaded image with the faces in the original image
+        # Compare the face in the uploaded image with the faces in the original image
         matches = face_recognition.compare_faces(original_face_encodings, uploaded_face_encodings[0])
 
         os.remove(filename)
@@ -72,7 +72,7 @@ def voice_recognition_endpoint():
     if os.path.exists(sound):
         print("File exists!")
     else:
-        os.remove('old_sound')
+        os.remove(old_sound)
         return jsonify(sim=False) 
     
     # bring other source
@@ -93,7 +93,7 @@ def voice_recognition_endpoint():
         target_mfcc = librosa.feature.mfcc(y=target, sr=44100)
 
         sim_score = cosine_similarity(source_mfcc.T, target_mfcc.T)
-        threshold = .99  # Change this value as needed
+        threshold = .99 
         is_same_person = bool(sim_score[0].max() > threshold)
         return jsonify(sim=is_same_person)
     except Exception as e:
