@@ -19,6 +19,7 @@ return new class extends Migration {
             $table->integer('voice')->default(0);
             $table->integer('geoCheck')->default(0);
             $table->string('geo')->nullable();
+            $table->string('eventGeo')->nullable();
             $table->string('note')->nullable();
             $table->string('done')->default(0);
             $table->unsignedBigInteger('user_id')->unsigned();

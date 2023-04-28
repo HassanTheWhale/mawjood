@@ -19,6 +19,7 @@ class att extends Model
         'voice',
         'geo',
         'geoCheck',
+        'eventGeo',
         'done',
         'note',
         'attendKey',

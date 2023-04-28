@@ -113,12 +113,17 @@
                                                 @if ($aday->geoCheck == 1)
                                                     <li>The user <span><a class="text-success"
                                                                 href="https://www.google.com/maps?q={{ $aday->geo }}"
-                                                                target="_blank">within</a></span> the location of
+                                                                target="_blank">within</a></span> the <a class="text-danger"
+                                                            href="https://www.google.com/maps?q={{ $aday->eventGeo }}"
+                                                            target="_blank">Location</a> of
                                                         the event</li>
                                                 @elseif ($aday->geoCheck == 2)
                                                     <li>The user is <span class="text-danger"><a class="text-danger"
                                                                 href="https://www.google.com/maps?q={{ $aday->geo }}"
-                                                                target="_blank">not within</a></span> the location
+                                                                target="_blank">not within</a></span> the <a
+                                                            class="text-danger"
+                                                            href="https://www.google.com/maps?q={{ $aday->eventGeo }}"
+                                                            target="_blank">Location</a>
                                                         of the event</li>
                                                 @elseif ($aday->geoCheck == 3)
                                                     <li>The user is <span class="text-warning">Manully</span> set attend by

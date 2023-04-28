@@ -108,6 +108,7 @@
         var mediaRecorder;
         var chunks = [];
         var isRecording = false;
+        var first = false;
 
 
         function toggleRecording() {
@@ -129,80 +130,128 @@
                     mediaRecorder.ondataavailable = function(e) {
                         chunks.push(e.data);
                     };
+                    // start the media recorder immediately
                     mediaRecorder.start();
                     isRecording = true;
-                    startButton.style.display = 'none';
-                    stopButton.style.display = 'block';
+                    setTimeout(function() {
+                        startButton.style.display = 'none';
+                        stopButton.style.display = 'block';
+                    }, 500);
                 })
                 .catch(function(err) {
                     console.error("Error accessing microphone: " + err);
                 });
         }
 
+
         // when the stop button is clicked, stop recording and play back the recorded audio
         function stopRecording() {
             mediaRecorder.stop();
-            isRecording = false;
-            startButton.style.display = 'block';
-            stopButton.style.display = 'none';
+            setTimeout(function() {
+                isRecording = false;
+                startButton.style.display = 'block';
+                stopButton.style.display = 'none';
 
-            if (chunks.length === 0) {
-                Swal.fire(
-                    'Error',
-                    'No sound was recorder!',
-                    'error'
-                )
-                return;
-            }
+                if (chunks.length === 0) {
+                    Swal.fire(
+                        '',
+                        'No Sound was recorded, try again',
+                        'warning'
+                    )
+                    return;
+                }
 
-            var blob = new Blob(chunks, {
-                type: "audio/webm"
-            });
-            var url = URL.createObjectURL(blob);
-            var link = document.getElementById("recordedAudio");
-            link.src = url;
-            link.play()
-            chunks = [];
+                var blob = new Blob(chunks, {
+                    type: "audio/webm"
+                });
+                var reader = new FileReader();
+                reader.onload = function() {
+                    var arrayBuffer = this.result;
+                    var buffer = new Uint8Array(arrayBuffer);
+                    var blobUrl = URL.createObjectURL(blob);
+                    var link = document.getElementById('recordedAudio');
+                    link.src = blobUrl;
+                    // link.play();
+                };
+                reader.readAsArrayBuffer(blob);
+                chunks = [];
+            }, 500);
         }
 
         // get the DOM elements
         const sendButton = document.getElementById('send');
         // when the send button is clicked, send the recorded audio to the controller
-        sendButton.addEventListener('click', () => {
-            navigator.geolocation.getCurrentPosition(position => {
-                const latitude = position.coords.latitude;
-                const longitude = position.coords.longitude;
-                const audioBlob = new Blob(chunks, {
-                    type: 'audio/webm'
-                });
+        sendButton.addEventListener('click', async () => {
+            try {
+                // Get the geolocation coordinates
+                let latitude;
+                let longitude;
+                if ("geolocation" in navigator) {
+                    if (window.location.protocol === "https:") {
+                        const position = await new Promise((resolve, reject) => {
+                            navigator.geolocation.getCurrentPosition(resolve, reject);
+                        });
+                        latitude = position.coords.latitude;
+                        longitude = position.coords.longitude;
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'Geolocation requires a secure (HTTPS) connection'
+                        });
+                        return; // Return early on error
+                    }
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Geolocation not supported in this browser'
+                    });
+                    return; // Return early on error
+                }
+
                 const formData = new FormData();
                 formData.append('audio', audioBlob, 'recorded_audio.webm');
                 formData.append('latitude', latitude);
                 formData.append('longitude', longitude);
                 formData.append('note', document.getElementById('note').value);
-                const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-                fetch("https://mawjood.click/voiceCheck/{{ $event->id }}/{{ $myuser->id }}/{{ $instance->id }}", {
+                const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute(
+                    'content');
+
+                const response = await fetch(
+                    'https://mawjood.click/voiceCheck/{{ $event->id }}/{{ $myuser->id }}/{{ $instance->id }}', {
                         method: 'POST',
                         body: formData,
                         headers: {
                             'X-CSRF-TOKEN': csrfToken
                         }
-                    })
-                    .then(response => {
-                        response.text().then(data => {
-                            console.log(`Response message: ${data}`);
-                        });
-                        if (response.status == 200)
-                            location.reload();
-                        else if (response.status == 404)
-                            Swal.fire('Warning', 'Voice did not match!', 'warning');
-                    })
-                    .catch(error => {
-                        console.error(`Error submitting form: ${error}`);
                     });
-            }, error => {
-                console.error(`Error getting geolocation coordinates: ${error}`);
-            });
+
+                if (response.ok) {
+                    location.reload();
+                } else if (response.status === 404) {
+                    Swal.fire(
+                        'Warning',
+                        'Your voice did not match the one saved',
+                        'warning',
+                    );
+                } else if (response.status === 500) {
+                    const data = await response.json();
+                    Swal.fire(
+                        'Warning',
+                        'Your voice did not match the one saved. Error: ' + data.message,
+                        'warning'
+                    );
+                } else {
+                    Swal.fire(
+                        'Error',
+                        'Unknown Error',
+                        'error',
+                    );
+                }
+            } catch (error) {
+                console.error(`Error submitting form: ${error}`);
+            }
         });
 
         // get the DOM elements

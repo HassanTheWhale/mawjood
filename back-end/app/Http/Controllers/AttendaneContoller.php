@@ -69,16 +69,6 @@ class AttendaneContoller extends Controller
                     'type' => "warning",
                     'message' => 'You need to signup first to the event',
                 ]);
-
-            // check time diff
-            $timestamp = Carbon::parse($event->attendKeyUpdate);
-            $secondsPassed = $timestamp->diffInSeconds(Carbon::now());
-            if ($secondsPassed >= 15) {
-                return redirect('event/' . $event->id)->with([
-                    'type' => "warning",
-                    'message' => 'QR Code has changed. Please re-scan it.',
-                ]);
-            }
         }
 
         $already = att::select('atts.id', 'atts.done', 'atts.qr', 'atts.face', 'atts.voice', 'atts.geo', 'atts.geoCheck')
@@ -146,6 +136,15 @@ class AttendaneContoller extends Controller
                 $already->delete();
         }
 
+        // check time diff
+        $timestamp = Carbon::parse($event->attendKeyUpdate);
+        $secondsPassed = $timestamp->diffInSeconds(Carbon::now());
+        if ($secondsPassed >= 15) {
+            return redirect('event/' . $event->id)->with([
+                'type' => "warning",
+                'message' => 'QR Code has changed. Please re-scan it.',
+            ]);
+        }
 
         if ($instance) {
             $attend = att::create([
@@ -153,6 +152,7 @@ class AttendaneContoller extends Controller
                 'event_id' => $event->id,
                 'instance_id' => $instance->id,
                 'qr' => 1,
+                'eventGeo' => $event->geo,
                 'attendKey' => $id,
             ]);
             return view('events.face', compact('event', 'myuser', 'instance'));
