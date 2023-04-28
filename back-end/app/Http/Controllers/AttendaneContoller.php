@@ -28,9 +28,10 @@ class AttendaneContoller extends Controller
         $Attendkey = uniqid();
         $Attendkey = substr($Attendkey, 0, 10);
         $event->update(['attendKey' => $Attendkey]);
+        $event->update(['attendKeyUpdate' => Carbon::now()]);
 
         $url = "https://mawjood.click/attendEvent/" . $event->attendKey;
-        $qrCode = QrCode::size(250)->generate($url);
+        $qrCode = QrCode::size('500')->format('svg')->generate($url);
 
         return view('events.qr', compact('event', 'qrCode'));
     }
@@ -59,6 +60,25 @@ class AttendaneContoller extends Controller
                 'type' => "warning",
                 'message' => 'No one is allowed to take his/her attendance!',
             ]);
+        } else {
+
+            // check if registered
+            $isRegistered = Attend::where('user_id', $myuser->id)->where('event_id', $event->id)->first();
+            if (!$isRegistered)
+                return redirect('event/' . $event->id)->with([
+                    'type' => "warning",
+                    'message' => 'You need to signup first to the event',
+                ]);
+
+            // check time diff
+            $timestamp = Carbon::parse($event->attendKeyUpdate);
+            $secondsPassed = $timestamp->diffInSeconds(Carbon::now());
+            if ($secondsPassed >= 15) {
+                return redirect('event/' . $event->id)->with([
+                    'type' => "warning",
+                    'message' => 'QR Code has changed. Please re-scan it.',
+                ]);
+            }
         }
 
         $already = att::select('atts.id', 'atts.done', 'atts.qr', 'atts.face', 'atts.voice', 'atts.geo', 'atts.geoCheck')

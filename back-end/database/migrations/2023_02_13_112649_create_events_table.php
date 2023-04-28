@@ -29,6 +29,7 @@ return new class extends Migration {
             $table->integer('private')->default(0);
             $table->string('key')->nullable()->unique();
             $table->string('attendKey')->unique();
+            $table->timestamp('attendKeyUpdate')->nullable();
             $table->string('geo')->nullable();
             $table->integer('geoCheck')->default(0);
             $table->unsignedBigInteger('user_id')->unsigned();

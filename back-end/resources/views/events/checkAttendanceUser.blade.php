@@ -86,7 +86,7 @@
                                                     <li>The user <span class="text-success">completed</span> the face
                                                         recognition</li>
                                                 @elseif ($aday->face == 2)
-                                                    <li>The user <span class="text-warning">skipped</span> the face
+                                                    <li>The user <span class="text-danger">skipped</span> the face
                                                         recognition</li>
                                                 @elseif ($aday->face == 3)
                                                     <li>The user <span class="text-danger">failed</span> the face
@@ -100,7 +100,7 @@
                                                     <li>The user <span class="text-success">completed</span> the voice
                                                         recognition</li>
                                                 @elseif ($aday->voice == 2)
-                                                    <li>The user <span class="text-warning">skipped</span> the voice
+                                                    <li>The user <span class="text-danger">skipped</span> the voice
                                                         recognition</li>
                                                 @elseif ($aday->voice == 3)
                                                     <li>The user <span class="text-danger">failed</span> the voice

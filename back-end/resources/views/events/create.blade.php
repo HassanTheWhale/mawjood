@@ -87,7 +87,7 @@
                             <div id="single-date">
                                 <label for="start_dateA" class="span ms-3 mb-1">Start Date:</label>
                                 <input type="date" name="eventSDateA" class="form-control"
-                                    min="{{ now()->format('d-m-Y') }}" max="{{ date('Y-m-d', strtotime('+1 year')) }}"
+                                    min="{{ now()->format('d-m-Y') }}" max="{{ date('d-m-Y', strtotime('+1 year')) }}"
                                     id="start_dateA">
                                 <br>
                                 <label for="start_timeA" class="span ms-3 mb-1">Start Time:</label>

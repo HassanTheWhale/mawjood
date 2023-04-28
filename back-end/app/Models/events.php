@@ -24,6 +24,7 @@ class events extends Model
         'key',
         'geo',
         'attendKey',
+        'attendKeyUpdate',
         'closed',
         'user_id',
         'category',

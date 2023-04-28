@@ -77,8 +77,8 @@
                                     Event</a>
                                 <a href="../check/{{ $event->id }}/" class="btn btn-outline-primary">Check
                                     Event</a>
-                                <a href="../generateQR/{{ $event->id }}/" target="_blank"
-                                    class="btn btn-primary text-white">QR Code</a>
+                                <a href="#" onclick="openF()" class="btn btn-primary text-white">QR
+                                    Code</a>
                             </div>
                         @elseif ($attend)
                             <a href="../event/{{ $event->id }}/withdraw"
@@ -145,6 +145,56 @@
                     window.location.href = '../remove/{{ $event->id }}'
                 }
             })
+        }
+
+        async function openF() {
+            try {
+                // Check for geolocation support
+                if ("geolocation" in navigator) {
+                    // Check for secure (HTTPS) connection
+                    // if (window.location.protocol === "https:") {
+                    // Get current position
+                    const position = await new Promise((resolve, reject) => {
+                        navigator.geolocation.getCurrentPosition(resolve, reject);
+                    });
+                    const latitude = position.coords.latitude;
+                    const longitude = position.coords.longitude;
+                    fetch(`/open/{{ $event->id }}/${latitude},${longitude}`, {
+                            method: 'GET',
+                        })
+                        .then(response => {
+                            if (response.ok) {
+                                window.open("{{ route('events.qr', ['']) }}/{{ $event->id }}", '_blank');
+                            } else {
+                                Swal.fire(
+                                    'Error',
+                                    'Unknown Error',
+                                    'error',
+                                );
+                            }
+                        });
+                    // } else {
+                    //     Swal.fire({
+                    //         icon: 'error',
+                    //         title: 'Error',
+                    //         text: 'Geolocation requires a secure (HTTPS) connection'
+                    //     });
+                    // }
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Geolocation not supported in this browser'
+                    });
+                }
+            } catch (error) {
+                Swal.fire(
+                    'Error',
+                    'Error: ' + error,
+                    'error',
+                );
+                console.error(error);
+            }
         }
     </script>
 @endsection
