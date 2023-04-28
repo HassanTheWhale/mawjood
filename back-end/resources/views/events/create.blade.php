@@ -87,8 +87,7 @@
                             <div id="single-date">
                                 <label for="start_dateA" class="span ms-3 mb-1">Start Date:</label>
                                 <input type="date" name="eventSDateA" class="form-control"
-                                    min="{{ now()->format('d-m-Y') }}" max="{{ date('d-m-Y', strtotime('+1 year')) }}"
-                                    id="start_dateA">
+                                    min="{{ now()->format('Y-m-d') }}" id="start_dateA">
                                 <br>
                                 <label for="start_timeA" class="span ms-3 mb-1">Start Time:</label>
                                 <input type="time" name="eventSTimeA" id="start_timeA" onchange="checkTime('A')"
@@ -101,13 +100,11 @@
                             <div id="range-dates" style="display: none;">
                                 <label for="start_dateB" class="span ms-3 mb-1">Start Date:</label>
                                 <input type="date" name="eventSDateB" onchange="checkDate()"
-                                    max="{{ date('d-m-Y', strtotime('+1 year')) }}"id="start_dateB"class="form-control"
-                                    min="{{ now()->format('d-m-Y') }}">
+                                    id="start_dateB"class="form-control" min="{{ now()->format('Y-m-d') }}">
                                 <br>
                                 <label for="end_date" class="span ms-3 mb-1">End Date:</label>
-                                <input type="date" name="eventEDateB" max="{{ date('d-m-Y', strtotime('+1 year')) }}"
-                                    onchange="checkDate()" id="end_date"class="form-control"
-                                    min="{{ now()->format('d-m-Y') }}">
+                                <input type="date" name="eventEDateB" onchange="checkDate()"
+                                    id="end_date"class="form-control" min="{{ now()->format('Y-m-d') }}">
                                 <br>
                                 <label for="start_timeb" class="span ms-3 mb-1">Start Time:</label>
                                 <input type="time" name="eventSTimeB" id="start_timeB" onchange="checkTime('B')"

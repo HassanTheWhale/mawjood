@@ -10,7 +10,7 @@
         <div class="landing-bottom h-80 mx-auto">
             <div class="landing-downlay bg-primary h-100 d-flex flex-column justify-content-end align-items-center">
                 <h4 class="text-center mb-3 text-white">Create an account</h4>
-                <div class="landing-downlay bg-white h-90 w-100 p-3 overflow-auto">
+                <div class="landing-downlay bg-white h-90 w-100 p-3 pb-5 overflow-auto">
                     <div class="text-center mb-2">
                         <div class="d-flex justify-content-center align-items-center flex-column">
                             <a href="{{ route('login.google') }}" class="btn btn-outline-danger mb-3">
@@ -18,7 +18,8 @@
                                     alt="Social Media Icons to be replaced later with real buttons" class="mx-auto" />
                                 Sign Up with Google
                             </a>
-                            <a href="{{ route('microsoft.login') }}" class="btn btn-outline-info">
+                            {{-- <a href="{{ route('microsoft.login') }}" class="btn btn-outline-info"> --}}
+                            <a href="#" class="btn btn-outline-secondary">
                                 Sign Up with Microsoft
                             </a>
                         </div>
@@ -77,7 +78,7 @@
                             Register
                         </button>
                     </form>
-                    <p class="mb-0 text-muted text-center">
+                    <p class="mb-5 text-muted text-center">
                         Do you have an account?
                         <a href="./login" class="span">Login Here</a>
                     </p>

@@ -93,8 +93,8 @@
                             <div id="single-date" style="@if ($event->type == 1) display:none; @endif">
                                 <label for="start_dateA" class="span ms-3 mb-1">Start Date:</label>
                                 <input type="date" name="eventSDateA" class="form-control"
-                                    min="{{ now()->format('d-m-Y') }}" max="{{ date('Y-m-d', strtotime('+1 year')) }}"
-                                    value="{{ $event->start_date }}" id="start_dateA">
+                                    max="{{ date('Y-m-d', strtotime('+1 year')) }}" value="{{ $event->start_date }}"
+                                    id="start_dateA">
                                 <br>
                                 <label for="start_timeA" class="span ms-3 mb-1">Start Time:</label>
                                 <input type="time" name="eventSTimeA" id="start_timeA" value="{{ $event->start_time }}"

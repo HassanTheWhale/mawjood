@@ -10,7 +10,7 @@
         <div class="landing-bottom h-70 mx-auto">
             <div class="landing-downlay bg-primary h-100 d-flex flex-column justify-content-end align-items-center">
                 <h4 class="text-center mb-3 text-white">Login to your account</h4>
-                <div class="landing-downlay bg-white h-90 w-100 p-3 overflow-auto">
+                <div class="landing-downlay bg-white h-90 w-100 p-3 pb-5 overflow-auto">
                     <div class="text-center mb-5">
                         <div class="d-flex justify-content-center align-items-center flex-column">
                             <a href="{{ route('login.google') }}" class="btn btn-outline-danger mb-3">
@@ -18,7 +18,8 @@
                                     alt="Social Media Icons to be replaced later with real buttons" class="mx-auto" />
                                 Log In with Google
                             </a>
-                            <a href="{{ route('microsoft.login') }}" class="btn btn-outline-info">
+                            {{-- <a href="{{ route('microsoft.login') }}" class="btn btn-outline-info"> --}}
+                            <a href="#" class="btn btn-outline-secondary">
                                 Log In with Microsoft
                             </a>
                         </div>
@@ -56,12 +57,12 @@
                                 </span>
                             @enderror
                             <!-- <div class="d-flex justify-content-end">
-                                                                                                                                                          <a href="" class="span text-muted">Forgot your password?</a>
-                                                                                                                                                        </div> -->
+                                                                                                                                                                          <a href="" class="span text-muted">Forgot your password?</a>
+                                                                                                                                                                        </div> -->
                         </div>
                         <button type="submit" class="btn btn-primary text-white w-100 mb-3 py-2">Login</button>
                     </form>
-                    <p class="mb-0 text-muted text-center">
+                    <p class="mb-5 text-muted text-center">
                         Don't have an account?
                         <a href="./register" class="span">Register Here</a>
                     </p>
