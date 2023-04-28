@@ -81,8 +81,7 @@
                                     Code</a>
                             </div>
                         @elseif ($attend)
-                            <a href="../event/{{ $event->id }}/withdraw"
-                                class="btn btn-secondary text-white">Withdraw</a>
+                            <a href="#" onclick="withdraw()" class="btn btn-secondary text-white">Withdraw</a>
                             <a href="../certificate/{{ $event->id }}" class="btn btn-primary text-white">Certificate</a>
                         @else
                             <a href="../event/{{ $event->id }}/signup" class="btn btn-primary text-white">Sign Up</a>
@@ -143,6 +142,25 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     window.location.href = '../remove/{{ $event->id }}'
+                }
+            })
+        }
+
+        function withdraw() {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#56c4cf',
+                confirmButtonText: 'Yes, withdraw',
+                customClass: {
+                    container: 'my-swal-container'
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = '../event/{{ $event->id }}/withdraw'
                 }
             })
         }

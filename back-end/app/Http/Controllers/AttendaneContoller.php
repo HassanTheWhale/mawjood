@@ -131,7 +131,7 @@ class AttendaneContoller extends Controller
             } else if ($already->qr == 1 && $already->face >= 1 && $already->voice >= 0)
                 return view('events.voice', compact('event', 'myuser', 'instance'));
             else if ($already->qr == 1 && $already->face == 0 && $already->voice == 0)
-                $already->delete();
+                return view('events.face', compact('event', 'myuser', 'instance'));
             else
                 $already->delete();
         }

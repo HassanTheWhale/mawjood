@@ -7,10 +7,17 @@
                 <form id="camera-form" class="mx-auto">
                     <input type="hidden" id="longitude" name="longitude" value="">
                     <video id="video" playsinline='true' muted='true' width="750px" autoplay='true'></video>
-                    <button type="button" class="btn btn-primary text-white w-100 px-4 mb-1" id="capture-button">Take a
-                        picture</button>
-                    <button type="button" class="btn btn-outline-primary text-white w-100 px-4 mb-5"
-                        id="cancel-button">Skip</button>
+                    <div id="btns">
+                        <button type="button" class="btn btn-primary text-white w-100 px-4 mb-1" id="capture-button">Take a
+                            picture</button>
+                        <button type="button" class="btn btn-outline-primary text-white w-100 px-4 mb-5"
+                            id="cancel-button">Skip</button>
+                    </div>
+                    <div id="load" style="display: none">
+                        <div class="spinner-border text-warning" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>
@@ -49,7 +56,11 @@
 
 
         const captureButton = document.getElementById('capture-button');
+        const btns = document.getElementById('btns');
+        const load = document.getElementById('load');
         captureButton.addEventListener('click', async () => {
+            btns.style.display = 'none';
+            load.style.display = 'block';
             try {
                 // Check for geolocation support
                 if ("geolocation" in navigator) {
@@ -62,6 +73,7 @@
                         const latitude = position.coords.latitude;
                         const longitude = position.coords.longitude;
                         // Continue with capturing the image and submitting the form
+
                         const video = document.getElementById('video');
                         const canvas = document.createElement('canvas');
                         const context = canvas.getContext('2d');
@@ -128,6 +140,9 @@
                 );
                 console.error(error);
             }
+
+            btns.style.display = 'block';
+            load.style.display = 'none';
         });
 
 
