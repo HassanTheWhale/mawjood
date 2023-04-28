@@ -35,7 +35,7 @@ class CategoryController extends Controller
         // dd($eventIds);
 
         $events = events::whereIn('id', $eventIds)
-            // ->where('end_date', '>=', Carbon::now())
+            ->where('end_date', '>=', Carbon::now())
             ->get();
 
         return view('users.following', compact('events'));

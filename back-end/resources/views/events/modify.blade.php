@@ -93,6 +93,7 @@
                             <div id="single-date" style="@if ($event->type == 1) display:none; @endif">
                                 <label for="start_dateA" class="span ms-3 mb-1">Start Date:</label>
                                 <input type="date" name="eventSDateA" class="form-control"
+                                    min="{{ now()->format('d-m-Y') }}" max="{{ date('Y-m-d', strtotime('+1 year')) }}"
                                     value="{{ $event->start_date }}" id="start_dateA">
                                 <br>
                                 <label for="start_timeA" class="span ms-3 mb-1">Start Time:</label>
@@ -106,11 +107,13 @@
                             <div id="range-dates" style="@if ($event->type == 0) display:none; @endif"">
                                 <label for="start_dateB" class="span ms-3 mb-1">Start Date:</label>
                                 <input type="date" name="eventSDateB" id="start_dateB"
-                                    value="{{ $event->start_date }}" class="form-control">
+                                    max="{{ date('d-m-Y', strtotime('+1 year')) }}" value="{{ $event->start_date }}"
+                                    class="form-control">
+
                                 <br>
                                 <label for="end_date" class="span ms-3 mb-1">End Date:</label>
                                 <input type="date" name="eventEDateB" value="{{ $event->end_date }}" id="end_date"
-                                    class="form-control">
+                                    max="{{ date('d-m-Y', strtotime('+1 year')) }}" class="form-control">
 
                                 <br>
                                 <label for="start_timeb" class="span ms-3 mb-1">Start Time:</label>

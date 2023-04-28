@@ -23,10 +23,17 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
+        if ($request->has('search') && $request->input('search') != '') {
+            $query = $request->input('search');
+            $events = events::where('name', 'LIKE', '%' . $query . '%')->where('private', 0)->take(5)->get();
+            return view('home', ['events' => $events, 'query' => $query]);
+        } else {
+            $catergories = eventCategory::all();
+            return view('home', ['catergories' => $catergories, 'query' => ""]);
+        }
         // $events = events::all();
-        $catergories = eventCategory::all();
-        return view('home', compact('catergories'));
+
     }
 }

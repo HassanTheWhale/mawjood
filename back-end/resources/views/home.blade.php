@@ -37,27 +37,48 @@
             @if (session()->has('message'))
                 <div class="alert alert-{{ session('type') }}" role="alert"> {{ session('message') }} </div>
             @endif
-            <input type="text" name="search" id="search" class="form-control mb-5" autofocus
-                placeholder="What are you looking for?" />
-
+            <form action="{{ route('home') }}" method="GET" id="search-form">
+                <input type="text" name="search" value="{{ $query }}" id="search" class="form-control mb-5"
+                    onfocus="setTimeout(() => moveCursorToEnd(this), 0)" autofocus
+                    placeholder="What are you looking for?" />
+            </form>
             <div class="row">
-                @foreach ($catergories as $category)
-                    <div class="category col-md-4 mb-3" name="{{ $category->name }}">
-                        <div class="card rounded overflow-hidden">
-                            <img src="{{ $category->picture }}" alt="event" />
-                            <div class="p-2">
-                                <h4 class="span mb-3">{{ $category->name }}</h4>
-                                <p class="text-end mt-3 mb-1">
-                                    <a href="/category/{{ $category->id }}" class="btn btn-primary text-white">Check
-                                        Events</a>
-                                </p>
+                @if (isset($events))
+                    @foreach ($events as $event)
+                        <div class="event col-md-4 mb-3" name="{{ $event->name }}">
+                            <div class="card rounded overflow-hidden">
+                                <img src="{{ asset($event->picture) }}" alt="event" />
+                                <div class="p-2">
+                                    <h4 class="span mb-3">{{ $event->name }}</h4>
+                                    <p class="text-muted">
+                                        <small>
+                                            {{ $event->description }}
+                                        </small>
+                                    </p>
+                                    <p class="text-end mt-3 mb-1">
+                                        <a href="/event/{{ $event->id }}" class="btn btn-primary text-white">Check
+                                            Details</a>
+                                    </p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                @endforeach
-
-
-
+                    @endforeach
+                @else
+                    @foreach ($catergories as $category)
+                        <div class="category col-md-4 mb-3" name="{{ $category->name }}">
+                            <div class="card rounded overflow-hidden">
+                                <img src="{{ $category->picture }}" alt="event" />
+                                <div class="p-2">
+                                    <h4 class="span mb-3">{{ $category->name }}</h4>
+                                    <p class="text-end mt-3 mb-1">
+                                        <a href="/category/{{ $category->id }}" class="btn btn-primary text-white">Check
+                                            Events</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                @endif
             </div>
         </div>
     </div>
@@ -97,18 +118,37 @@
 @endsection
 @section('scripts')
     <script>
-        const searchBox = document.getElementById('search');
-        const listItems = document.querySelectorAll('.category');
-        searchBox.addEventListener('keyup', (event) => {
-            const searchTerm = event.target.value.toLowerCase();
+        // const searchBox = document.getElementById('search');
+        // const listItems = document.querySelectorAll('.category');
+        // searchBox.addEventListener('keyup', (event) => {
+        //     const searchTerm = event.target.value.toLowerCase();
 
-            listItems.forEach((item) => {
-                if (item.textContent.toLowerCase().includes(searchTerm)) {
-                    item.style.display = '';
-                } else {
-                    item.style.display = 'none';
-                }
-            });
+        //     listItems.forEach((item) => {
+        //         if (item.textContent.toLowerCase().includes(searchTerm)) {
+        //             item.style.display = '';
+        //         } else {
+        //             item.style.display = 'none';
+        //         }
+        //     });
+        // });
+
+        let typingTimer;
+        const doneTypingInterval = 500;
+        const searchInput = document.querySelector('input[name="search"]');
+
+        searchInput.addEventListener('keyup', () => {
+            clearTimeout(typingTimer);
+            typingTimer = setTimeout(submitSearchForm, doneTypingInterval);
         });
+
+        function submitSearchForm() {
+            const form = document.querySelector('#search-form');
+            form.submit();
+        }
+
+        function moveCursorToEnd(input) {
+            // Move the cursor to the end of the input value
+            input.setSelectionRange(input.value.length, input.value.length);
+        }
     </script>
 @endsection

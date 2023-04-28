@@ -63,10 +63,10 @@
                         </div>
 
                         <div class="form-group mb-3">
-                            <label for="userIDName" class="span ms-3 mb-1">
+                            <label for="userIdName" class="span ms-3 mb-1">
                                 Username
                             </label>
-                            <input type="text" name="userIDName" id="userIDName" placeholder="Your Username"
+                            <input type="text" name="userIdName" id="userIdName" placeholder="Your Username"
                                 class="form-control w-100 mb-1" value="{{ $user->username }}" />
                         </div>
 

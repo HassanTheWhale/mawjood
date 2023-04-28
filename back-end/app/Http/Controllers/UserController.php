@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Attend;
 use App\Models\events;
 use App\Models\follow;
 use app\Models\User;
 use Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Storage;
 
 
@@ -65,15 +67,13 @@ class UserController extends Controller
     // load search view
     public function search(Request $request)
     {
-        $query = $request->input('search');
-
         if ($request->has('search')) {
+            $query = $request->input('search');
             $users = User::where('username', 'LIKE', '%' . $query . '%')->where('type', 0)->take(5)->get();
             return view('users.search', ['users' => $users, 'query' => $query]);
         } else {
             return view('users.search', ['users' => [], 'query' => ""]);
         }
-
     }
 
     // load other user view
@@ -89,7 +89,15 @@ class UserController extends Controller
         if ($user->id == $myuser->id || $user->type == 1)
             return redirect("profile")->with('user', $myuser);
 
-        return view('users.user', compact('user', 'followed', 'countFollowers', 'countFollowing'));
+        $eventIds = Attend::where('user_id', $user->id)
+            ->distinct()
+            ->pluck('event_id');
+
+        $events = events::whereIn('id', $eventIds)
+            ->where('end_date', '>=', Carbon::now())
+            ->get();
+
+        return view('users.user', compact('user', 'followed', 'countFollowers', 'countFollowing', 'events'));
     }
 
     // load edit view
@@ -111,6 +119,7 @@ class UserController extends Controller
         // ]);
         $validatedData = $request->validate([
             'picture' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            'userIdName' => ['regex:/^\S*$/u'],
         ]);
 
         // dd($request);
@@ -127,7 +136,7 @@ class UserController extends Controller
 
         $user->update([
             'name' => $request['userName'],
-            'username' => $request['userIDName'],
+            'username' => $request['userIdName'],
             // 'email' => $request['userEmail'],
             'bio' => $request['userBio'],
             'picture' => $pictureUrl,

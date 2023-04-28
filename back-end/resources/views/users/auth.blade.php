@@ -9,10 +9,6 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <h4 class="m-2">Account Verify</h4>
-                <a href="#" onclick="settings()"
-                    class="col-2 pe-5 h-100 d-flex justify-content-center align-items-center">
-                    <img src="./imgs/dots.png" width="32px" alt="Events" />
-                </a>
                 <div class="collapse navbar-collapse mt-3" id="navbarSupportedContent">
                     <ul class="navbar-nav mb-2 mb-lg-0">
                         <li class="nav-item mb-2 text-start">

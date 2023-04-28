@@ -47,6 +47,8 @@
                             </div>
                         </a>
                     @endforeach
+                @else
+                    <p>There are no users registered so far.</p>
                 @endif
             </div>
         </div>

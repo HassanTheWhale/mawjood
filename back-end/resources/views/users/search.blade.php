@@ -35,12 +35,12 @@
                 <div class="col-md-6 mx-auto">
                     <form action="{{ route('profile.search') }}" method="GET" id="search-form">
                         <input type="text" name="search" value="{{ $query }}" id="search"
-                            class="form-control mb-5" autofocus placeholder="What are you looking for?" />
+                            class="form-control mb-5" onfocus="setTimeout(() => moveCursorToEnd(this), 0)" autofocus
+                            placeholder="What are you looking for?" />
                     </form>
-
                     @if (count($users) > 0)
                         @foreach ($users as $user)
-                            <a href="/user/{{ $user->name }}" class="text-decoration-none">
+                            <a href="/user/{{ $user->username }}" class="text-decoration-none">
                                 <div class="card rounded bg-white overflow-hidden p-2 mb-2">
                                     <div class="d-flex align-items-center">
                                         <img src="{{ $user->picture }}" alt="event" width="64px"
@@ -103,6 +103,11 @@
         function submitSearchForm() {
             const form = document.querySelector('#search-form');
             form.submit();
+        }
+
+        function moveCursorToEnd(input) {
+            // Move the cursor to the end of the input value
+            input.setSelectionRange(input.value.length, input.value.length);
         }
     </script>
 @endsection

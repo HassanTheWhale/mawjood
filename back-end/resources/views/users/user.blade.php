@@ -78,7 +78,26 @@
                 <div class="col-12 mb-2">
                     <div class="col-12 mt-4">
                         <div class="container row m-0">
-
+                            @foreach ($events as $event)
+                                <div class="event col-md-4 mb-3" name="{{ $event->name }}">
+                                    <div class="card rounded overflow-hidden">
+                                        <img src="{{ asset($event->picture) }}" alt="event" />
+                                        <div class="p-2">
+                                            <h4 class="span mb-3">{{ $event->name }}</h4>
+                                            <p class="text-muted">
+                                                <small>
+                                                    {{ $event->description }}
+                                                </small>
+                                            </p>
+                                            <p class="text-end mt-3 mb-1">
+                                                <a href="/event/{{ $event->id }}"
+                                                    class="btn btn-primary text-white">Check
+                                                    Details</a>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>

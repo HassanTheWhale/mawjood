@@ -87,30 +87,35 @@
                             <div id="single-date">
                                 <label for="start_dateA" class="span ms-3 mb-1">Start Date:</label>
                                 <input type="date" name="eventSDateA" class="form-control"
-                                    min="{{ now()->format('Y-m-d') }}"max="{{ date('Y-m-d', strtotime('+1 year')) }}"
+                                    min="{{ now()->format('d-m-Y') }}" max="{{ date('Y-m-d', strtotime('+1 year')) }}"
                                     id="start_dateA">
                                 <br>
                                 <label for="start_timeA" class="span ms-3 mb-1">Start Time:</label>
-                                <input type="time" name="eventSTimeA" id="start_timeA" class="form-control">
+                                <input type="time" name="eventSTimeA" id="start_timeA" onchange="checkTime('A')"
+                                    class="form-control">
                                 <br>
                                 <label for="end_timeA" class="span ms-3 mb-1">End Time:</label>
-                                <input type="time" name="eventETimeA" id="end_timeA" class="form-control">
+                                <input type="time" name="eventETimeA" id="end_timeA" onchange="checkTime('A')"
+                                    class="form-control">
                             </div>
                             <div id="range-dates" style="display: none;">
                                 <label for="start_dateB" class="span ms-3 mb-1">Start Date:</label>
-                                <input type="date" name="eventSDateB"
-                                    max="{{ date('Y-m-d', strtotime('+1 year')) }}"id="start_dateB"class="form-control"
-                                    min="{{ now()->format('Y-m-d') }}">
+                                <input type="date" name="eventSDateB" onchange="checkDate()"
+                                    max="{{ date('d-m-Y', strtotime('+1 year')) }}"id="start_dateB"class="form-control"
+                                    min="{{ now()->format('d-m-Y') }}">
                                 <br>
                                 <label for="end_date" class="span ms-3 mb-1">End Date:</label>
-                                <input type="date" name="eventEDateB" max="{{ date('Y-m-d', strtotime('+1 year')) }}"
-                                    id="end_date"class="form-control" min="{{ now()->format('Y-m-d') }}">
+                                <input type="date" name="eventEDateB" max="{{ date('d-m-Y', strtotime('+1 year')) }}"
+                                    onchange="checkDate()" id="end_date"class="form-control"
+                                    min="{{ now()->format('d-m-Y') }}">
                                 <br>
                                 <label for="start_timeb" class="span ms-3 mb-1">Start Time:</label>
-                                <input type="time" name="eventSTimeB" id="start_timeB" class="form-control">
+                                <input type="time" name="eventSTimeB" id="start_timeB" onchange="checkTime('B')"
+                                    class="form-control">
                                 <br>
                                 <label for="end_timeb" class="span ms-3 mb-1">End Time:</label>
-                                <input type="time" name="eventETimeB" id="end_timeB" class="form-control">
+                                <input type="time" name="eventETimeB" id="end_timeB" onchange="checkTime('B')"
+                                    class="form-control">
                                 <br>
                                 <label for="weekdays" class="span ms-3 mb-1">Weekdays:</label>
                                 <br>
@@ -196,5 +201,37 @@
                 rangeDateFields.style.display = 'block';
             }
         });
+
+        function checkTime(event) {
+            var start_time = document.getElementById("start_time" + event).value;
+            var end_time = document.getElementById("end_time" + event).value;
+
+            if (start_time && end_time) {
+                if (start_time >= end_time) {
+                    Swal.fire(
+                        'Warning',
+                        'End time must be after start time.',
+                        'warning'
+                    )
+                    document.getElementById("end_time" + event).value = "";
+                }
+            }
+        }
+
+        function checkDate() {
+            var start_date = new Date(document.getElementById("start_dateB").value);
+            var end_date = new Date(document.getElementById("end_date").value);
+
+            if (start_date && end_date) {
+                if (start_date >= end_date) {
+                    Swal.fire(
+                        'Warning',
+                        'End date must be after start date.',
+                        'warning'
+                    )
+                    document.getElementById("end_date").value = "";
+                }
+            }
+        }
     </script>
 @endsection
