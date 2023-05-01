@@ -56,14 +56,17 @@
                                 You must say: 'Hello. My name is {{ $user->name }}. I am approving my sound to
                                 Mawjood Application'.</small>
                         </div>
-                        <button type="submit" class="btn btn-primary text-white w-100 px-4 mb-5"
+                        <button type="submit" class="btn btn-primary text-white w-100 px-4 mb-2"
                             id="submit-button">Submit</button>
+                        <p class="text-danger">Pay attention that, the event host and the admins will be able to see this
+                            picture.</p>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-    <div class="bottom h-8 bg-prime2 overflow-hidden">
+    <div class="bottom
+                            h-8 bg-prime2 overflow-hidden">
         <div class="row h-100">
             <div class="col-0 col-md-3"></div>
             <div class="col-12 col-md-6 h-100">

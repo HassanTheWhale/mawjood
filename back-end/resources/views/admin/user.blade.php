@@ -26,6 +26,7 @@
                     <th>Name</th>
                     <th>username</th>
                     <th>picture</th>
+                    <th>Verification picture</th>
                     <th>email</th>
                     <th>verified</th>
                     <th>admin</th>
@@ -38,6 +39,10 @@
                         <td>{{ $user->name }}</td>
                         <td>{{ $user->username }}</td>
                         <td><img src="{{ asset($user->picture) }}" width="64px" alt="{{ $user->username }} Picture"></td>
+                        <td>
+                            <img src="{{ asset($user->vpicture) }}" width="64px" alt="{{ $user->name }} Picture">
+                        </td>
+
                         <td>{{ $user->email }}</td>
                         <td>{{ $user->verified }}</td>
                         <td>{{ $user->is_admin ? 'yes' : 'no' }}</td>

@@ -44,6 +44,14 @@
                         </div>
                     </div>
 
+                    <div class="card rounded bg-white overflow-hidden p-2 mb-2">
+                        <h5 class="text-success">Verification Picture:</h5>
+                        <br>
+                        <div class="d-flex align-items-center justify-content-center">
+                            <img src="{{ $user->vpicture }}" alt="Account is not verified yet" class="img-fluid w-25" />
+                        </div>
+                    </div>
+
 
                     <ul class="nav nav-tabs" id="myNavTab" role="tablist">
                         <li class="nav-item" role="presentation">
@@ -106,14 +114,16 @@
                                                     <li>The user <span class="text-danger">failed</span> the voice
                                                         recognition</li>
                                                 @else
-                                                    <li>The user <span class="text-danger">Did not Complete</span> the voice
+                                                    <li>The user <span class="text-danger">Did not Complete</span> the
+                                                        voice
                                                         recognition</li>
                                                 @endif
 
                                                 @if ($aday->geoCheck == 1)
                                                     <li>The user <span><a class="text-success"
                                                                 href="https://www.google.com/maps?q={{ $aday->geo }}"
-                                                                target="_blank">within</a></span> the <a class="text-danger"
+                                                                target="_blank">within</a></span> the <a
+                                                            class="text-danger"
                                                             href="https://www.google.com/maps?q={{ $aday->eventGeo }}"
                                                             target="_blank">Location</a> of
                                                         the event</li>
