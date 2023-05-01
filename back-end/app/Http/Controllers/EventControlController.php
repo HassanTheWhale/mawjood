@@ -38,7 +38,27 @@ class EventControlController extends Controller
             return redirect('event/' . $event->id);
         }
         $users = Attend::where('event_id', $id)->join('users', 'users.id', '=', 'attends.user_id')->get();
-        return view('events.checkAttendance', compact('event', 'users'));
+
+
+        $instances = EventInstances::where('event_id', $id)
+            ->where('date', '<=', Carbon::today())
+            ->get();
+
+        $attendances = att::where('event_id', $id)
+            ->whereIn('user_id', $users->pluck('user_id'))
+            ->get()
+            ->groupBy('user_id')
+            ->map(function ($attendees, $user_id) use ($instances) {
+                $attendedDays = $attendees->pluck('instance_id')->toArray();
+                $absentDays = $instances->whereNotIn('id', $attendedDays)->pluck('date')->toArray();
+                return [
+                    'total_attends' => count($attendedDays),
+                    'total_absent' => count($absentDays),
+                    'total_days' => count($absentDays) + count($attendedDays),
+                ];
+            });
+
+        return view('events.checkAttendance', compact('event', 'users', 'attendances'));
     }
 
     public function checkAttendanceUser($event_id, $user_id)
@@ -60,19 +80,33 @@ class EventControlController extends Controller
 
         $attendDays = array();
         $absentDays = array();
+        $totalAttends = 0;
+        $totalAbsent = 0;
+
         foreach ($instances as $instance) {
-            $flag = false;
-            foreach ($attendedDay as $aday)
-                if ($instance->id == $aday->instance_id) {
-                    array_push($attendDays, $instance->date);
-                    $flag = true;
-                    break;
+            // Use Carbon to compare dates
+            $today = Carbon::today();
+            $instanceDate = Carbon::parse($instance->date);
+            if ($instanceDate->lte($today)) { // exclude future dates
+                $flag = false;
+                foreach ($attendedDay as $aday) {
+                    if ($instance->id == $aday->instance_id) {
+                        array_push($attendDays, $instance->date);
+                        $flag = true;
+                        $totalAttends++;
+                        break;
+                    }
                 }
-            if (!$flag)
-                array_push($absentDays, $instance->date);
+                if (!$flag) {
+                    $totalAbsent++;
+                    array_push($absentDays, $instance->date);
+
+                }
+            }
         }
 
-        return view('events.checkAttendanceUser', compact('event', 'user', 'attend', 'attendDays', 'absentDays', 'attendedDay'));
+        $totalDays = $totalAbsent + $totalAttends;
+        return view('events.checkAttendanceUser', compact('event', 'user', 'attend', 'attendDays', 'absentDays', 'attendedDay', 'totalAttends', 'totalAbsent', 'totalDays'));
     }
 
     public function updateGrade(Request $request, $eid, $uid)
@@ -133,6 +167,7 @@ class EventControlController extends Controller
             'face' => 2,
             'voice' => 2,
             'geoCheck' => 3,
+            'eventGeo' => '',
             'done' => 1,
             'instance_id' => $instance->id,
         ]);

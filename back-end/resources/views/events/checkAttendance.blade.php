@@ -39,11 +39,15 @@
                 @if (count($users) > 0)
                     @foreach ($users as $user)
                         <a href="/checkAttendance/{{ $event->id }}/{{ $user->id }}" class="text-decoration-none">
-                            <div class="card rounded bg-white overflow-hidden p-2 mb-2">
+                            <div
+                                class="card rounded bg-white overflow-hidden p-2 mb-2 d-flex flex-row pe-3 justify-content-between align-items-center">
                                 <div class="d-flex align-items-center">
                                     <img src="{{ $user->picture }}" alt="event" width="64px" class="rounded-circle" />
                                     <span class="text-muted ms-3 ">{{ $user->name }}</span>
                                 </div>
+                                <p class="mb-0 text-muted">Attended {{ $attendances[$user->id]['total_attends'] }} out of
+                                    {{ $attendances[$user->id]['total_days'] }}
+                                </p>
                             </div>
                         </a>
                     @endforeach

@@ -42,6 +42,7 @@
                             <img src="{{ $user->picture }}" alt="event" width="64px" class="rounded-circle" />
                             <span class="text-muted ms-3 ">{{ $user->name }}</span>
                         </div>
+                        <p class="text-muted">Attended {{ $totalAttends }} out of {{ $totalDays }} events so far.</p>
                     </div>
 
                     <div class="card rounded bg-white overflow-hidden p-2 mb-2">
