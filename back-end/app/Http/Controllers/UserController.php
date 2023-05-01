@@ -43,8 +43,8 @@ class UserController extends Controller
     public function verifyPost(Request $request)
     {
         $validatedData = $request->validate([
-            'picture' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'voice' => 'required|mimes:mp3,wav|max:2048',
+            'picture' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            'voice' => 'required|max:2048',
         ]);
 
         $user = Auth::user();
