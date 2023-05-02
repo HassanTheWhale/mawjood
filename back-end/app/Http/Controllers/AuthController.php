@@ -160,7 +160,7 @@ class AuthController extends Controller
 
         // Get the response body as a string
         $body = $response->getBody()->getContents();
-        if (strpos($body, '{"sim":true}') !== false) {
+        if (strpos($body, '{"sim":True}') !== false || strpos($body, '{"sim":true}') !== false) {
             // There's a match
             $already->update(['voice' => 1]);
             return response('voice captured', 200);
