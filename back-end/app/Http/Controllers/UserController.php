@@ -44,20 +44,28 @@ class UserController extends Controller
     {
         $validatedData = $request->validate([
             'picture' => 'required|image|mimes:jpeg,png,jpg|max:2048',
-            'voice' => 'required|max:2048',
+            'voiceA' => 'required|max:2048',
+            'voiceB' => 'required|max:2048',
+            'voiceC' => 'required|max:2048',
         ]);
 
         $user = Auth::user();
 
         // Generate unique names for the uploaded files
         $pictureName = uniqid('picture_') . '.' . $request->file('picture')->extension();
-        $voiceName = uniqid('voice_') . '.' . $request->file('voice')->extension();
+        $voiceNameA = uniqid('voice_') . '.' . $request->file('voiceA')->extension();
+        $voiceNameB = uniqid('voice_') . '.' . $request->file('voiceB')->extension();
+        $voiceNameC = uniqid('voice_') . '.' . $request->file('voiceC')->extension();
 
         Storage::disk('s3')->putFileAs('authPic', $request->file('picture'), $pictureName, 'public');
-        Storage::disk('s3')->putFileAs('authVoice', $request->file('voice'), $voiceName, 'public');
+        Storage::disk('s3')->putFileAs('authVoice', $request->file('voiceA'), $voiceNameA, 'public');
+        Storage::disk('s3')->putFileAs('authVoice', $request->file('voiceB'), $voiceNameB, 'public');
+        Storage::disk('s3')->putFileAs('authVoice', $request->file('voiceC'), $voiceNameC, 'public');
 
         $user->vpicture = Storage::disk('s3')->url('authPic/' . $pictureName);
-        $user->vaudio = Storage::disk('s3')->url('authVoice/' . $voiceName);
+        $user->vaudioA = Storage::disk('s3')->url('authVoice/' . $voiceNameA);
+        $user->vaudioB = Storage::disk('s3')->url('authVoice/' . $voiceNameB);
+        $user->vaudioC = Storage::disk('s3')->url('authVoice/' . $voiceNameC);
         $user->verified = 1;
 
         $user->save();

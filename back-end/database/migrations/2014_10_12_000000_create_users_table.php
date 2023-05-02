@@ -22,7 +22,9 @@ return new class extends Migration {
             $table->string('email')->unique();
             $table->integer('verified')->default(0);
             $table->string('vpicture')->nullable();
-            $table->string('vaudio')->nullable();
+            $table->string('vaudioA')->nullable();
+            $table->string('vaudioB')->nullable();
+            $table->string('vaudioC')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->boolean('is_admin')->default(false);

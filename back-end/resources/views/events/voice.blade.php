@@ -109,6 +109,7 @@
         var chunks = [];
         var isRecording = false;
         var first = false;
+        var audioBlob;
 
 
         function toggleRecording() {
@@ -164,6 +165,7 @@
                 var blob = new Blob(chunks, {
                     type: "audio/webm"
                 });
+                audioBlob = blob;
                 var reader = new FileReader();
                 reader.onload = function() {
                     var arrayBuffer = this.result;
@@ -219,7 +221,7 @@
                     'content');
 
                 const response = await fetch(
-                    'https://mawjood.click/voiceCheck/{{ $event->id }}/{{ $myuser->id }}/{{ $instance->id }}', {
+                    '/voiceCheck/{{ $event->id }}/{{ $myuser->id }}/{{ $instance->id }}', {
                         method: 'POST',
                         body: formData,
                         headers: {
@@ -296,7 +298,7 @@
 
 
                 const response = await fetch(
-                    'https://mawjood.click/voiceCheck/{{ $event->id }}/{{ $myuser->id }}/{{ $instance->id }}', {
+                    '/voiceCheck/{{ $event->id }}/{{ $myuser->id }}/{{ $instance->id }}', {
                         method: 'POST',
                         body: formData,
                         headers: {

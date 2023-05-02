@@ -88,7 +88,7 @@
                         const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute(
                             'content');
                         const response = await fetch(
-                            'https://mawjood.click/faceCheck/{{ $event->id }}/{{ $myuser->id }}/{{ $instance->id }}', {
+                            '/faceCheck/{{ $event->id }}/{{ $myuser->id }}/{{ $instance->id }}', {
                                 method: 'POST',
                                 body: formData,
                                 headers: {
@@ -183,7 +183,7 @@
 
                 const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
                 const response = await fetch(
-                    'https://mawjood.click/faceCheck/{{ $event->id }}/{{ $myuser->id }}/{{ $instance->id }}', {
+                    '/faceCheck/{{ $event->id }}/{{ $myuser->id }}/{{ $instance->id }}', {
                         method: 'POST',
                         body: formData,
                         headers: {

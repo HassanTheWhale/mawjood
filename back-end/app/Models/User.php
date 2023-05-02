@@ -27,7 +27,9 @@ class User extends Authenticatable
         'bio',
         'picture',
         'vpicture',
-        'vaudio',
+        'vaudioA',
+        'vaudioB',
+        'vaudioC',
         'verified',
     ];
 

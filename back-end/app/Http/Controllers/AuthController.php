@@ -105,7 +105,7 @@ class AuthController extends Controller
             ->firstOrFail();
 
         if ($already->done == 1 || $already->face == 0 || $already->qr == 0 || $already->voice == 1)
-            return response('Image cant be captured', 500);
+            return response('Voice cant be captured', 500);
 
         $latitude = $request->input('latitude');
         $longitude = $request->input('longitude');
@@ -135,7 +135,7 @@ class AuthController extends Controller
 
         // // check if face done
         $client = new Client();
-        // Send a POST request to the Flask server with the image files
+        // Send a POST request to the Flask server with the voice files
         $response = $client->request('GET', 'http://watchdog-balancer-1967288278.eu-central-1.elb.amazonaws.com/voice_recognition', [
             'multipart' => [
                 [
@@ -144,8 +144,16 @@ class AuthController extends Controller
                     'filename' => $filename,
                 ],
                 [
-                    'name' => 'userVoice',
-                    'contents' => $myuser->vaudio,
+                    'name' => 'userVoiceA',
+                    'contents' => $myuser->vaudioA,
+                ],
+                [
+                    'name' => 'userVoiceB',
+                    'contents' => $myuser->vaudioB,
+                ],
+                [
+                    'name' => 'userVoiceC',
+                    'contents' => $myuser->vaudioC,
                 ],
             ],
         ]);
