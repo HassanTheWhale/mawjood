@@ -41,7 +41,7 @@ def face_recognition_endpoint():
         original_face_encodings = face_recognition.face_encodings(original_image, original_face_locations)
 
         # Compare the face in the uploaded image with the faces in the original image
-        matches = face_recognition.compare_faces(original_face_encodings, uploaded_face_encodings[0])
+        matches = face_recognition.compare_faces(original_face_encodings, uploaded_face_encodings[0], tolerance=0.5)
 
         os.remove(filename)
         # Check if there is a match
@@ -52,6 +52,7 @@ def face_recognition_endpoint():
     except Exception as e:
         # Handle exceptions and return an error response
         os.remove(filename)
+        print(e)
         return jsonify(match=False)
 
 @app.route('/voice_recognition')

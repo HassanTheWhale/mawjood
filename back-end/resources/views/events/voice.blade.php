@@ -184,6 +184,14 @@
         const sendButton = document.getElementById('send');
         // when the send button is clicked, send the recorded audio to the controller
         sendButton.addEventListener('click', async () => {
+            if (chunks.length === 0) {
+                Swal.fire(
+                    '',
+                    'No Sound was recorded, try again',
+                    'warning'
+                )
+                return;
+            }
             try {
                 // Get the geolocation coordinates
                 let latitude;

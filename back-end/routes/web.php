@@ -29,7 +29,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'a
     Route::get('/removeEvent/{id}', [App\Http\Controllers\Admin\AdminController::class, 'removeEvent'])->name('removeEvent');
 });
 
-
 // landing page
 Route::get('/', function () {
     return view('index');
