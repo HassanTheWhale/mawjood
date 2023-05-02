@@ -166,7 +166,7 @@ class AuthController extends Controller
             return response('voice captured', 200);
         } else {
             // There's no match
-            $already->update(['voice' => 3]);
+            // $already->update(['voice' => 3]);
             return response('No match', 404);
         }
     }
