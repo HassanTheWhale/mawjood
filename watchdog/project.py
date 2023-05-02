@@ -102,8 +102,9 @@ def voice_recognition():
 
     avg = similarity_1  + similarity_2 + similarity_3
     avg = avg / 3
-    if (avg > 60):
-        return jsonify(sim=True) 
+    if (avg > 50):
+        return jsonify(sim=True)
+    return jsonify(sim=False)
 
 def download_and_convert_to_wav(audio_url, name):
     # Download the audio file
