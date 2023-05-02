@@ -102,7 +102,7 @@ def voice_recognition():
 
     avg = similarity_1  + similarity_2 + similarity_3
     avg = avg / 3
-    if (avg > 50):
+    if (avg > 51):
         return jsonify(sim=True)
     return jsonify(sim=False)
 
