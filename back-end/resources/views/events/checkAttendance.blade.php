@@ -45,8 +45,17 @@
                                     <img src="{{ $user->picture }}" alt="event" width="64px" class="rounded-circle" />
                                     <span class="text-muted ms-3 ">{{ $user->name }}</span>
                                 </div>
-                                <p class="mb-0 text-muted">Attended {{ $attendances[$user->id]['total_attends'] }} out of
-                                    {{ $attendances[$user->id]['total_days'] }}
+                                <p class="mb-0 text-muted">Attended
+
+                                    @php
+                                        try {
+                                            echo $attendances[$user->id]['total_attends'];
+                                        } catch (\Exception $e) {
+                                            echo 0;
+                                        }
+                                    @endphp
+                                    out of
+                                    {{ $totalDays }}
                                 </p>
                             </div>
                         </a>

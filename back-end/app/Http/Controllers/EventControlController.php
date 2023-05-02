@@ -57,8 +57,8 @@ class EventControlController extends Controller
                     'total_days' => count($absentDays) + count($attendedDays),
                 ];
             });
-
-        return view('events.checkAttendance', compact('event', 'users', 'attendances'));
+        $totalDays = $instances->count();
+        return view('events.checkAttendance', compact('event', 'users', 'attendances', 'totalDays'));
     }
 
     public function checkAttendanceUser($event_id, $user_id)
