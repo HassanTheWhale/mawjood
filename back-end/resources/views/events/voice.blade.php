@@ -116,6 +116,7 @@
             if (isRecording) {
                 stopRecording();
             } else {
+                chunks = [];
                 startRecording();
             }
         }
@@ -176,7 +177,6 @@
                     // link.play();
                 };
                 reader.readAsArrayBuffer(blob);
-                chunks = [];
             }, 500);
         }
 

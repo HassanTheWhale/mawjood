@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify
+from PIL import Image, ExifTags
 import face_recognition
 import numpy as np
 import subprocess
@@ -11,6 +12,26 @@ from sklearn.metrics.pairwise import cosine_similarity
 
 app = Flask(__name__)
 
+def correct_image_orientation(image):
+    try:
+        for orientation in ExifTags.TAGS.keys():
+            if ExifTags.TAGS[orientation] == 'Orientation':
+                break
+
+        exif = image._getexif()
+        if exif[orientation] == 3:
+            image = image.rotate(180, expand=True)
+        elif exif[orientation] == 6:
+            image = image.rotate(270, expand=True)
+        elif exif[orientation] == 8:
+            image = image.rotate(90, expand=True)
+
+    except (AttributeError, KeyError, IndexError):
+        # Cases: image don't have getexif or no orientation data
+        pass
+
+    return image
+
 @app.route('/face_recognition')
 def face_recognition_endpoint():
      # Get the additional text from the request
@@ -18,13 +39,25 @@ def face_recognition_endpoint():
 
     # Generate a unique filename for the downloaded image
     filename = str(uuid.uuid4())
+    filename2 = str(uuid.uuid4())
 
     # Download the image from the URL
     response = requests.get(url)
     with open(filename, 'wb') as f:
         f.write(response.content)
+    
+    image = Image.open(filename)
+    image = correct_image_orientation(image)
+    width, height = image.size
+    new_width = int(width * 0.95)
+    new_height = int(height * 0.95)
+
+    resized_image = image.resize((new_width, new_height))
+    resized_image_path = filename2
+    resized_image.save(resized_image_path)
+
     try:
-        original_image = face_recognition.load_image_file(filename)
+        original_image = face_recognition.load_image_file(filename2)
 
         # Get the uploaded image from the request
         uploaded_image_file = request.files['image']
@@ -44,6 +77,7 @@ def face_recognition_endpoint():
         matches = face_recognition.compare_faces(original_face_encodings, uploaded_face_encodings[0], tolerance=0.5)
 
         os.remove(filename)
+        os.remove(filename2)
         # Check if there is a match
         if True in matches:
             return jsonify(match=True)
@@ -54,6 +88,8 @@ def face_recognition_endpoint():
         os.remove(filename)
         print(e)
         return jsonify(match=False)
+
+
 
 @app.route('/voice_recognition')
 def voice_recognition():
