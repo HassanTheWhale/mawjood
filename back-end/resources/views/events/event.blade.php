@@ -177,6 +177,7 @@
                         });
                         const latitude = position.coords.latitude;
                         const longitude = position.coords.longitude;
+                        
                         fetch(`/open/{{ $event->id }}/${latitude},${longitude}`, {
                                 method: 'GET',
                             })
