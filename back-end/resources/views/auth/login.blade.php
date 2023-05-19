@@ -3,17 +3,16 @@
     <script src="https://www.google.com/recaptcha/api.js?render=6LedlaAlAAAAAKS70s9psz1GXHNPwqDp-3hDaRVk"></script>
 @endsection
 @section('content')
-    <div class="landing">
-        <div class="landing-top d-flex justify-content-center align-items-center h-30">
-            <img src="./imgs//logo.png" width="200px" alt="Mawjood Logo" />
-        </div>
-        <div class="landing-bottom h-70 mx-auto">
+    <div class="landing d-flex justify-content-center align-items-center">
+        <div class="landing-bottom container h-70 mx-auto">
             <div class="landing-downlay bg-primary h-100 d-flex flex-column justify-content-end align-items-center">
-                <h4 class="text-center mb-3 text-white">Login to your account</h4>
-                <div class="landing-downlay bg-white h-90 w-100 p-3 pb-5 overflow-auto">
-                    <div class="text-center mb-5">
-                        <div class="d-flex justify-content-center align-items-center flex-column">
-                            <a href="{{ route('login.google') }}" class="btn btn-outline-danger mb-3">
+                <h4 class="text-center mb-3 text-white">Welcome to Mawjood</h4>
+                <div
+                    class="landing-downlay bg-white h-90 w-100 p-3 pb-5 overflow-auto d-flex flex-column justify-content-center">
+                    <h3 class="text-muted text-center mb-4">Login to your account</h3>
+                    <div class="text-center">
+                        <div class="d-flex justify-content-around align-items-center">
+                            <a href="{{ route('login.google') }}" class="btn btn-outline-danger">
                                 <img src="{{ asset('imgs/google.svg') }}"
                                     alt="Social Media Icons to be replaced later with real buttons" class="mx-auto" />
                                 Log In with Google
@@ -23,14 +22,15 @@
                                 Log In with Microsoft
                             </a>
                         </div>
-                        <p class="text-muted">or use your login information</p>
-                        <h3 class="text-muted mb-3">Welcome to Mawjood</h3>
-                    </div>
+                        <p class="text-muted mb-0 mt-3">or use your login information</p>
 
+                        <hr>
+
+                    </div>
                     <!-- login form -->
-                    <form class="mb-5" method="POST" action="{{ route('login') }}">
+                    <form method="POST" action="{{ route('login') }}">
                         @csrf
-                        <div class="form-group mb-3">
+                        <div class="form-group">
                             <label for="username" class="span ms-3 mb-1"> Username </label>
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="basic-addon1">@</span>
@@ -57,12 +57,12 @@
                                 </span>
                             @enderror
                             <!-- <div class="d-flex justify-content-end">
-                                                                                                                                                                          <a href="" class="span text-muted">Forgot your password?</a>
-                                                                                                                                                                        </div> -->
+                                                                                                                                                                                                                                                                                                                                      <a href="" class="span text-muted">Forgot your password?</a>
+                                                                                                                                                                                                                                                                                                                                    </div> -->
                         </div>
-                        <button type="submit" class="btn btn-primary text-white w-100 mb-3 py-2">Login</button>
+                        <button type="submit" class="btn btn-primary text-white w-100 py-2">Login</button>
                     </form>
-                    <p class="mb-5 text-muted text-center">
+                    <p class="text-muted text-center mt-3 mb-0">
                         Don't have an account?
                         <a href="./register" class="span">Register Here</a>
                     </p>
