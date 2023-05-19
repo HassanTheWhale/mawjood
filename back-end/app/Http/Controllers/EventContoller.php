@@ -84,8 +84,8 @@ class EventContoller extends Controller
         if (!is_null($request->file("eventPic"))) {
             $image = $request->file('eventPic');
             $filename = uniqid() . '.' . $image->getClientOriginalExtension();
-            $path = Storage::disk('s3')->putFileAs('images', $image, $filename, 'public');
-            $pictureUrl = Storage::disk('s3')->url('images/' . $filename);
+            $path = Storage::disk('local')->putFileAs('images', $image, $filename, 'public');
+            $pictureUrl = Storage::disk('local')->url('images/' . $filename);
             $array['picture'] = $pictureUrl;
         }
 
@@ -182,8 +182,8 @@ class EventContoller extends Controller
         if (!is_null($request->file("eventPic"))) {
             $image = $request->file('eventPic');
             $filename = uniqid() . '.' . $image->getClientOriginalExtension();
-            $path = Storage::disk('s3')->putFileAs('images', $image, $filename, 'public');
-            $pictureUrl = Storage::disk('s3')->url('images/' . $filename);
+            $path = Storage::disk('local')->putFileAs('images', $image, $filename, 'public');
+            $pictureUrl = Storage::disk('local')->url('images/' . $filename);
             $array['picture'] = $pictureUrl;
         }
 

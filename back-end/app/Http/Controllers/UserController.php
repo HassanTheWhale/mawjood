@@ -57,15 +57,15 @@ class UserController extends Controller
         $voiceNameB = uniqid('voice_') . '.' . $request->file('voiceB')->extension();
         $voiceNameC = uniqid('voice_') . '.' . $request->file('voiceC')->extension();
 
-        Storage::disk('s3')->putFileAs('authPic', $request->file('picture'), $pictureName, 'public');
-        Storage::disk('s3')->putFileAs('authVoice', $request->file('voiceA'), $voiceNameA, 'public');
-        Storage::disk('s3')->putFileAs('authVoice', $request->file('voiceB'), $voiceNameB, 'public');
-        Storage::disk('s3')->putFileAs('authVoice', $request->file('voiceC'), $voiceNameC, 'public');
+        Storage::disk('local')->putFileAs('authPic', $request->file('picture'), $pictureName, 'public');
+        Storage::disk('local')->putFileAs('authVoice', $request->file('voiceA'), $voiceNameA, 'public');
+        Storage::disk('local')->putFileAs('authVoice', $request->file('voiceB'), $voiceNameB, 'public');
+        Storage::disk('local')->putFileAs('authVoice', $request->file('voiceC'), $voiceNameC, 'public');
 
-        $user->vpicture = Storage::disk('s3')->url('authPic/' . $pictureName);
-        $user->vaudioA = Storage::disk('s3')->url('authVoice/' . $voiceNameA);
-        $user->vaudioB = Storage::disk('s3')->url('authVoice/' . $voiceNameB);
-        $user->vaudioC = Storage::disk('s3')->url('authVoice/' . $voiceNameC);
+        $user->vpicture = Storage::disk('local')->url('authPic/' . $pictureName);
+        $user->vaudioA = Storage::disk('local')->url('authVoice/' . $voiceNameA);
+        $user->vaudioB = Storage::disk('local')->url('authVoice/' . $voiceNameB);
+        $user->vaudioC = Storage::disk('local')->url('authVoice/' . $voiceNameC);
         $user->verified = 1;
 
         $user->save();
@@ -137,8 +137,8 @@ class UserController extends Controller
         if (isset($request['picture'])) {
             $picture = $request->file('picture');
             $pictureName = uniqid('picture_') . '.' . $picture->getClientOriginalExtension();
-            Storage::disk('s3')->putFileAs('profile', $picture, $pictureName, 'public');
-            $pictureUrl = Storage::disk('s3')->url('profile/' . $pictureName);
+            Storage::disk('local')->putFileAs('profile', $picture, $pictureName, 'public');
+            $pictureUrl = Storage::disk('local')->url('profile/' . $pictureName);
         } else
             $pictureUrl = $user->picture;
 
