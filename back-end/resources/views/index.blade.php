@@ -1,7 +1,7 @@
 @extends('layouts.master')
 @section('content')
     <div class="landing d-flex justify-content-center align-items-center">
-        <div class="landing-bottom h-50 mx-auto">
+        <div class="landing-bottom container h-50 mx-auto">
             <div class="landing-downlay bg-primary d-flex pt-4 justify-content-center align-items-end">
                 <div
                     class="landing-downlay bg-white w-100 h-90 px-3 pb-4 overflow-auto d-flex flex-column justify-content-center align-items-center">
